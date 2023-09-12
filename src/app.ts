@@ -1,5 +1,4 @@
-const express = require('express');
-import {Request, Response, Application, response} from "express";
+import express, {type Express, type Request, type Response, type Application, type response} from "express";
 
 const app: Application = express();
 
