@@ -1,0 +1,14 @@
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "indent": ["error", 4], // Use 4 spaces for indentation
+    "quotes": ["error", "double"], // Use single quotes
+    "max-len": ["error", { "code": 100 }], // Use a max length of 100 characters per line
+    "space-before-function-paren": ["error", "always"], // Use a space before a function bracket
+    "no-unused-vars": "error", // Make sure no unused variables
+    "no-undef": "error", // Prevent use of undefined variables
+    "func-names": ["error", "always", { "regex": "^([a-z][A-Za-z0-9]*)$" }] // Enforce a consistent naming convention for functions
+  }
+}
