@@ -14,15 +14,21 @@ export const jobRoleController = (app:Application) => {
         let rowsDeleted: Number 
 
         console.log(id)
+        
+        if (shouldDeleteJobRole) {
+            try {
+                rowsDeleted = await deleteJobRole(id)
 
-        try {
-            rowsDeleted = await deleteJobRole(id)
-        } catch (e) {
-            console.error(e)
+                // TODO: redirect to confirmation page and confirm rowsDeleted
+            } catch (e) {
+                console.error(e)
 
-            res.locals.errormessage = (e as Error).message
+                res.locals.errormessage = (e as Error).message
 
-            res.render('delete-job-role', req.body)
-        } 
+                res.render('delete-job-role', req.body)
+            }
+        } else {
+            res.redirect('back');
+        }
     })
 }
