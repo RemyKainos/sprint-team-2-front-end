@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Delete Job Role?</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header class="bg-dark text-light">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Delete Job Role?</h1>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main class="container mt-4">
+			<section id="form" class="bg-light py-5">
+				<div class="container">
+                    {% if errormessage %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ errormessage }}
+                        </div>
+                    {% endif %}
+                    <form action="/delete-job-role" method="post">
+                        <div class="form-group">
+                            <label for="shouldDeleteJobRole">Are you sure you want to delete job role?</label>
+                            <input id="shouldDeleteJobRole" name="delete-job-role" type="radio" value="true" /> Yes
+                            <input checked="checked" id="shouldDeleteJobRole" name="dont-delete-job-role" type="radio" value="false" /> No
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+			</section>
+		</main>
+    </body>
+</html>
