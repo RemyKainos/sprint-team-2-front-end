@@ -29,6 +29,7 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "semi":["error", "never"],// Enforces no use of semi colons
         "max-len": ["error", { "code": 200 }], //enforce a max line length
         "indent": ["error", 4], //enforce two spaces for indentation
         "no-unused-vars": "error" //no unused variables
