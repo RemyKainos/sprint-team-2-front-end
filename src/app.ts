@@ -1,5 +1,6 @@
 import express, {type Express, type Request, type Response, type Application, type response} from "express";
-const nunjucks = require("nunjucks");
+import nunjucks from "nunjucks";
+
 const path = require("path");
 const app: Application = express();
 
@@ -14,13 +15,12 @@ const nunjucksConfig = {
 nunjucks.configure(appViews, nunjucksConfig);
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
-console.log(path.join(__dirname, 'public'));
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 app.get('/', (req: Request, res: Response) => {
-  res.render('index.html');
+  res.render('index.html', {title: "Home"});
 });
 
 const port = 3000;
