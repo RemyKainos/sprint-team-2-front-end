@@ -1,7 +1,7 @@
 import express, {type Express, type Request, type Response, type Application, type response} from "express";
 import nunjucks from "nunjucks";
+import path from "path";
 
-const path = require("path");
 const app: Application = express();
 
 const appViews = path.join(__dirname, '/views/');
