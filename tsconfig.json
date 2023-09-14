@@ -6,7 +6,8 @@
     "forceConsistentCasingInFileNames": true,  
     "strict": true,                                    
     "noImplicitAny": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false
   },
 
   "include": ["./**/*"],
