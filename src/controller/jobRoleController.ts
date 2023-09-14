@@ -7,19 +7,15 @@ export const jobRoleController = (app:Application) => {
     })
     
     app.post('/delete-job-role', async (req: Request, res: Response) => {
-        console.log("delete job role")
         let id: Number = req.body.id
+        let shouldDeleteJobRole: String = req.body.shouldDeleteJobRole 
 
-        let shouldDeleteJobRole = req.body.shouldDeleteJobRole
-        let rowsDeleted: Number 
-
-        console.log(id)
-        
-        if (shouldDeleteJobRole) {
+        if (shouldDeleteJobRole === 'true') {
             try {
-                rowsDeleted = await deleteJobRole(id)
+                await deleteJobRole(id)
 
-                // TODO: redirect to confirmation page and confirm rowsDeleted
+                // TODO: Redirect to correct page
+                res.redirect('/')
             } catch (e) {
                 console.error(e)
 
