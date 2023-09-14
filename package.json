@@ -6,7 +6,12 @@
   "scripts": {
     "start": "npm run build && node dist/app.js",
     "build": "npx tsc && cp -R src/views dist",
-    "lint": "eslint --ext ts ."
+    "lint": "eslint --ext ts .",
+    "husky": {
+      "hooks": {
+        "pre-push": "lint-staged"
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -30,6 +35,8 @@
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "8.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "typescript": "5.1.6"
   }
 }
