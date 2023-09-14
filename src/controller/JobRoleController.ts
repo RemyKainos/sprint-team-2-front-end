@@ -5,15 +5,16 @@ const {render} = require('nunjucks');
 const jobRoleService = require('../service/JobRoleService')
 
 module.exports = function(app: Application){
-    app.get('job-roles', async (req: Request, res: Response) => {
+    app.get('/ViewRoles', async (req: Request, res: Response) => {
         let data = []
 
         try{
             data = await jobRoleService.viewRoles()
+            console.log('hello 2');
         } catch(e){
             console.error(e);
         }
-
-        res.render('ViewRoles', {roles: data})
+        console.log('hello 3');
+        res.render('ViewRoles.html', {title: "Title", roles: data})
     })
 }
