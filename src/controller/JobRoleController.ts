@@ -10,11 +10,10 @@ module.exports = function(app: Application){
 
         try{
             data = await jobRoleService.viewRoles()
-            console.log('hello 2');
+            console.log(data);
         } catch(e){
             console.error(e);
         }
-        console.log('hello 3');
         res.render('ViewRoles.html', {title: "Title", roles: data})
     })
 }

@@ -3,32 +3,33 @@
     <head>
             <meta charset="UTF_8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>{{title}}</title>
+            <!--<title>{{title}}</title>-->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     </head>
     <body>
-        <!--<table class="table">
+        <table class="table table-striped-columns">
             <thead>
                 <tr>
                     <th scope="col">Title</th>
                     <th scope="col">Specification</th>
                     <th scope="col">Responsibilities</th>
                     <th scope="col">Sharepoint Link</th>
-                    <th scope="col">Band</th>
+                    <!--<th scope="col">Band</th>
                     <th scope="col">Family</th>
-                    <th scope="col">Capability</th>
+                    <th scope="col">Capability</th>-->
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    {% for role in roles %}
-                        <th scope="row"></th>
-                        <td>{{role.Name}}</td>
-                        <td>{{role.Job_Spec}}</td>
-                        <td>{{role.Responsibilities}}</td>
-                        <td>{{role.Sharepoint_Link}}</td>
-                </tr>
+                {% for role in roles %}
+                    <tr>
+                        <!--<th scope="row"></th>-->
+                        <th scope="row">{{role.name}}</td>
+                        <td>{{role.jobSpec}}</td>
+                        <td>{{role.responsibilities}}</td>
+                        <td><a href="{{role.sharepointLink}}">View</a></td>
+                    </tr>
+                {% endfor %}
             </tbody>
-        </table>-->
+        </table>
     </body>
 </html>

@@ -1,9 +1,9 @@
 export class JobRole{
-    RoleID: number
-    Name: string
-    Job_Spec: string
-    Responsibilities: string
-    Sharepoint_Link: string
-    BandID: number
-    FamilyID: number
+    roleID: number
+    name: string
+    jobSpec: string
+    responsibilities: string
+    sharepointLink: string
+    bandID: number
+    familyID: number
 }
