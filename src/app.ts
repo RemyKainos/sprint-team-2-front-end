@@ -41,7 +41,7 @@ authController(app);
 
 app.use(authMiddleware);
 app.get('/', (req: Request, res: Response) => {
-  res.render('login');
+  res.redirect('/login');
 });
 
 const port = 3000;

@@ -20,7 +20,7 @@
                 <div class="container">
                     <form action="/login" method="post">
                         {% if errormessage %}
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger" id="invalid-user-login">
                             {{ errormessage }}
                         </div>
                         {% endif %}
@@ -32,7 +32,7 @@
                             <label for="password">Password</label>
                             <input type="password" id="password" name="password" class="form-control" value="{{ password }}" required>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        <button type="submit"  id="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
                 </div>
             </section>
