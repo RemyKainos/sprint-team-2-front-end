@@ -2,7 +2,7 @@ import {JobRole} from "../model/JobRole"
 
 const axios = require('axios');
 
-module.exports.viewRoles = async function (): Promise<JobRole []> {
+module.exports.viewJobRoles = async function (): Promise<JobRole []> {
     try{
         const response = await axios.get('http://localhost:8080/api/job-roles')
         return response.data

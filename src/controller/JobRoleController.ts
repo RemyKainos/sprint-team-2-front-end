@@ -10,7 +10,6 @@ module.exports = function(app: Application){
 
         try{
             data = await jobRoleService.viewRoles()
-            console.log(data);
         } catch(e){
             console.error(e);
         }
