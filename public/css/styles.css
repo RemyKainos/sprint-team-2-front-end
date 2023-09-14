@@ -1,6 +1,7 @@
 @font-face {
     font-family: gothic;
-    src: url(GOTHIC/GOTHIC.TTF), url(GOTHIC/GOTHICB.TTF), url(GOTHIC/GOTHICBI.TTF), url(GOTHIC/GOTHICI.TTF);
+    src: url(/public/fonts/GOTHIC/GOTHIC.TTF), url(/public/fonts/GOTHIC/GOTHICB.TTF), 
+    url(/public/fonts/GOTHIC/GOTHICBI.TTF), url(/public/fonts/GOTHIC/GOTHICI.TTF);
 }
 
 :root{
