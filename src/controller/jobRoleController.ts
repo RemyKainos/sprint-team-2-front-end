@@ -9,13 +9,18 @@ export const jobRoleController = (app:Application) => {
     app.post('/delete-job-role', async (req: Request, res: Response) => {
         let id: Number = req.body.id
         let shouldDeleteJobRole: String = req.body.shouldDeleteJobRole 
+        let rowsDeleted: Number
 
         if (shouldDeleteJobRole === 'true') {
             try {
-                await deleteJobRole(id)
+                rowsDeleted = await deleteJobRole(id)
 
-                // TODO: Redirect to correct page
-                res.redirect('/')
+                if (rowsDeleted != 1) {
+                    throw new Error('Unable to delete job role - unexpected number of rows deleted')
+                } else {
+                    // TODO: Redirect to correct page
+                    res.redirect('/')
+                }
             } catch (e) {
                 console.error(e)
 
