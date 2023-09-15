@@ -1,4 +1,4 @@
-import express, {type Express, type Request, type Response, type Application, type response} from "express";
+import express, {type Request, type Response, type Application} from "express";
 import nunjucks from "nunjucks";
 import path from "path";
 
@@ -10,7 +10,7 @@ const nunjucksConfig = {
     autoescape: true,
     noCache: true,
     express: app
-  };
+};
 
 nunjucks.configure(appViews, nunjucksConfig);
 
@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 app.get('/', (req: Request, res: Response) => {
-  res.render('index.html', {title: "Home"});
+    res.send('Hello World!');
 });
 
 const port = 3000;
