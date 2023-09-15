@@ -13,6 +13,6 @@ module.exports = function(app: Application){
         } catch(e){
             console.error(e);
         }
-        res.render('ViewRoles.html', {title: "Title", roles: data})
+        res.render('ViewRoles.html', {roles: data})
     })
 }
