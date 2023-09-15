@@ -5,6 +5,7 @@
 
 In the package.json, you can see that ESLint is running a check on the code after the build:
 
+ - To run ESLint on every git commit, when you clone the repo. Use the command `npm run prepare` to initialise husky
  - To add any new rules to the linting process navigate to /.vscode/settings.json, from the project directory.
  - Navigate to the ESLint website to see what other rules can be added to the project at https://eslint.org/docs/latest/rules/
 

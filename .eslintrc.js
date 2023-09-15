@@ -31,6 +31,6 @@ module.exports = {
     "rules": {
         "max-len": ["error", { "code": 200 }], //enforce a max line length
         "indent": ["error", 4], //enforce two spaces for indentation
-        "no-unused-vars": "error", //no unused variables
+        "no-unused-vars": "error" //no unused variables 
     }
 }
