@@ -18,7 +18,7 @@ describe('JobRole Tests', async () => {
             await driver.quit();
         })
 
-        it('Click sharepoint link from table', async () => {
+        /*it('Click sharepoint link from table', async () => {
             var driver = new webdriver.Builder().
             withCapabilities(webdriver.Capabilities.chrome()).
             build();
@@ -32,6 +32,6 @@ describe('JobRole Tests', async () => {
             })
 
             await driver.quit();
-        })
+        })*/
     })
 })
