@@ -10,7 +10,7 @@ const nunjucksConfig = {
     autoescape: true,
     noCache: true,
     express: app
-  };
+};
 
 nunjucks.configure(appViews, nunjucksConfig);
 
@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 app.get('/', (req: Request, res: Response) => {
-  res.render('index.html', {title: "Home"});
+    res.send('Hello World!');
 });
 
 const port = 3000;
@@ -29,5 +29,8 @@ var server = app.listen(port, () => console.log(`Express is listening on port ${
 require('./controller/JobRoleController')(app);
 
 module.exports = server;
+
+
+
 
 
