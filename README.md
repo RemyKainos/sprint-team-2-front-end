@@ -21,7 +21,7 @@ In the package.json, you can see that ESLint is running a check on the code afte
 
 1. Run `npm run test` to run unit tests
 
-# How to run the application on Docker
+# How to run the application on Docker locally
 ---
 
 1. Run `docker build -t <service name + optional tag> .` which will read the docker file, build the environment and create local image.
@@ -34,4 +34,4 @@ In the package.json, you can see that ESLint is running a check on the code afte
 ---
 
 When running pull request to main branch, the deploy.yml file will be run which will deploy the UI to the AWS Server.
-The link to the server is https://sgrrqppfh2.eu-west-1.awsapprunner.com/
+The link to the server is https://wvrhehxy3p.eu-west-1.awsapprunner.com/
