@@ -11,13 +11,13 @@ describe('Login Test', async () => {
         
         await driver.get(process.env.UI_TEST_URL as string);
 
-        await driver.findElement(By.id('username')).sendKeys('mateenparkar4@gmail.com');
+        await driver.findElement(By.id('username')).sendKeys('email@email.com');
         await driver.findElement(By.id('password')).sendKeys('password');
 
         const usernameInput = await driver.findElement(By.id('username'));
         const enteredValue = await usernameInput.getAttribute('value');
 
-        chai.assert.equal(enteredValue, 'mateenparkar4@gmail.com');
+        chai.assert.equal(enteredValue, 'email@email.com');
 
 
         await driver.findElement(By.id('submit')).click();
@@ -30,8 +30,8 @@ describe('Login Test', async () => {
         
         await driver.get(process.env.UI_TEST_URL as string);
 
-        await driver.findElement(By.id('username')).sendKeys('mateenparkar21@gmail.com');
-        await driver.findElement(By.id('password')).sendKeys('password');
+        await driver.findElement(By.id('username')).sendKeys('email@email.com');
+        await driver.findElement(By.id('password')).sendKeys('invalidpassword');
 
 
         await driver.findElement(By.id('submit')).click();

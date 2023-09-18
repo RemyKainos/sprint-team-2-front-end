@@ -1,5 +1,5 @@
-import { Application, Request, Response } from "express"
-import { ActiveSession, Credentials, User } from "../model/auth"
+import type { Application, Request, Response } from "express"
+import { ActiveSession, Credentials } from "../model/auth"
 
 import { login } from "../service/authService"
 

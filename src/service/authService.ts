@@ -12,9 +12,7 @@ export const login = async function(credentials: Credentials): Promise<ActiveSes
         if ((e as AxiosError).response?.status === 401) {
             throw new Error('Your email or password combination is incorrect');
         }
-
-        console.error('Error during login:', e); // Log the error for debugging
-        throw new Error('Could not login');
-        
+        throw new Error('Could not login')
     }
+
 }
