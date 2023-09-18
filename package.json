@@ -5,6 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
+    "test": "echo \"Currently No Tests\"",
     "lint": "eslint --ext ts .",
     "build": "npx tsc && cp -R src/views dist",
     "prepare": "husky install"
@@ -30,7 +31,6 @@
     "@types/express": "^4.17.17",
     "@types/express-session": "^1.17.7",
     "@types/node": "^20.5.7",
-    "@types/nunjucks": "^3.2.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "8.0.0",
