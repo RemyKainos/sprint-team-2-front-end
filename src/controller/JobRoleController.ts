@@ -1,7 +1,4 @@
-import express, { Request, Response, Application } from "express";
-import { JobRole } from "../model/JobRole";
-
-const {render} = require('nunjucks');
+import { Request, Response, Application } from "express";
 const jobRoleService = require('../service/JobRoleService')
 
 module.exports = function(app: Application){
@@ -9,7 +6,7 @@ module.exports = function(app: Application){
         let data = []
 
         try{
-            data = await jobRoleService.viewRoles()
+            data = await jobRoleService.viewJobRoles()
         } catch(e){
             console.error(e);
         }

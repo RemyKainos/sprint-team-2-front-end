@@ -24,6 +24,10 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 const port = 3000;
-app.listen(port, () => console.log(`Express is listening on port ${port}`));
+var server = app.listen(port, () => console.log(`Express is listening on port ${port}`));
 
 require('./controller/JobRoleController')(app);
+
+module.exports = server;
+
+

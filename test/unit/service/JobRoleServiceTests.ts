@@ -29,7 +29,7 @@ describe('JobRoleService', function () {
             expect(results[0]).to.deep.equal(jobRole);
         })
 
-        it('Should throw exception when 500 error returned from axios', async () => {
+        it('Should throw exception when 500 error returned', async () => {
             var mock = new MockAdapter(axios);
 
             mock.onGet(JobRoleService.URL).reply(500);

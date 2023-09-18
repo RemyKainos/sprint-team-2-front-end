@@ -7,7 +7,8 @@
     "strict": true,                                    
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true
   },
 
   "include": ["./**/*"],
