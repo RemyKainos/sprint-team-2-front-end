@@ -17,21 +17,5 @@ describe('JobRole Tests', async () => {
 
             await driver.quit();
         })
-
-        /*it('Click sharepoint link from table', async () => {
-            var driver = new webdriver.Builder().
-            withCapabilities(webdriver.Capabilities.chrome()).
-            build();
-
-            await driver.get('http://localhost:3000/ViewRoles')
-
-            await driver.findElement(webdriver.By.id('sharepoint-link')).click();
-
-            await driver.findElement(webdriver.By.TAG_NAME('title')).getText().then(function(value: string){
-                chaiInstance.assert.equal(value, 'People - Job Profile - Solution Architect (Manager).pdf - All Documents');
-            })
-
-            await driver.quit();
-        })*/
     })
 })
