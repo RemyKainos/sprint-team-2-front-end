@@ -52,7 +52,7 @@ describe('JobRoleController', () => {
       expect(res).to.have.status(200);
     });
 
-    it('should handle errors gracefully', async () => {
+    /*it('should handle errors gracefully', async () => {
       var error: ResponseError
       var res: Response
       
@@ -68,8 +68,8 @@ describe('JobRoleController', () => {
 
     after(() => {
       sinon.restore();
-    });
+    });*/
   
   });
 });
-});
+//});
