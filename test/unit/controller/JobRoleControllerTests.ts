@@ -1,9 +1,6 @@
-import { Application, Express } from 'express';
 import * as app from '../../../src/app';
 import * as jobRoleService from '../../../src/service/JobRoleService';
 import { JobRole } from '../../../src/model/JobRole';
-import { ResponseError } from '../../../src/error/ResponseError';
-const JobRoleController = require('../../../src/controller/JobRoleController');
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
@@ -52,24 +49,18 @@ describe('JobRoleController', () => {
       expect(res).to.have.status(200);
     });
 
-    /*it('should handle errors gracefully', async () => {
-      var error: ResponseError
-      var res: Response
+    it('should handle errors gracefully', async () => {
       
-      sinon.stub(jobRoleService, 'viewJobRoles').throws(new ResponseError('Could not fetch job roles', 500));
+      sinon.stub(jobRoleService, 'viewJobRoles').throws(new Error('Could not fetch job roles'));
 
-      try{
-        res = await chai.request('http://localhost:3000').get('/ViewRoles');
-      } catch (e: any) {
-        error = e;
-      }
+      var res = await chai.request('http://localhost:3000').get('/ViewRoles');
 
-      expect(error.status).to.equal(500);
+      expect(res).to.have.status(500);
 
-    after(() => {
-      sinon.restore();
-    });*/
+      after(() => {
+        sinon.restore();
+      });
   
   });
 });
-//});
+});
