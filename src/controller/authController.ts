@@ -9,10 +9,10 @@ export const authController = (app:Application) =>{
     });
 
     app.post('/login', async(req: Request, res: Response) => {
-        let data: Credentials = req.body;
+        const data: Credentials = req.body;
 
         try {
-            let activeSession: ActiveSession = await login(data);
+            const activeSession: ActiveSession = await login(data);
 
             req.session.current = activeSession;
 

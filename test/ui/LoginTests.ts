@@ -1,11 +1,11 @@
-import {WebDriver, Builder, Capabilities, By} from 'selenium-webdriver';
+import { Builder, Capabilities, By} from 'selenium-webdriver';
 
-const chai = require('chai');  
+import chai from 'chai';  
 
 
 describe('Login Test', async () => {
     it('Login with a valid user', async () => {
-        var driver = new Builder().
+        const driver = new Builder().
             withCapabilities(Capabilities.chrome()).
             build();
         
@@ -24,7 +24,7 @@ describe('Login Test', async () => {
         await driver.quit();
     });
     it('Login with an invalid user', async () => {
-        var driver = new Builder().
+        const driver = new Builder().
             withCapabilities(Capabilities.chrome()).
             build();
         
@@ -36,7 +36,7 @@ describe('Login Test', async () => {
 
         await driver.findElement(By.id('submit')).click();
 
-        await driver.findElement(By.id('invalid-user-login')).getText().then(function(value:any) {
+        await driver.findElement(By.id('invalid-user-login')).getText().then(function(value:string) {
             chai.assert.equal(value, 'Your email or password combination is incorrect');
         });
 

@@ -1,4 +1,4 @@
-import { ActiveSession, Credentials, User } from "../model/auth";
+import { ActiveSession, Credentials } from "../model/auth";
 
 import axios, { AxiosError } from 'axios'
 

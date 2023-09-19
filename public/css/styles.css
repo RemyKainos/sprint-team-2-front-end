@@ -1,0 +1,38 @@
+@font-face {
+    font-family: gothic;
+    src: url(/public/fonts/GOTHIC/GOTHIC.TTF), url(/public/fonts/GOTHIC/GOTHICB.TTF), 
+    url(/public/fonts/GOTHIC/GOTHICBI.TTF), url(/public/fonts/GOTHIC/GOTHICI.TTF);
+}
+
+:root{
+    --blue: #283583;
+    --green: #61a83f;
+    --white: #fff;
+    --mid-blue: #41679f;
+    --dark-green: #004631;
+    --grey: #575756;
+    --orange: #ec6608;
+    --bright-green: #cfd600;
+    --bright-blue: #009fe3;
+}
+
+*{
+    font-family: gothic;
+}
+
+.main-content{
+    height: 100vh;
+}
+
+.kainos-logo{
+    width: 96px;
+    height: 30px;
+}
+
+.bg-kainos{
+    background-color: var(--blue);
+}
+
+.nav-link{
+    color: var(--white);
+}

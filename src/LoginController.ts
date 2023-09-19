@@ -1,4 +1,4 @@
-import type { Application, Request, Response } from "express"
+import type { Request, Response } from "express"
 import { ActiveSession, Credentials } from "./model/auth";
 import { login } from "./service/authService";
 
@@ -9,23 +9,21 @@ export class LoginController {
         res.render('login')
     }
 
-   public static async post(req:Request, res:Response): Promise<void> {
-    let data: Credentials = req.body;
+    public static async post(req:Request, res:Response): Promise<void> {
+        const data: Credentials = req.body;
 
-    try {
-        let activeSession: ActiveSession = await login(data);
+        try {
+            const activeSession: ActiveSession = await login(data);
 
-        req.session.current = activeSession;
+            req.session.current = activeSession;
 
-        res.redirect('/');
-    } catch (e) {
-        console.error(e);
+            res.redirect('/');
+        } catch (e) {
+            console.error(e);
 
-        res.locals.errormessage = (e as Error).message;
+            res.locals.errormessage = (e as Error).message;
 
-        res.render('login', req.body);
+            res.render('login', req.body);
+        }
     }
-    }
-
-
 }
