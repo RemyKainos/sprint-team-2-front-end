@@ -9,7 +9,7 @@ describe('JobRole Tests', async () => {
             withCapabilities(webdriver.Capabilities.chrome()).
             build();
 
-            await driver.get('http://localhost:3000/ViewRoles')
+            await driver.get(process.env.FRONT_URL + '/ViewRoles')
 
             await driver.findElement(webdriver.By.id('Solution Architect')).getText().then(function(value: string) {
                 chaiInstance.assert.equal(value, 'Solution Architect');
