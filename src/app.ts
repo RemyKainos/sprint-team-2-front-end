@@ -1,8 +1,6 @@
 import express, { type Request, type Response, type Application } from "express";
-import authMiddleware from './middleware/auth';
 import expressSession from 'express-session';
 import { ActiveSession } from './model/auth';
-import { authController } from "./controller/authController";
 import path from "path";
 import nunjucks from 'nunjucks';
 import router from "./router";
@@ -42,14 +40,9 @@ declare module "express-session" {
   }
 }
 
-
-authController(app);
-
-app.use(authMiddleware);
 app.use('/', router);
 app.get('/', (req: Request, res: Response) => {
     res.redirect('/login');
-
 });
 
 const port = 3000;

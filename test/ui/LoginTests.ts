@@ -11,8 +11,8 @@ describe('Login Test', async () => {
         
         await driver.get(process.env.UI_TEST_URL as string);
 
-        await driver.findElement(By.id('username')).sendKeys('email@email.com');
-        await driver.findElement(By.id('password')).sendKeys('password');
+        await driver.findElement(By.id('username')).sendKeys(process.env.EMAIl as string);
+        await driver.findElement(By.id('password')).sendKeys(process.env.PASSWORD as string);
 
         const usernameInput = await driver.findElement(By.id('username'));
         const enteredValue = await usernameInput.getAttribute('value');
@@ -21,6 +21,11 @@ describe('Login Test', async () => {
 
 
         await driver.findElement(By.id('submit')).click();
+
+        await driver.wait(async () => {
+            const currentUrl = await driver.getCurrentUrl();
+            return currentUrl.includes('/'); 
+        }, 10000);
         await driver.quit();
     });
     it('Login with an invalid user', async () => {
