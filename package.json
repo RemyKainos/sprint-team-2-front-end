@@ -6,10 +6,10 @@
   "scripts": {
     "start": "npm run build && node dist/app.js",
     "test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts",
+    "test-integration": "echo \"Currently No Integration Tests\"",
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
     "lint": "eslint --ext ts .",
     "build": "rimraf dist && npx tsc && cp -R src/views dist",
-    "test-integration": "echo \"Currently No Integration Tests\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -39,7 +39,6 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "rimraf": "^5.0.1",
-    "@types/mocha": "^10.0.1",
     "@types/selenium-webdriver": "^4.1.16",
     "@types/supertest": "^2.0.12",
     "axios": "^1.5.0",
