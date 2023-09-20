@@ -1,4 +1,4 @@
-import { Request, Response, Application } from "express";
+import { Request, Response } from "express";
 import { getAllCapabilities } from "../service/jobCapabilityService";
 import { JobCapability } from "../model/JobCapability";
 
