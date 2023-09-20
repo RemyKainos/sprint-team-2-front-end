@@ -1,10 +1,10 @@
 import { JobRole } from "../../../src/model/JobRole";
 
-var axios = require('axios');
-var MockAdapter = require('axios-mock-adapter');
-var chai = require('chai');
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import chai from 'chai';
+import { viewJobRoles } from "../../../src/service/JobRoleService";
 const expect = chai.expect;
-const JobRoleService = require('../../../src/service/JobRoleService');
 const jobRole: JobRole = {
     roleID: 1,
     name: "testrole",
@@ -18,26 +18,28 @@ const jobRole: JobRole = {
 describe('JobRoleService', function () {
     describe('viewJobRoles', function () {
         it('Should return roles from response', async () => {
-            var mock = new MockAdapter(axios);
+            const mock = new MockAdapter(axios);
 
             const data = [jobRole];
 
-            mock.onGet(JobRoleService.URL).reply(200, data);
+            mock.onGet(process.env.BACK_URL + '/api/job-roles').reply(200, data);
 
-            var results = await JobRoleService.viewJobRoles();
+            const results = await viewJobRoles();
 
             expect(results[0]).to.deep.equal(jobRole);
         })
 
         it('Should throw exception when 500 error returned', async () => {
-            var mock = new MockAdapter(axios);
+            const mock = new MockAdapter(axios);
 
-            mock.onGet(JobRoleService.URL).reply(500);
+            mock.onGet(process.env.BACK_URL + '/api/job-roles').reply(500);
+
+            let error: Error = new Error
 
             try{
-                await JobRoleService.viewJobRoles()
-            } catch (e: any) {
-                var error = e.message;
+                await viewJobRoles()
+            } catch (e) {
+                error = e.message;
             }
 
             expect(error).to.equal('Could not fetch job roles')
