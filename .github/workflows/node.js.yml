@@ -11,6 +11,11 @@ on:
 
 jobs:
   build:
+    env:
+      BACK_URL: ${{ secrets.BACK_URL }}
+      EMAIL: ${{ secrets.EMAIL }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+
 
     runs-on: ubuntu-latest
 
