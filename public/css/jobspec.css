@@ -1,0 +1,11 @@
+.job-spec-content{
+    width: 70%;
+}
+
+.job-spec-link{
+    text-decoration: none;
+}
+
+.job-spec-link:hover{
+    text-decoration: underline;
+}

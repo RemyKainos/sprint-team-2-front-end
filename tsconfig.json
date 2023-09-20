@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES5",
-    "sourceMap": true,  
+    "sourceMap": false,  
     "outDir": "./dist",   
-    "forceConsistentCasingInFileNames": true,  
+    "forceConsistentCasingInFileNames": true, 
     "strict": true,                                    
     "noImplicitAny": true,
     "esModuleInterop": true
   },
 
-  "include": ["./**/*"],
+  "include": ["./src/**/*"],
   "exclude": [
       "./node_modules/**/*",
       "./dist/**/*"

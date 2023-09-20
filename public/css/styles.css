@@ -21,7 +21,9 @@
 }
 
 .main-content{
-    height: 100vh;
+    min-height: 100vh;
+    margin-top: 2rem;
+    margin-left: 2rem;
 }
 
 .kainos-logo{
