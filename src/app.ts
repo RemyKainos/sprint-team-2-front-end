@@ -1,10 +1,16 @@
-import express, {type Request, type Response, type Application} from "express";
-import nunjucks from "nunjucks";
+import express, { type Request, type Response, type Application } from "express";
+import expressSession from 'express-session';
+import { ActiveSession } from './model/auth';
 import path from "path";
 import { jobFamilyController } from "./controller/JobFamilyController";
 import { jobCapabilityController } from "./controller/JobCapabilityController";
+import nunjucks from 'nunjucks';
+import router from "./router";
 
 const app: Application = express();
+
+// Configure Nunjucks.
+
 
 const appViews = path.join(__dirname, '/views/');
 
@@ -21,11 +27,25 @@ app.set("view engine", "html");
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
 
+// Configure Express.
+app.set("view engine", "html");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended : true}))
+
+app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 60000}}))
+
+
+declare module "express-session" {
+  interface SessionData {
+      current?: ActiveSession;
+  }
+}
+
+app.use('/', router);
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!');
+    res.redirect('/login');
 });
 
 const port = 3000;
