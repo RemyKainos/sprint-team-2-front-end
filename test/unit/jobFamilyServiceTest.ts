@@ -23,7 +23,7 @@ describe('JobFamilyService', function() {
         expect(result).to.deep.equal(responseData)
     })
 
-    it('should return error of families when provided an invalid capabilityID', async () => {
+    it('should return error when provided an invalid capabilityID', async () => {
         const mock = new MockAdapter(axios);
         const capabilityID = -1
 
