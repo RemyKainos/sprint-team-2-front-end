@@ -16,7 +16,7 @@ export const jobCapabilityController = (app: Application) => {
     })
 
     app.post('/select-capability', async (req: Request, res: Response) => {
-        let capabilityID: number = req.body.capabilityID
+        const capabilityID: number = req.body.capabilityID
 
         try {
             res.redirect('/family-by-capability/' + capabilityID)

@@ -6,7 +6,7 @@ import { JobCapability } from "../model/JobCapability";
 
 export const jobFamilyController = (app: Application) => {
     app.get('/family-by-capability/:id', async (req: Request, res: Response) => {
-        let capabilityID: number = parseInt(req.params.id)
+        const capabilityID: number = parseInt(req.params.id)
         let data: JobFamily [] = []
         let capability: JobCapability = new JobCapability()
 
