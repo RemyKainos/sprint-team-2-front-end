@@ -8,7 +8,10 @@
     "test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts",
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
     "lint": "eslint --ext ts .",
-    "build": "npx tsc && cp -R src/views public dist",
+    "test": "echo \"Currently No Unit Tests\"",
+    "test-ui": "echo \"Currently No UI Tests\"",
+    "test-integration": "echo \"Currently No Integration Tests\"",
+    "build": "npx tsc && cp -R src/views dist",
     "prepare": "husky install"
   },
   "repository": {
