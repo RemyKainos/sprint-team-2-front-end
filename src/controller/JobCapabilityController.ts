@@ -2,8 +2,8 @@ import { Request, Response, Application } from "express";
 import { getAllCapabilities } from "../service/jobCapabilityService";
 import { JobCapability } from "../model/JobCapability";
 
-export const jobCapabilityController = (app: Application) => {
-    app.get('/select-capability', async (req: Request, res: Response) => {
+export class JobCapabilityController {
+    public static async get(req: Request, res: Response): Promise<void> {
         let data: JobCapability [] = []
 
         try {
@@ -13,9 +13,9 @@ export const jobCapabilityController = (app: Application) => {
         }
 
         res.render('select-capability', {capabilities: data})
-    })
+    }
 
-    app.post('/select-capability', async (req: Request, res: Response) => {
+    public static post(req: Request, res: Response): void {
         const capabilityID: number = req.body.capabilityID
 
         try {
@@ -25,5 +25,5 @@ export const jobCapabilityController = (app: Application) => {
 
             res.render('select-capabilities')
         }
-    })
+    }
 }

@@ -4,14 +4,13 @@ import { JobFamily } from "../model/JobFamily";
 import { getCapabilityById } from "../service/jobCapabilityService";
 import { JobCapability } from "../model/JobCapability";
 
-export const jobFamilyController = (app: Application) => {
-    app.get('/family-by-capability/:id', async (req: Request, res: Response) => {
+export class JobFamilyController {
+    public static async get(req: Request, res: Response): Promise<void> {
         const capabilityID: number = parseInt(req.params.id)
         let data: JobFamily [] = []
         let capability: JobCapability = new JobCapability()
 
         try {
-            // TODO: Update to be ID passed in from URL
             data = await getFamilyByCapability(capabilityID)
             capability = await getCapabilityById(capabilityID)
         } catch (e) {
@@ -19,5 +18,5 @@ export const jobFamilyController = (app: Application) => {
         }
 
         res.render('family-by-capability', {families: data, capability: capability})
-    })
+    }
 }

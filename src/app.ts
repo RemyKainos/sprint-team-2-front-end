@@ -2,8 +2,6 @@ import express, { type Request, type Response, type Application } from "express"
 import expressSession from 'express-session';
 import { ActiveSession } from './model/auth';
 import path from "path";
-import { jobFamilyController } from "./controller/JobFamilyController";
-import { jobCapabilityController } from "./controller/JobCapabilityController";
 import nunjucks from 'nunjucks';
 import router from "./router";
 
@@ -50,6 +48,3 @@ app.get('/', (req: Request, res: Response) => {
 
 const port = 3000;
 app.listen(port, () => console.log(`Express is listening on port ${port}`));
-
-jobFamilyController(app)
-jobCapabilityController(app)
