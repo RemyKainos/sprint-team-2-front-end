@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <main class="main-content">
+        <h1>View Families By Capability</h1>
+        <h2> Families for 'capability'</h2>
+        {% if families and families.length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Family Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for family in families %}
+                <tr>
+                    <td>{{ family.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h2>Families not got</h2>
+        {% endif %}
+    </main>
+{% endblock %}
