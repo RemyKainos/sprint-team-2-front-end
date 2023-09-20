@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';  
 
 const expect = chai.expect;
-const jobSpecService = require('../../src/service/JobSpecService');
+import {jobSpecService} from "../../src/service/JobSpecService";
 
 const jobSpec = {
     roleId: 1, 
@@ -13,32 +13,31 @@ const jobSpec = {
 
 describe('JobSpec Service', function () {
     describe('getJobSpec', function () {
-      it('should return job spec from response', async () => {
-        var mock = new MockAdapter(axios);
+        it('should return job spec from response', async () => {
+            const mock = new MockAdapter(axios);
 
-        const data = [jobSpec];
-        mock.onGet(jobSpecService.URL+"/1").reply(200, data);
+            const data = [jobSpec];
+            mock.onGet(jobSpecService.URL+"/1").reply(200, data);
 
-        var results = await jobSpecService.getJobSpec(1);
+            const results = await jobSpecService.getJobSpec(1);
 
-        expect(results[0]).to.deep.equal(jobSpec)
-      }),
+            expect(results[0]).to.deep.equal(jobSpec)
+        }),
 
-      it('should return 404', async () => {
-        var mock = new MockAdapter(axios);
+        it('should return 404', async () => {
+            const mock = new MockAdapter(axios);
 
-        const data = [jobSpec];
-        mock.onGet(jobSpecService.URL).reply(404);
+            mock.onGet(jobSpecService.URL).reply(404);
 
-        var error;
+            let error;
 
-        try{
-            await jobSpecService.getJobSpec(9999999);
-        } catch(e){
-            error = (e as AxiosError).message;
-        }
-  
-        expect(error).to.equal("Request failed with status code 404")
-      })
+            try{
+                await jobSpecService.getJobSpec(9999999);
+            } catch(e){
+                error = (e as AxiosError).message;
+            }
+        
+            expect(error).to.equal("Request failed with status code 404")
+        })
     })
 })

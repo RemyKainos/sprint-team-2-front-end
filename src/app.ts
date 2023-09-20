@@ -1,6 +1,7 @@
-import express, {type Request, type Response, type Application} from "express";
+import express, {type Application} from "express";
 import nunjucks from "nunjucks";
 import path from "path";
+import jobSpecController from "./controller/JobSpecController";
 
 const app: Application = express();
 
@@ -19,7 +20,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-require("./controller/JobSpecController")(app);
+jobSpecController(app);
 
 const port = 3000;
 app.listen(port, () => console.log(`Express is listening on port ${port}`));

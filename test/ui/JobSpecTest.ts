@@ -6,7 +6,7 @@ describe('Job Spec Test', async () => {
 
 
     it('View job spec', async () => {
-        var driver = new webdriver.Builder().
+        const driver = new webdriver.Builder().
             withCapabilities(webdriver.Capabilities.chrome()).
             build();
 
@@ -20,7 +20,7 @@ describe('Job Spec Test', async () => {
     });
 
     it('Display a 400 if bad request', async () =>{
-        var driver = new webdriver.Builder().
+        const driver = new webdriver.Builder().
             withCapabilities(webdriver.Capabilities.chrome()).
             build();
 
