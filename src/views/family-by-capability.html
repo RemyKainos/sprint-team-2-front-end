@@ -4,7 +4,9 @@
 {% block content %}
     <main class="main-content">
         <h1>View Families By Capability</h1>
-        <h2> Families for 'capability'</h2>
+        {% if capability %}
+            <h2>Families for {{ capability.name }} Capability</h2>
+        {% endif %}
         {% if families and families.length > 0 %}
         <table class="table">
             <thead>

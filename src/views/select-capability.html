@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <main class="main-content">
+        <h1>Select Capability to View Families for:</h1>
+        {% if capabilities and capabilities.length > 0 %}
+        <form action="/select-capability/" method="post">
+            <div class="form-group">
+                <label for="capabilityID">Select Capability:</label>
+                <select name="capabilityID" id="capabilityID">
+                    {% for capability in capabilities %}
+                        <option value="{{ capability.capabilityID }}" >{{ capability.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% else %}
+        <h2>Capabilities not retrieved from database</h2>
+        {% endif %}
+    </main>
+{% endblock %}

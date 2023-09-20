@@ -2,6 +2,7 @@ import express, {type Request, type Response, type Application} from "express";
 import nunjucks from "nunjucks";
 import path from "path";
 import { jobFamilyController } from "./controller/JobFamilyController";
+import { jobCapabilityController } from "./controller/JobCapabilityController";
 
 const app: Application = express();
 
@@ -31,3 +32,4 @@ const port = 3000;
 app.listen(port, () => console.log(`Express is listening on port ${port}`));
 
 jobFamilyController(app)
+jobCapabilityController(app)
