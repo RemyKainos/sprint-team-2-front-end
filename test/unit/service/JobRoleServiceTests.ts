@@ -7,12 +7,10 @@ import { viewJobRoles } from "../../../src/service/JobRoleService";
 const expect = chai.expect;
 const jobRole: JobRole = {
     roleID: 1,
-    name: "testrole",
-    jobSpec: "testspec",
-    responsibilities: "testrespo",
+    roleName: "testrole",
     sharepointLink: "testlink",
-    bandID: 1,
-    familyID: 1
+    bandName: "testband",
+    capabilityName: "testcapability"
 }
 
 describe('JobRoleService', function () {
@@ -38,7 +36,7 @@ describe('JobRoleService', function () {
 
             try{
                 await viewJobRoles()
-            } catch (e) {
+            } catch (e: any) {
                 error = e.message;
             }
 

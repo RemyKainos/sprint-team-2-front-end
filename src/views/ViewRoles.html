@@ -17,7 +17,7 @@
             <tbody>
                 {% for role in roles %}
                     <tr>
-                        <th scope="row"><a href="/view-job-spec/{{role.roleID}}" id="{{role.name}}">{{role.name}}</a></td>
+                        <th scope="row"><a href="/view-job-spec/{{role.roleID}}" id="{{role.roleName}}">{{role.roleName}}</a></td>
                         <td><a href="{{role.sharepointLink}}" id="sharepoint-link">Visit</a></td>
                     </tr>
                 {% endfor %}

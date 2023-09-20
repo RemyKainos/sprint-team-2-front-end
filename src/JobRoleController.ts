@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
-import { JobRole } from "./model/JobRole";
-import {viewJobRoles} from "./service/JobRoleService"
+import { viewJobRoles } from "./service/JobRoleService"
 
 export class JobRoleController {
-    public static get(req:Request, res:Response): void{
-        let data: Promise<JobRole []>;
-
+    public static get = async function(req:Request, res:Response): Promise<void> {
         try{
-            data = viewJobRoles();
+            const roles = await viewJobRoles();
 
-            res.render('ViewRoles.html', {roles: data})
+            console.log(roles);
+
+            res.render('ViewRoles.html', {roles: roles})
         } catch(e){
             console.error(e);
         }

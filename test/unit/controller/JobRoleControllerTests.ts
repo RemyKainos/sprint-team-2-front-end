@@ -10,21 +10,17 @@ const expect = chai.expect;
 
 const jobRole1: JobRole = {
     roleID: 1,
-    name: "testrole",
-    jobSpec: "testspec",
-    responsibilities: "testrespo",
+    roleName: "testrole",
     sharepointLink: "testlink",
-    bandID: 1,
-    familyID: 1
+    bandName: "testband",
+    capabilityName: "testcapability"
 }
 const jobRole2: JobRole = {
     roleID: 2,
-    name: "testrole",
-    jobSpec: "testspec",
-    responsibilities: "testrespo",
+    roleName: "testrole",
     sharepointLink: "testlink",
-    bandID: 1,
-    familyID: 1
+    bandName: "testband",
+    capabilityName: "testcapability"
 }
 
 describe('JobRoleController', () => {
@@ -38,7 +34,7 @@ describe('JobRoleController', () => {
       
             sinon.stub(jobRoleService, 'viewJobRoles').resolves([jobRole1, jobRole2]);
       
-            const res = await chai.request('http://localhost:3000').get('/ViewRoles');
+            const res = await chai.request(process.env.BACK_URL).get('/ViewRoles');
 
             expect(res).to.have.status(200);
         });
