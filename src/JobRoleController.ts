@@ -6,8 +6,6 @@ export class JobRoleController {
         try{
             const roles = await viewJobRoles();
 
-            console.log(roles);
-
             res.render('ViewRoles.html', {roles: roles})
         } catch(e){
             console.error(e);
