@@ -25,7 +25,7 @@ export const validateUser = function (user: User): string {
     if (!emailPattern.test(email)) {
         return 'Invalid email address';
     }
-    
+
     return ''
 
 }
