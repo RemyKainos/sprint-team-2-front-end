@@ -5,11 +5,13 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
+    "start-prod": "npm run build-prod && node dist/app.js",
     "test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts",
     "test-integration": "echo \"Currently No Integration Tests\"",
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
     "lint": "eslint --ext ts .",
-    "build": "rimraf dist && npx tsc && cp -R src/views dist",
+    "build": "rimraf dist && npx tsc && cp -R src/views public dist",
+    "build-prod": "npx tsc && cp -R src/views public dist",
     "prepare": "husky install"
   },
   "repository": {
