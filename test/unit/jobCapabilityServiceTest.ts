@@ -14,7 +14,7 @@ describe('JobCapabilityService', function () {
             name: "name"
         }]
 
-        mock.onGet("http://" + process.env.BACK_URL + '/api/capability/').reply(200, responseData)
+        mock.onGet(process.env.BACK_URL + '/api/capability/').reply(200, responseData)
 
         const result = await getAllCapabilities()
         expect(result).to.deep.equal(responseData)
@@ -23,7 +23,7 @@ describe('JobCapabilityService', function () {
     it('should return error when database returns error', async() => {
         const mock = new MockAdapter(axios);
 
-        mock.onGet("http://" + process.env.BACK_URL + '/api/capability/').reply(400)
+        mock.onGet(process.env.BACK_URL + '/api/capability/').reply(400)
 
         return getAllCapabilities().catch((error: Error) => {
             expect(error.message).to.equal('Could not fetch capabilities')
@@ -38,7 +38,7 @@ describe('JobCapabilityService', function () {
             name: "name"
         }
 
-        mock.onGet("http://" + process.env.BACK_URL + '/api/capability/' + capabilityID.toString()).reply(200, responseData)
+        mock.onGet(process.env.BACK_URL + '/api/capability/' + capabilityID.toString()).reply(200, responseData)
 
         const result = await getCapabilityById(capabilityID)
         expect(result).to.deep.equal(responseData)
@@ -48,7 +48,7 @@ describe('JobCapabilityService', function () {
         const mock = new MockAdapter(axios);
         const capabilityID = -1
 
-        mock.onGet("http://" + process.env.BACK_URL + '/api/capability/' + capabilityID.toString()).reply(400)
+        mock.onGet(process.env.BACK_URL + '/api/capability/' + capabilityID.toString()).reply(400)
 
         return getCapabilityById(capabilityID).catch((error: Error) => {
             expect(error.message).to.equal('Could not fetch capability')

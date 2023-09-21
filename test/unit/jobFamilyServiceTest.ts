@@ -17,7 +17,7 @@ describe('JobFamilyService', function() {
             name: "name"
         }]
 
-        mock.onGet('http://' + process.env.BACK_URL + '/api/view-families-by-capability/' + capabilityID.toString()).reply(200, responseData);
+        mock.onGet(process.env.BACK_URL + '/api/view-families-by-capability/' + capabilityID.toString()).reply(200, responseData);
 
         const result = await getFamilyByCapability(capabilityID)
         expect(result).to.deep.equal(responseData)
@@ -27,7 +27,7 @@ describe('JobFamilyService', function() {
         const mock = new MockAdapter(axios);
         const capabilityID = -1
 
-        mock.onGet('http://' + process.env.BACK_URL + '/api/view-families-by-capability/' + capabilityID.toString()).reply(400);
+        mock.onGet(process.env.BACK_URL + '/api/view-families-by-capability/' + capabilityID.toString()).reply(400);
 
         return getFamilyByCapability(capabilityID).catch((error: Error) => {
             expect(error.message).to.equal('Could not fetch family by capability')

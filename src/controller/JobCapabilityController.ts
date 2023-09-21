@@ -23,7 +23,7 @@ export class JobCapabilityController {
         } catch (e) {
             console.error(e)
 
-            res.render('select-capabilities')
+            res.render('select-capability')
         }
     }
 }
