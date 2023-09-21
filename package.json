@@ -5,11 +5,13 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "npm run build && node dist/app.js",
+    "start-prod": "npm run build-prod && node dist/app.js",
     "test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts",
     "test-integration": "echo \"Currently No Integration Tests\"",
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
     "lint": "eslint --ext ts .",
     "build": "rimraf dist && npx tsc && cp -R src/views public dist",
+    "build-prod": "npx tsc && cp -R src/views public dist",
     "prepare": "husky install"
   },
   "repository": {
@@ -31,6 +33,7 @@
     "sinon": "^16.0.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.6",
     "@types/express": "^4.17.17",
     "@types/express-session": "^1.17.7",
     "@types/mocha": "^10.0.1",
