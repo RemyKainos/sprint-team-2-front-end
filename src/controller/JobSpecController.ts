@@ -1,4 +1,4 @@
-import type { Request, Response, Application } from "express";
+import type { Request, Response } from "express";
 import type { AxiosError } from "axios";
 import JobSpecService from "../service/JobSpecService";
 

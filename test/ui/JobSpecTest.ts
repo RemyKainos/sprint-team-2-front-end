@@ -1,4 +1,4 @@
-import webdriver, { Builder, Capabilities, By} from 'selenium-webdriver';
+import webdriver, {By} from 'selenium-webdriver';
 
 import chai from 'chai';  
 
