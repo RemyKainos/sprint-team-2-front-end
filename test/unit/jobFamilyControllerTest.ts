@@ -9,12 +9,12 @@ import { JobFamily } from '../../src/model/JobFamily';
 
 describe('JobFamilyController', () => {
     afterEach(() => {
-      sinon.restore();
+        sinon.restore();
     });
 
     it("should render the family-by-capability view with data", async () => {
         const req: Partial<Request> = {
-        params: { id: "1" },
+            params: { id: "1" },
         } as Partial<Request>;
 
         const res = {
@@ -46,7 +46,7 @@ describe('JobFamilyController', () => {
 
     it("should handle errors and log them", async () => {
         const req: Partial<Request> = {
-          params: { id: "1" },
+            params: { id: "1" },
         } as Partial<Request>;
     
         const res= {
@@ -61,5 +61,5 @@ describe('JobFamilyController', () => {
     
         expect(getFamilyByCapabilityStub.calledOnceWithExactly(1)).to.be.true;
         expect(consoleErrorStub.calledOnce).to.be.true;
-      });
+    });
 })
