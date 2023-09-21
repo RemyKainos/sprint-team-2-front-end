@@ -1,20 +1,21 @@
-import { Request, Response, Application } from "express";
-import { AxiosError } from "axios";
-import jobSpecService from "../service/JobSpecService";
+import type { Request, Response, Application } from "express";
+import type { AxiosError } from "axios";
+import JobSpecService from "../service/JobSpecService";
 
-export default (app: Application) =>{
-    app.get('/view-job-spec/:roleId', async (req: Request, res: Response) => {
+export class JobSpecController{
+    public static async get(req: Request, res: Response){
         const {roleId} = req.params;
         const roleIdNum = await Number.parseInt(roleId)
 
         try{
+            const jobSpecService = new JobSpecService();
             const jobSpec = await jobSpecService.getJobSpec(roleIdNum);
             res.render('ViewJobSpec.html', {title: "Job Spec", jobSpec});
         } catch(e){
-            console.log(e);
             const err = e as AxiosError;
-            const data = err.response?.data
-            res.render('error.html', {title: "Error", data});
+            console.log(err.response?.data);
+            
+            res.render('error.html', {title: "Error", errorMessage: "JobSpec can't be found"});
         }
-    })
+    }
 }

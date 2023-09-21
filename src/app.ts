@@ -5,8 +5,6 @@ import path from "path";
 import nunjucks from 'nunjucks';
 import router from "./router";
 
-import jobSpecController from "./controller/JobSpecController";
-
 const app: Application = express();
 
 // Configure Nunjucks.
@@ -39,7 +37,6 @@ declare module "express-session" {
   }
 }
 
-jobSpecController(app);
 app.use('/', router);
 app.get('/', (req: Request, res: Response) => {
     res.redirect('/login');

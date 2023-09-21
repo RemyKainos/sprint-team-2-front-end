@@ -3,13 +3,15 @@ import MockAdapter from 'axios-mock-adapter';
 import chai from 'chai';  
 
 const expect = chai.expect;
-import {jobSpecService} from "../../src/service/JobSpecService";
+import JobSpecService from "../../src/service/JobSpecService";
 
 const jobSpec = {
     roleId: 1, 
     sharepointLink: "aaa",
     jobSpec: "Do your job"
 }
+
+const jobSpecService = new JobSpecService();
 
 describe('JobSpec Service', function () {
     describe('getJobSpec', function () {

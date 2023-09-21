@@ -6,7 +6,7 @@ import { validateUser } from "../validator/userValidator";
 
 export const login = async function(credentials: Credentials): Promise<ActiveSession> {
     try {
-        const response = await axios.post('http://' + process.env.BACK_URL + '/api/login/', credentials);
+        const response = await axios.post(process.env.BACK_URL + '/api/login/', credentials);
 
 
         return response.data;
