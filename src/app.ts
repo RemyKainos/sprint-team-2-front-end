@@ -48,9 +48,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 const port = 3000;
-const server = app.listen(port, () => console.log(`Express is listening on port ${port}`));
+app.listen(port, () => console.log(`Express is listening on port ${port}`));
 
-module.exports = server;
 
 
 
