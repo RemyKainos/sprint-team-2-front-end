@@ -5,12 +5,7 @@ import path from "path";
 import nunjucks from 'nunjucks';
 import router from "./router";
 
-
-
 const app: Application = express();
-
-// Configure Nunjucks.
-
 
 const appViews = path.join(__dirname, '/views/');
 
@@ -19,6 +14,13 @@ const nunjucksConfig = {
     noCache: true,
     express: app
 };
+
+nunjucks.configure(appViews, nunjucksConfig);
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 nunjucks.configure(appViews, nunjucksConfig);
 
@@ -46,6 +48,9 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 const port = 3000;
-app.listen(port, () => console.log(`Express is listening on port ${port}`));
+const server = app.listen(port, () => console.log(`Express is listening on port ${port}`));
+
+module.exports = server;
+
 
 

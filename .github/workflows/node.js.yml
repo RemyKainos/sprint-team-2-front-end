@@ -12,7 +12,8 @@ on:
 jobs:
   build:
     env:
-      BACK_URL: ${{ secrets.BACK_URL }}
+      BACK_URL: ${{secrets.BACK_URL}}
+      FRONT_URL: ${{secrets.FRONT_URL}}
       EMAIL: ${{ secrets.EMAIL }}
       PASSWORD: ${{ secrets.PASSWORD }}
 
