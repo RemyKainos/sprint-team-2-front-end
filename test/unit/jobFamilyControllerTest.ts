@@ -44,7 +44,7 @@ describe('JobFamilyController', () => {
         expect(res.render.calledOnceWithExactly("family-by-capability", { families: mockFamilies, capability: mockCapability })).to.be.true;
     });
 
-    it("should handle errors and log them", async () => {
+    it("should handle errors on get and log them", async () => {
         const req: Partial<Request> = {
             params: { id: "1" },
         } as Partial<Request>;

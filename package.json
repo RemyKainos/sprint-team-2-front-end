@@ -9,7 +9,7 @@
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
     "lint": "eslint --ext ts .",
     "test-integration": "echo \"Currently No Integration Tests\"",
-    "build": "npx tsc && cp -R src/views dist",
+    "build": "npx tsc && cp -R src/views public dist",
     "prepare": "husky install"
   },
   "repository": {
