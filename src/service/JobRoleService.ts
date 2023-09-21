@@ -1,7 +1,7 @@
-import { JobRole } from "../model/JobRole";
+import { JobRoleViewRoles } from "../model/JobRole";
 import axios from 'axios';
 
-export const viewJobRoles = async function (): Promise<JobRole []> {
+export const viewJobRoles = async function (): Promise<JobRoleViewRoles []> {
     try {
         const response = await axios.get(process.env.BACK_URL + '/api/job-roles');
         return response.data;

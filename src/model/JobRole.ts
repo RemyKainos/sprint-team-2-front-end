@@ -1,4 +1,4 @@
-export class JobRole{
+export class JobRoleViewRoles{
     roleID: number
     roleName: string
     sharepointLink: string

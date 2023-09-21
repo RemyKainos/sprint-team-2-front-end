@@ -1,11 +1,11 @@
-import { JobRole } from "../../../src/model/JobRole";
+import { JobRoleViewRoles } from "../../../src/model/JobRole";
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import chai from 'chai';
 import { viewJobRoles } from "../../../src/service/JobRoleService";
 const expect = chai.expect;
-const jobRole: JobRole = {
+const jobRole: JobRoleViewRoles = {
     roleID: 1,
     roleName: "testrole",
     sharepointLink: "testlink",
