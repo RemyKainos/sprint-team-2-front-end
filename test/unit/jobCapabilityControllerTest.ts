@@ -49,25 +49,34 @@ describe('jobCapabilityController', () => {
         expect(consoleErrorStub.calledOnce).to.be.true;
     });
 
-    it("should post to controll", async () => {
-        const req = {}
+    it("should post to controller and redirect to family by capability", async () => {
+        const req: Partial<Request> = {
+            body: { capabilityID: "1" },
+        } as Partial<Request>;
+
+        const res = {
+            redirect: sinon.spy()
+        } 
+
+        await JobCapabilityController.post(req as Request, res as unknown as Response);
+
+        expect(res.redirect.calledOnceWithExactly("/family-by-capability/1")).to.be.true;
+    });
+
+    it("should handle post error and render select-capability page", async () => {
+        const req: Partial<Request> = {
+            body: { capabilityID: "InvalidID" },
+        } as Partial<Request>;
 
         const res = {
             render: sinon.spy()
         } 
 
-        const mockCapabilities: JobCapability [] =  [{
-            capabilityID: 1,
-            name: "name"
-        }]
+        const consoleErrorStub = sinon.stub(console, "error")
 
-        const getAllCapabilitiesStub = sinon.stub(jobCapabilityService, "getAllCapabilities");
+        await JobCapabilityController.post(req as Request, res as unknown as Response);
 
-        getAllCapabilitiesStub.withArgs().resolves(mockCapabilities);
-
-        await JobCapabilityController.get(req as Request, res as unknown as Response);
-
-        expect(getAllCapabilitiesStub.calledOnceWithExactly()).to.be.true;
-        expect(res.render.calledOnceWithExactly("select-capability", { capabilities: mockCapabilities })).to.be.true;
+        expect(consoleErrorStub.calledOnce).to.be.true; // Check that console.error was called once
+        expect(res.render.calledOnceWithExactly("select-capability")).to.be.true;
     });
 })
