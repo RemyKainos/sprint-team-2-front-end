@@ -33,7 +33,7 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.get(req, res as unknown as Response);
             
-            expect(res.render.calledOnceWithExactly('ViewRoles.html', {roles: [jobRoleViewRoles1]})).to.be.true;
+            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles", roles: [jobRoleViewRoles1]})).to.be.true;
 
         })
 
@@ -42,7 +42,7 @@ describe('JobRole Controller', () => {
             
             const consoleStub = sinon.stub(console, "error")
 
-            const req = {session:{curretn:{}}} as unknown as Request;
+            const req = {session:{current:{}}} as unknown as Request;
 
             const res = {
                 render: sinon.spy()
