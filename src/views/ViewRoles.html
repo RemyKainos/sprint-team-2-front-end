@@ -7,6 +7,8 @@
                 <tr>
                     <th scope="col">Title</th>
                     <th scope="col">Sharepoint Link</th>
+                    <th scope="col">Band</th>
+                    <th scope="col">Capability</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +16,8 @@
                     <tr>
                         <th scope="row"><a href="/view-job-spec/{{role.roleID}}" id="{{role.roleName}}">{{role.roleName}}</a></td>
                         <td><a href="{{role.sharepointLink}}" id="sharepoint-link">Visit</a></td>
+                        <td>{{role.bandName}}</td>
+                        <td>{{role.capabilityName}}</td>
                     </tr>
                 {% endfor %}
             </tbody>
