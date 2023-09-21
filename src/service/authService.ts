@@ -16,6 +16,7 @@ export const login = async function(credentials: Credentials): Promise<ActiveSes
         }else if ((e as AxiosError).response?.status === 500){
             throw new Error('Internal Server Error')
         }
+        console.error((e as Error).message);
         throw new Error('Could not login')
     }
 
@@ -29,7 +30,7 @@ export const register = async function(user: User): Promise<void> {
     }
 
     try {
-        await axios.post('http://localhost:8080/api/register/', user);
+        await axios.post(process.env.BACK_URL + '/api/register/', user);
     } catch (e) {
         throw new Error('Failed to register');
     }
