@@ -6,7 +6,7 @@ import { validateUser } from "../validator/userValidator";
 
 export const login = async function(credentials: Credentials): Promise<ActiveSession> {
     try {
-        const response = await axios.post('http://' + process.env.BACK_URL + '/api/login/', credentials);
+        const response = await axios.post(process.env.BACK_URL + '/api/login/', credentials);
 
 
         return response.data;
@@ -29,7 +29,7 @@ export const register = async function(user: User): Promise<void> {
     }
 
     try {
-        await axios.post('http://localhost:8080/api/register/', user);
+        await axios.post(process.env.BACK_URL + 'api/register/', user);
     } catch (e) {
         throw new Error('Failed to register');
     }
