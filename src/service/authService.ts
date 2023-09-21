@@ -16,7 +16,7 @@ export const login = async function(credentials: Credentials): Promise<ActiveSes
         }else if ((e as AxiosError).response?.status === 500){
             throw new Error('Internal Server Error')
         }
-        console.log(e);
+        console.error((e as Error).message);
         throw new Error('Could not login')
     }
 
