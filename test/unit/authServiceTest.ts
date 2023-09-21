@@ -21,7 +21,7 @@ describe('AuthService', function () {
 
         const responseData = "token"
 
-        mock.onPost('http://' + process.env.BACK_URL + '/api/login/', loginData).reply(200, responseData);
+        mock.onPost(process.env.BACK_URL + '/api/login/', loginData).reply(200, responseData);
 
         const result = await login(loginData)
         expect(result).to.be.equal(responseData);
@@ -35,7 +35,7 @@ describe('AuthService', function () {
             password: "password"
         }
 
-        mock.onPost('http://' + process.env.BACK_URL + '/api/login/', loginData).reply(401);
+        mock.onPost(process.env.BACK_URL + '/api/login/', loginData).reply(401);
 
         return login(loginData).catch((error: Error) => {
             expect(error.message).to.equal('Your email or password combination is incorrect');
@@ -49,7 +49,7 @@ describe('AuthService', function () {
             password: "password"
         };
     
-        mock.onPost('http://' + process.env.BACK_URL + '/api/login/', loginData).reply(500);
+        mock.onPost(process.env.BACK_URL + '/api/login/', loginData).reply(500);
     
         return login(loginData).catch((error: Error) => {
             expect(error.message).to.equal('Internal Server Error');
