@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { LoginController } from '../../../src/LoginController';
 import { RegisterController } from '../../../src/RegisterController';
 
