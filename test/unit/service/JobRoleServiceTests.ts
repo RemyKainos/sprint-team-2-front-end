@@ -35,7 +35,7 @@ describe('JobRoleService', function () {
 
             try{
                 await viewJobRoles()
-            } catch (e: any) {
+            } catch (e) {
                 error = e.message;
             }
 
