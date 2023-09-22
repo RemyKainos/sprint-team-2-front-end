@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { NextFunction, Request, Response } from 'express';
-import middleware from '../../src/middleware/auth'; 
+import middleware from '../../../src/middleware/auth'; 
 
 describe('Middleware Test', () => {
     it('should call next() when req.session.current is truthy', () => {
