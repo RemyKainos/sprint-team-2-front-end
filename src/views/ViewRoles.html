@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <main class="main-content">
+        <table class="table table-striped-columns">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Sharepoint Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for role in roles %}
+                    <tr>
+                        <th scope="row"><a href="/view-job-spec/{{role.roleID}}" id="{{role.roleName}}">{{role.roleName}}</a></td>
+                        <td><a href="{{role.sharepointLink}}" id="sharepoint-link">Visit</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}
