@@ -51,7 +51,7 @@ describe('LoginController', () => {
                 locals: {}, 
                 render: (viewName: string) => {
                     expect(viewName).to.equal('login');
-                    expect(res.locals.errormessage).to.equal('Could not login');
+                    expect(res.locals.errormessage).to.equal('Your email or password combination is incorrect');
                 },
             } as Response;
 
