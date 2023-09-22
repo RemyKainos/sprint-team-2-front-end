@@ -9,7 +9,7 @@ export class JobRoleController {
             res.render('ViewRoles.html', {title: "View Roles", roles: roles})
         } catch(e){
             console.error(e);
-            res.render('ViewRoles.html', {title: "Error Page", errorMessage: e})
+            res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
         }
     }
 }

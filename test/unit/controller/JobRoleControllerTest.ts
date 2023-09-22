@@ -38,9 +38,10 @@ describe('JobRole Controller', () => {
         })
 
         it('Should render error page with appropriate error', async () => {
-            const expectedErrorMessage = 'Viewing job roles is not available at this time please try again later'
+            const expectedErrorMessage = "Viewing job roles is not available at this time please try again later."
             
-            sinon.stub(JobRoleService, 'viewJobRoles').rejects(new Error('Could not fetch job roles'))
+            sinon.stub(JobRoleService, 'viewJobRoles')
+                .rejects(new Error('Viewing job roles is not available at this time please try again later.'))
 
             const req = {session:{current:{}}} as unknown as Request;
 
@@ -50,9 +51,7 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.get(req, res as unknown as Response);
 
-            expect(res.render.
-                calledOnceWithExactly('error-page.html', {title: "Error Page", errorMessage: expectedErrorMessage}))
-                .to.be.true;
+            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles Error", errorMessage: expectedErrorMessage}))
         })
     })
 })

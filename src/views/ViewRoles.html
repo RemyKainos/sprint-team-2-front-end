@@ -2,9 +2,11 @@
 
 {% block content %}
     {% if errorMessage %}
-        <div class="alert alert-danger">
+    <main class="main-content">
+        <div class="alert alert-danger text-center">
             {{ errorMessage }}
         </div>
+    </main>
     {% else %}
     <main class="main-content" >
         <div class="table-responsive d-flex align-items-center flex-column">
