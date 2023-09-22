@@ -35,8 +35,9 @@
                         <div class="form-group">
                             <label for="role">Role</label>
                             <select id="role" name="role" class="form-control" required>
-                                <option value="EMPLOYEE">Employee</option>
-                                <option value="ADMIN">Admin</option>
+                                {% for r in roles %}
+                                <option value="{{ r.roleID }}" {% if role == r.roleID %}selected{% endif %}>{{ r.role_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <button type="submit" id="submit" class="btn btn-primary">Submit</button>
