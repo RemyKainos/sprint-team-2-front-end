@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { Request, Response } from 'express';
-import { JobCapabilityController } from '../../src/controller/JobCapabilityController';
+import type { Request, Response } from 'express';
+import { JobCapabilityController } from '../../../src/controller/JobCapabilityController';
 import sinon from 'sinon';
-import * as jobCapabilityService from '../../src/service/jobCapabilityService'
-import { JobCapability } from '../../src/model/JobCapability';
+import * as jobCapabilityService from '../../../src/service/jobCapabilityService'
+import { JobCapability } from '../../../src/model/JobCapability';
 
 describe('jobCapabilityController', () => {
     afterEach(() => {
@@ -32,11 +32,12 @@ describe('jobCapabilityController', () => {
         expect(res.render.calledOnceWithExactly("select-capability", { capabilities: mockCapabilities })).to.be.true;
     });
 
-    it("should handle errors on get and log them", async () => {
+    it("should handle get errors on get and log them", async () => {
         const req = {}
 
         const res = {
-            render: sinon.spy()
+            render: sinon.spy(),
+            locals: sinon.spy()
         } 
     
         const getAllCapabilitiesStub = sinon.stub(jobCapabilityService, "getAllCapabilities").rejects('Could not fetch capabilities');
@@ -69,14 +70,15 @@ describe('jobCapabilityController', () => {
         } as Partial<Request>;
 
         const res = {
-            render: sinon.spy()
+            render: sinon.spy(),
+            locals: sinon.spy()
         } 
 
         const consoleErrorStub = sinon.stub(console, "error")
 
         await JobCapabilityController.post(req as Request, res as unknown as Response);
 
-        expect(consoleErrorStub.calledOnce).to.be.true; // Check that console.error was called once
+        expect(consoleErrorStub.calledOnce).to.be.true; 
         expect(res.render.calledOnceWithExactly("select-capability")).to.be.true;
     });
 })

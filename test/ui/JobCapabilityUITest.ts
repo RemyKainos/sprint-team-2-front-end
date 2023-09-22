@@ -28,7 +28,7 @@ describe('Job Capability UI Test', async () => {
         await driver.quit()
     })
 
-    it('should display families not got page when id is not correct', async () => {
+    it('should display could not fetch families error when id is not correct', async () => {
         const driver = new Builder().
             withCapabilities(Capabilities.chrome()).
             build();
@@ -37,9 +37,26 @@ describe('Job Capability UI Test', async () => {
 
         await driver.get(process.env.FRONT_URL + '/family-by-capability/' + invalidID.toString() as string)
 
-        await driver.findElement(By.id('title')).getText().then(function(value:string) {
+        await driver.findElement(By.id('family-by-capability-error')).getText().then(function(value:string) {
             console.log(value)
-            chai.assert.equal(value, 'Families not got')
+            chai.assert.equal(value, 'Could not fetch family by capability')
+        })
+
+        await driver.quit()
+    })
+
+    it('should display invalid capability id error when id is string', async () => {
+        const driver = new Builder().
+            withCapabilities(Capabilities.chrome()).
+            build();
+
+        const invalidID = 'error'
+
+        await driver.get(process.env.FRONT_URL + '/family-by-capability/' + invalidID.toString() as string)
+
+        await driver.findElement(By.id('family-by-capability-error')).getText().then(function(value:string) {
+            console.log(value)
+            chai.assert.equal(value, 'Invalid Capability ID Selected')
         })
 
         await driver.quit()

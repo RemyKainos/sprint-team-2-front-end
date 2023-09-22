@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import sinon from 'sinon';
-import { JobFamilyController } from '../../src/controller/JobFamilyController';
-import * as jobCapabilityService from '../../src/service/jobCapabilityService';
-import * as jobFamilyService from '../../src/service/jobFamilyService';
-import { JobCapability } from '../../src/model/JobCapability';
-import { JobFamily } from '../../src/model/JobFamily';
+import { JobFamilyController } from '../../../src/controller/JobFamilyController';
+import * as jobCapabilityService from '../../../src/service/jobCapabilityService';
+import * as jobFamilyService from '../../../src/service/jobFamilyService';
+import type { JobCapability } from '../../../src/model/JobCapability';
+import type { JobFamily } from '../../../src/model/JobFamily';
 
 describe('JobFamilyController', () => {
     afterEach(() => {
@@ -44,13 +44,14 @@ describe('JobFamilyController', () => {
         expect(res.render.calledOnceWithExactly("family-by-capability", { families: mockFamilies, capability: mockCapability })).to.be.true;
     });
 
-    it("should handle errors on get and log them", async () => {
+    it("should handle fetch error on get and log them", async () => {
         const req: Partial<Request> = {
             params: { id: "1" },
         } as Partial<Request>;
     
         const res= {
-            render: sinon.spy()
+            render: sinon.spy(),
+            locals: sinon.spy()
         }
     
         const getFamilyByCapabilityStub = sinon.stub(jobFamilyService, "getFamilyByCapability").rejects("Could not fetch family by capability");

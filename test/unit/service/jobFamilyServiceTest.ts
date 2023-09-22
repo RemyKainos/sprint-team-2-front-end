@@ -1,8 +1,8 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import chai from "chai";
-import { getFamilyByCapability } from '../../src/service/jobFamilyService'
-import { JobFamily } from "../../src/model/JobFamily";
+import { getFamilyByCapability } from '../../../src/service/jobFamilyService'
+import { JobFamily } from "../../../src/model/JobFamily";
 
 const expect = chai.expect
 

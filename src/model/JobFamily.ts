@@ -1,4 +1,4 @@
-export class JobFamily {
+export type JobFamily = {
     familyID?: number
     capabilityID?: number
     name?: string

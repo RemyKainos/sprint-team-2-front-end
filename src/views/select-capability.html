@@ -4,6 +4,11 @@
 {% block content %}
     <main class="main-content">
         <h1>Select Capability to View Families for:</h1>
+        {% if errormessage %}
+        <div class="alert alert-danger" id="select-capability-error">
+            {{ errormessage }}
+        </div>
+        {% endif %}
         {% if capabilities and capabilities.length > 0 %}
         <form action="/select-capability/" method="post">
             <div class="form-group">
@@ -16,8 +21,6 @@
             </div>
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
-        {% else %}
-        <h2>Capabilities not retrieved from database</h2>
         {% endif %}
     </main>
 {% endblock %}

@@ -1,4 +1,4 @@
-export class JobCapability {
+export type JobCapability = {
     capabilityID?: number
     name?: string
 }

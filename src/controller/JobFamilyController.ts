@@ -1,22 +1,33 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { getFamilyByCapability } from "../service/jobFamilyService";
-import { JobFamily } from "../model/JobFamily";
+import type { JobFamily } from "../model/JobFamily";
 import { getCapabilityById } from "../service/jobCapabilityService";
-import { JobCapability } from "../model/JobCapability";
+import type { JobCapability } from "../model/JobCapability";
 
 export class JobFamilyController {
     public static async get(req: Request, res: Response): Promise<void> {
-        const capabilityID: number = parseInt(req.params.id)
-        let data: JobFamily [] = []
-        let capability: JobCapability = new JobCapability()
+        if (isNaN(parseInt(req.params.id))) {
+            res.locals.errormessage = 'Invalid Capability ID Selected';
 
-        try {
-            data = await getFamilyByCapability(capabilityID)
-            capability = await getCapabilityById(capabilityID)
-        } catch (e) {
-            console.error(e)
+            res.render('family-by-capability')
+        } else {
+
+            const capabilityID: number = parseInt(req.params.id)
+
+            try {
+                let data: JobFamily [] = []
+
+                data = await getFamilyByCapability(capabilityID)
+                const capability: JobCapability = await getCapabilityById(capabilityID)
+
+                res.render('family-by-capability', {families: data, capability: capability})
+            } catch (e) {
+                console.error(e)
+
+                res.locals.errormessage = (e as Error).message;
+
+                res.render('family-by-capability')
+            }
         }
-
-        res.render('family-by-capability', {families: data, capability: capability})
     }
 }

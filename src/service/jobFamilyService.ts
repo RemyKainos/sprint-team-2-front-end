@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { JobFamily } from '../model/JobFamily';
+import type { JobFamily } from '../model/JobFamily';
 
 export const getFamilyByCapability = async function (id : number): Promise<JobFamily []> {
     try {
