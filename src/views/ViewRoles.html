@@ -24,7 +24,7 @@
                 <tbody>
                     {% for role in roles %}
                         <tr>
-                            <th scope="row" class="text-center">{{role.roleName}}</a></td>
+                            <th scope="row">{{role.roleName}}</a></td>
                             <td class="text-center">{{role.bandName}}</td>
                             <td class="text-center">{{role.capabilityName}}</td>
                             <td class="text-center"> 
@@ -33,13 +33,9 @@
                             </div>
                             </td>
                             <td class="text-center">
-                                <!--<div class="btn-group mr-3" role="group">
-                                    <button type="button" class="btn btn-primary" alt="Open {{role.roleName}} Sharepoint">
-                                        Open
-                                        <a href="{{role.sharepointLink}}" target="_blank">Open</a>
-                                    </button>
-                                </div>-->
-                                <a href="{{role.sharepointLink}}" target="_blank">Open</a>
+                                {% if role.sharepointLink %}
+                                    <a href="{{role.sharepointLink}}" target="_blank">Open</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
