@@ -7,9 +7,9 @@ export const jobRoleController = (app:Application) => {
     })
     
     app.post('/delete-job-role', async (req: Request, res: Response) => {
-        let id: Number = req.body.id
-        let shouldDeleteJobRole: String = req.body.shouldDeleteJobRole 
-        let rowsDeleted: Number
+        const id: number = req.body.id
+        const shouldDeleteJobRole: string = req.body.shouldDeleteJobRole 
+        let rowsDeleted: number
 
         if (shouldDeleteJobRole === 'true') {
             try {

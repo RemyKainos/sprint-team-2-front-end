@@ -1,6 +1,6 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
-export const deleteJobRole = async function(id: Number): Promise<Number> {
+export const deleteJobRole = async function(id: number): Promise<number> {
     try {
         const response = await axios.delete('http://localhost:8080/api/job-roles/' + id);
 

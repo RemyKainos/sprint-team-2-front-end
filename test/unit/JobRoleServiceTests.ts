@@ -8,15 +8,15 @@ describe('jobRoleService', function () {
     describe('deleteJobRole', function () {
         it('should delete job role from database when valid id entered', async () => {
 
-            var mock = new MockAdapter(axios)
+            const mock = new MockAdapter(axios)
 
-            var expectedResult = 1
-            var rowsDeleted = 1
-            var id = 1
+            const expectedResult = 1
+            const rowsDeleted = 1
+            const id = 1
     
             mock.onDelete('http://localhost:8080/api/job-roles/' + id).reply(200, rowsDeleted)
             
-            var results = await deleteJobRole(id)
+            const results = await deleteJobRole(id)
     
             expect(results).equal(expectedResult)
         })
@@ -24,10 +24,10 @@ describe('jobRoleService', function () {
 
     describe('deleteJobRole', function () {
         it('should return error when invalid id entered', async () => {
-            var mock = new MockAdapter(axios)
+            const mock = new MockAdapter(axios)
             
             const id = -1
-            var error = ""
+            const error = ""
 
             mock.onDelete('http://localhost:8080/delete-job-roles' + id).reply(500)
             

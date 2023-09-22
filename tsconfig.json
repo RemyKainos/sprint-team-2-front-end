@@ -8,8 +8,8 @@
     "noImplicitAny": true,
     "esModuleInterop": true
   },
-
-  "include": ["./**/*"],
+  "ts-node": {    "files": true  },
+  "include": ["src/**/*.ts"],
   "exclude": [
       "./node_modules/**/*",
       "./dist/**/*",

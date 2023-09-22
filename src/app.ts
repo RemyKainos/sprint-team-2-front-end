@@ -1,21 +1,26 @@
-import express, {type Express, type Request, type Response, type Application, type response} from "express";
+import express, { type Request, type Response, type Application } from "express";
 import expressSession from 'express-session';
+import { ActiveSession } from './model/auth';
 import path from "path";
 import nunjucks from 'nunjucks';
+import router from "./router";
 import { jobRoleController } from "./controller/jobRoleController";
 
 const app: Application = express();
 
-// Configure Nunjucks.
-const appViews = path.join(__dirname, "/views/templates/")
+
+const appViews = path.join(__dirname, '/views/');
 
 const nunjucksConfig = {
-    autoescape : true,
-    noCache : true,
-    express : app
+    autoescape: true,
+    noCache: true,
+    express: app
 };
 
 nunjucks.configure(appViews, nunjucksConfig);
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
 
 // Configure Express.
 app.set("view engine", "html");
@@ -25,14 +30,16 @@ app.use(express.urlencoded({ extended : true}))
 
 app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 60000}}))
 
+
 declare module "express-session" {
   interface SessionData {
-      deleteId?: Number
+      current?: ActiveSession;
   }
 }
 
+app.use('/', router);
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+    res.redirect('/login');
 });
 
 
