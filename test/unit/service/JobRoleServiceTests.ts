@@ -1,5 +1,4 @@
 import { JobRoleViewRoles } from "../../../src/model/JobRole";
-
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import chai from 'chai';
@@ -28,16 +27,16 @@ describe('JobRoleService', function () {
         })
 
         it('Should throw exception when 500 error returned', async () => {
-            const mock = new MockAdapter(axios);
+            const mock: MockAdapter = new MockAdapter(axios);
 
             mock.onGet(process.env.BACK_URL + '/api/job-roles').reply(500);
 
-            let error: Error = new Error
+            let error = ''
 
             try{
                 await viewJobRoles()
-            } catch (e: any) {
-                error = e.message;
+            } catch (e) {
+                error = (e as Error).message;
             }
 
             expect(error).to.equal('Could not fetch job roles')

@@ -17,6 +17,9 @@ const nunjucksConfig = {
 
 nunjucks.configure(appViews, nunjucksConfig);
 
+// Configure Express.
+app.set("view engine", "html");
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use(express.json())
@@ -51,6 +54,3 @@ const port = 3000;
 const server = app.listen(port, () => console.log(`Express is listening on port ${port}`));
 
 module.exports = server;
-
-
-
