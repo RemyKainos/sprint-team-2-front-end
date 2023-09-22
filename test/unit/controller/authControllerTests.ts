@@ -32,9 +32,8 @@ describe('LoginController', () => {
                 redirect: (url: string) => {
                     expect(url).to.equal('/');
                 },
-                render: () => {
-                //comment needed to pass lint test
-                },
+                
+                render: () => {}, //eslint-disable-line @typescript-eslint/no-empty-function
             } as unknown as Response;
   
             await LoginController.post(req, res);
@@ -91,9 +90,8 @@ describe('RegisterController', () => {
                 redirect: (url: string) => {
                     expect(url).to.equal('/login');
                 },
-                render: () => {
-                //comment needed to pass lint test
-                },
+
+                render: () => {}, //eslint-disable-line @typescript-eslint/no-empty-function
             } as unknown as Response;
   
             await RegisterController.post(req, res);
