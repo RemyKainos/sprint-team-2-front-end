@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import { viewJobRoles } from "./service/JobRoleService"
 
 export class JobRoleController {
+
     public static get = async function(req:Request, res:Response): Promise<void> {
         try{
             const roles = await viewJobRoles();
             res.render('ViewRoles.html', {title: "View Roles", roles: roles})
         } catch(e){
             console.error(e);
-            res.redirect('/')
-            res.render('error-page.html', {title: "Error Page", errorMessage: e})
+            res.render('ViewRoles.html', {title: "Error Page", errorMessage: e})
         }
     }
 }

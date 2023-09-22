@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {% if errorMessage %}
+        <div class="alert alert-danger">
+            {{ errorMessage }}
+        </div>
+    {% else %}
     <main class="main-content" >
         <div class="table-responsive d-flex align-items-center flex-column">
             <h1 style="margin-bottom: 3rem; margin-top: 3rem; width: 80%;">Kainos Job Roles:</h1>
@@ -40,4 +45,5 @@
             </table>
         </div>
     </main>
+    {% endif %}
 {% endblock %}
