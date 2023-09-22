@@ -8,6 +8,8 @@ export class JobRoleController {
             res.render('ViewRoles.html', {title: "View Roles", roles: roles})
         } catch(e){
             console.error(e);
+            res.redirect('/')
+            res.render('error-page.html', {title: "Error Page", errorMessage: e})
         }
     }
 }

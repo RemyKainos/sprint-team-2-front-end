@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <main>
+        {% if errorMessage %}
+            <div class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

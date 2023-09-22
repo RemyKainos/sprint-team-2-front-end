@@ -11,5 +11,6 @@ router.post('/login', LoginController.post);
 router.get('/register', RegisterController.get)
 router.post('/register', RegisterController.post)
 router.get('/view-roles', JobRoleController.get)
+router.get('error-page')
 
 export default router

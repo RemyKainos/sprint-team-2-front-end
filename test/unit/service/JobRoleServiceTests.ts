@@ -36,11 +36,11 @@ describe('JobRoleService', function () {
 
             try{
                 await viewJobRoles()
-            } catch (e) {
-                errorMessage = e.message;
+            } catch (error: any) {
+                errorMessage = error.message;
             }
 
-            expect(errorMessage).to.equal('Could not fetch job roles')
+            expect(errorMessage).to.equal('Viewing job roles is not available at this time please try again later')
         })
     })
 })
