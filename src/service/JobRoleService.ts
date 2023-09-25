@@ -19,3 +19,13 @@ export const deleteJobRole = async function(id: number): Promise<number> {
         throw new Error('Could not delete job role')
     }
 }
+
+export const getJobRoleById = async function(id: number): Promise<JobRoleViewRoles> {
+    try {
+        const response = await axios.get(process.env.BACK_URL + '/api/job-roles/' + id.toString());
+
+        return response.data
+    } catch (e) {
+        throw new Error('Could not get job role')
+    }
+}

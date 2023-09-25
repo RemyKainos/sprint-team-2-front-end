@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { deleteJobRole, viewJobRoles } from "./service/JobRoleService"
+import { deleteJobRole, viewJobRoles, getJobRoleById } from "./service/JobRoleService"
+import { JobRoleViewRoles } from "./model/JobRole";
 
 export class JobRoleController {
     public static get = async function(req:Request, res:Response): Promise<void> {
@@ -11,36 +12,76 @@ export class JobRoleController {
         }
     }
 
+    // TODO: REMOVE
+    public static getTemp = async function(req:Request, res:Response): Promise<void> {
+        res.render('temp-delete-job-role')
+    }
+
+    // TODO: REMOVE and put in post of job spec delete button method
+    public static postTemp = async function(req:Request, res:Response): Promise<void> {
+        if (isNaN(parseInt(req.body.id))) {
+            res.locals.errormessage = 'Invalid Job Role ID Selected';
+            
+            // TODO: Update link
+            res.render('temp-delete-job-role')
+        } else {
+            req.session.deleteId = parseInt(req.body.id)
+
+            res.redirect('/delete-job-role/' + req.session.deleteId)
+        }
+    }
+
     public static getDelete = async function(req:Request, res:Response): Promise<void> {
         // TODO: rewrite to take the ID of the selected request - do same as in JobFamilyController
-        res.render('delete-job-role')
+        if (isNaN(parseInt(req.params.id))) {
+            res.locals.errormessage = 'Invalid Job Role ID Selected';
+            
+            // TODO: Update link
+            res.render('temp-delete-job-role')
+        } else {
+
+            const id: number = parseInt(req.params.id)
+
+            try {
+                const jobRole: JobRoleViewRoles = await getJobRoleById(id)
+
+                res.render('delete-job-role', {id: id, jobRole: jobRole})
+            } catch (e) {
+                console.error(e)
+
+                res.locals.errormessage = (e as Error).message;
+
+                res.render('temp-delete-job-role');
+            }
+        }
     }
 
     public static postDelete = async function(req:Request, res:Response): Promise<void> {
         // TODO: Rewrite here to get id of selected - do same as in JobFamilyController
-        const id: number = req.body.id
         const shouldDeleteJobRole: string = req.body.shouldDeleteJobRole 
         let rowsDeleted: number
 
+        console.log(req.session.id)
+
         if (shouldDeleteJobRole === 'true') {
             try {
-                rowsDeleted = await deleteJobRole(id)
+                rowsDeleted = await deleteJobRole(req.session.deleteId as number)
 
                 if (rowsDeleted != 1) {
                     throw new Error('Unable to delete job role - unexpected number of rows deleted')
                 } else {
-                    // TODO: redirect to viewRoles page
-                    res.redirect('/')
+                    res.redirect('/view-roles')
                 }
             } catch (e) {
                 console.error(e)
 
                 res.locals.errormessage = (e as Error).message
 
-                res.render('delete-job-role', req.body)
+                res.render('delete-job-role', req.params, req.body)
             }
         } else {
-            res.redirect('back');
+            // TODO: update to be previous page
+            res.redirect('/temp-delete-job-role/');
         }
     }
 }

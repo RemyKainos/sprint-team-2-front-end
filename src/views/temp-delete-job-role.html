@@ -3,12 +3,7 @@
 
 {% block content %}
 	<main class="container mt-4">
-        {% if jobRole %}
-        <h1>Do you want to delete {{ jobRole.roleName }}?</h1>
-        {% else %}
         <h1>Delete Job Role?</h1>
-        {% endif %}
-
 		<section id="form" class="bg-light py-5">
 			<div class="container">
                 {% if errormessage %}
@@ -16,11 +11,10 @@
                         {{ errormessage }}
                     </div>
                 {% endif %}
-                <form action="/delete-job-role/" method="post">
+                <form action="/temp-delete-job-role/" method="post">
                     <div class="form-group">
-                        <label for="shouldDeleteJobRole">Are you sure you want to delete this role?</label>
-                        <input id="shouldDeleteJobRoleYes" name="shouldDeleteJobRole" type="radio" value="true" /> Yes
-                        <input checked="checked" id="shouldDeleteJobRoleNo" name="shouldDeleteJobRole" type="radio" value="false" /> No
+                        <label for="id">Job Role Id</label>
+                        <input type="number" min="0" id="id" name="id" class="form-control" required>
                     </div>
                     <button type="submit" id="submit" class="btn btn-primary">Submit</button>
                 </form>
