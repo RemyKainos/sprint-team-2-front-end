@@ -22,9 +22,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td class="text-center"><input type="text" id="roleNameFilter"></td>
+                        <td class="text-center"><input type="text" id="bandNameFilter"></td>
+                        <td class="text-center"><input type="text" id="capabilityNameFilter"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     {% for role in roles %}
                         <tr>
-                            <th scope="row">{{role.roleName}}</a></td>
+                            <td>{{role.roleName}}</a></th>
                             <td class="text-center">{{role.bandName}}</td>
                             <td class="text-center">{{role.capabilityName}}</td>
                             <td class="text-center"> 
