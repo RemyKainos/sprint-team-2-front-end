@@ -15,5 +15,7 @@ router.get('/select-capability', JobCapabilityController.get)
 router.post('/select-capability', JobCapabilityController.post)
 router.get('/family-by-capability/:id', JobFamilyController.get)
 router.get('/view-roles', JobRoleController.get)
+router.get('/add-capability', JobCapabilityController.getAddCapability)
+router.post('/add-capability', JobCapabilityController.postAddCapability)
 
 export default router

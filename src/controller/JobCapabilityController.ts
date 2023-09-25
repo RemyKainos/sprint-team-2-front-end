@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { getAllCapabilities } from "../service/jobCapabilityService";
-import type { JobCapability } from "../model/JobCapability";
+import { addCapability, getAllCapabilities } from "../service/jobCapabilityService";
+import type { JobCapability, JobCapabilityRequest } from "../model/JobCapability";
 
 export class JobCapabilityController {
     public static async get(req: Request, res: Response): Promise<void> {
@@ -30,6 +30,34 @@ export class JobCapabilityController {
             res.locals.errormessage = (e as Error).message;
 
             res.render('select-capability')
+        }
+    }
+
+    public static getAddCapability(req: Request, res: Response): void {
+        res.render('add-capability')
+    }
+
+    public static async postAddCapability(req: Request, res: Response): Promise<void> {
+        const capabilityName: string = req.body.name
+
+        const jobCapability: JobCapabilityRequest = {
+            name: capabilityName
+        }
+
+        try {
+            const capabilityID: number = await addCapability(jobCapability)
+
+            if (capabilityID != 0) {
+                res.redirect('/view-roles/')
+            } else {
+                throw new Error('Capability could not be added')
+            }
+        } catch (e) {
+            console.error(e)
+
+            res.locals.errormessage = (e as Error).message;
+
+            res.render('add-capability')
         }
     }
 }
