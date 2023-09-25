@@ -40,12 +40,12 @@ export class JobRoleController {
             res.render('temp-delete-job-role')
         } else {
 
-            const id: number = parseInt(req.params.id)
+            req.session.deleteId = parseInt(req.params.id)
 
             try {
-                const jobRole: JobRoleViewRoles = await getJobRoleById(id)
+                const jobRole: JobRoleViewRoles = await getJobRoleById(req.session.deleteId)
 
-                res.render('delete-job-role', {id: id, jobRole: jobRole})
+                res.render('delete-job-role', {id: req.session.deleteId, jobRole: jobRole})
             } catch (e) {
                 console.error(e)
 
@@ -61,7 +61,7 @@ export class JobRoleController {
         const shouldDeleteJobRole: string = req.body.shouldDeleteJobRole 
         let rowsDeleted: number
 
-        console.log(req.session.id)
+        console.log(req.session.deleteId)
 
         if (shouldDeleteJobRole === 'true') {
             try {
