@@ -5,3 +5,9 @@ export interface JobRoleViewRoles{
     bandName: string
     capabilityName: string
 }
+
+export interface JobRoleFilter{
+    roleName: string
+    bandName: string
+    capabilityName: string
+}

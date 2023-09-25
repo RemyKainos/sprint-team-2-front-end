@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { viewJobRoles } from "./service/JobRoleService"
+//import { JobRoleFilter } from "./model/JobRole";
 
 export class JobRoleController {
 
@@ -12,4 +13,14 @@ export class JobRoleController {
             res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
         }
     }
+
+    /*public static post = async function(req: Request, res: Response): Promise<void> {
+        try{
+            const data: JobRoleFilter = req.body
+
+
+        } catch(e){
+
+        }
+    }*/
 }
