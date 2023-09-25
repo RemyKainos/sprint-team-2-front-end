@@ -11,7 +11,7 @@
     <main class="main-content" >
         <div class="table-responsive d-flex align-items-center flex-column">
             <h1 style="margin-bottom: 3rem; margin-top: 3rem; width: 80%;">Kainos Job Roles:</h1>
-            <table class="table table-hover" style="width: 80%;">
+            <table id="rolesTable" class="table table-hover" style="width: 80%;">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">Job Role</th>
@@ -31,9 +31,9 @@
                     </tr>
                     {% for role in roles %}
                         <tr>
-                            <td>{{role.roleName}}</a></th>
-                            <td class="text-center">{{role.bandName}}</td>
-                            <td class="text-center">{{role.capabilityName}}</td>
+                            <td id="roleName">{{role.roleName}}</a></th>
+                            <td class="text-center" id="bandName">{{role.bandName}}</td>
+                            <td class="text-center" id="capabilityName">{{role.capabilityName}}</td>
                             <td class="text-center"> 
                             <div class="btn-group mr-3" role="group">
                                 <button type="button" class="btn btn-primary" alt="View {{role.roleName}}">View</button>
