@@ -17,7 +17,7 @@ export class LoginController {
 
             req.session.current = activeSession;
 
-            res.redirect('/');
+            res.redirect('/view-roles');
         } catch (e) {
             console.error(e);
 

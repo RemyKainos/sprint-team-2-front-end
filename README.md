@@ -23,6 +23,8 @@ In the package.json, you can see that ESLint is running a check on the code afte
 3. Navigate to the ESLint website to see what other rules can be added to the project at https://eslint.org/docs/latest/rules/
 4. To run a ESLint check locally, Use the command `npm run lint` and it will give you errors if your code violates the linting rules.
 
+2. Run `UI_TEST_URL=http://localhost:3000 npm run test-ui` to run ui tests, will also likely require backend to be running to pass  
+
 # How to run the application on Docker locally
 ---
 
@@ -35,3 +37,4 @@ In the package.json, you can see that ESLint is running a check on the code afte
 
 When running pull request to main branch, the deploy.yml file will be run which will deploy the UI to the AWS Server.
 The link to the server is https://wvrhehxy3p.eu-west-1.awsapprunner.com/
+>>>>>>> main
