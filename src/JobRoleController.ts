@@ -25,11 +25,9 @@ export class JobRoleController {
                 capabilityNameFilter: req.body.capabilityNameFilter
             }
 
-            console.log(data);
-
             const roles = await viewJobRoleWithFilter(data);
+
             const capabilities = await getAllCapabilities()
-            console.log(capabilities);
             res.render('ViewRoles.html', {title: "View Roles", roles: roles, capabilities: capabilities})
         } catch(e){
             console.error(e)

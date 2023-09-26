@@ -12,7 +12,7 @@ export const viewJobRoles = async function (): Promise<JobRoleViewRoles []> {
 
 export const viewJobRoleWithFilter = async function (filter: JobRoleFilter): Promise<JobRoleViewRoles []> {
     try{
-        const response = await axios.post(process.env.BACK_URL + '/api/job-roles/filter/', filter)
+        const response = await axios.post(process.env.BACK_URL + '/api/job-roles/filter', filter)
         return response.data
     } catch(error){
         throw new Error('Viewing job roles by filter is not available at this time please try again later.')
