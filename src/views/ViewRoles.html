@@ -25,10 +25,27 @@
                     <tr>
                         <form action="/view-roles" method="post">
                             <div class="form-group">
-                                <td class="text-center"><input type="text" id="roleNameFilter" class="form-control" value=""></td>
-                                <td class="text-center"><input type="text" id="bandNameFilter" class="form-control" value=""></td>
+                                <td class="text-center"><input type="text" id="roleNameFilter" name="roleNameFilter" class="form-control" value=""></td>
                                 <td class="text-center">
-                                    <input type="text" id="capabilityNameFilter" class="form-control" value="">
+                                    <select id="bandNameFilter" name="bandNameFilter" class="form-select">
+                                        <option value=""></option>
+                                        <option value="Leadership Community">Leadership Community</option>
+                                        <option value="Principal">Principal</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="Consultant">Consultant</option>
+                                        <option value="Senior Associate">Senior Associate</option>
+                                        <option value="Associate">Associate</option>
+                                        <option value="Trainee">Trainee</option>
+                                        <option value="Apprentice">Apprentice</option>
+                                    </select>
+                                </td>
+                                <td class="text-center">
+                                    <select id="capabilityNameFilter" name="capabilityNameFilter" class="form-select">
+                                        <option value=""></option>
+                                        {% for capability in capabilities %}
+                                            <option value="{{ capability.capabilityName }}" >{{ capability.name }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </td>
                                 <td></td>
                                 <td></td>
