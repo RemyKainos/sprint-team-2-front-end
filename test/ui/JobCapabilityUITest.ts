@@ -81,4 +81,23 @@ describe('Job Capability UI Test', async () => {
 
         await driver.quit()
     })
+
+    it('should display invalid capability id error when id is string', async () => {
+        const driver = new Builder().
+            withCapabilities(Capabilities.chrome()).
+            build();
+
+        await driver.get(process.env.FRONT_URL + '/add-capability')
+
+        await driver.findElement(By.id('name'))
+            .sendKeys('invalid capability invalid capability invalid capability invalid capability invalid capability')
+        await driver.findElement(By.id('submit')).click();
+
+        await driver.findElement(By.id('add-capability-error')).getText().then(function(value:string) {
+            console.log(value)
+            chai.assert.equal(value, 'Capability Name must be under 70 characters long')
+        })
+
+        await driver.quit()
+    })
 })
