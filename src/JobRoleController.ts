@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { viewJobRoles, viewJobRoleWithFilter } from "./service/JobRoleService"
 import { JobRoleFilter } from "./model/JobRole";
 import { getAllCapabilities } from "./service/jobCapabilityService";
+import { RolesNotFoundError } from "./errors/RolesNotFoundError";
 
 export class JobRoleController {
     
@@ -24,22 +25,23 @@ export class JobRoleController {
     public static post = async function(req: Request, res: Response): Promise<void> {
         const bands = 
         ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
+        
+        const capabilities = await getAllCapabilities()
+        
+        const data: JobRoleFilter = {
+            roleNameFilter: req.body.roleNameFilter,
+            bandNameFilter: req.body.bandNameFilter,
+            capabilityNameFilter: req.body.capabilityNameFilter
+        }
+
         try{
-            
-            const data: JobRoleFilter = {
-                roleNameFilter: req.body.roleNameFilter,
-                bandNameFilter: req.body.bandNameFilter,
-                capabilityNameFilter: req.body.capabilityNameFilter
-            }
-
-            console.log(data);
-
             const roles = await viewJobRoleWithFilter(data);
-
-            const capabilities = await getAllCapabilities()
             res.render('ViewRoles.html', {title: "View Roles", roles: roles, bands: bands, capabilities: capabilities, filters: data})
         } catch(e){
-            console.error(e)
+            if(e instanceof RolesNotFoundError){
+                console.log("hello")
+            }
+            console.log(e)
             res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
         }
     }
