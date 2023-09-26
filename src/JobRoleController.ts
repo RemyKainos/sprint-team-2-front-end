@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { viewJobRoles, viewJobRoleWithFilter } from "./service/JobRoleService"
 import { JobRoleFilter } from "./model/JobRole";
 import { getAllCapabilities } from "./service/jobCapabilityService";
-import { RolesNotFoundError } from "./errors/RolesNotFoundError";
 
 export class JobRoleController {
     
@@ -38,9 +37,6 @@ export class JobRoleController {
             const roles = await viewJobRoleWithFilter(data);
             res.render('ViewRoles.html', {title: "View Roles", roles: roles, bands: bands, capabilities: capabilities, filters: data})
         } catch(e){
-            if(e instanceof RolesNotFoundError){
-                console.log("hello")
-            }
             console.log(e)
             res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
         }
