@@ -9,3 +9,14 @@
 .job-spec-link:hover{
     text-decoration: underline;
 }
+
+.back-link-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.back-link{
+    margin: 0 1rem 1rem 0;
+    display: inline;
+
+}

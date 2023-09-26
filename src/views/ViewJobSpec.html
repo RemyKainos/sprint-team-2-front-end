@@ -7,19 +7,28 @@
 {% block content %}
     <main class="main-content">
         <header class="job-spec-header">
-            <h1>Job Spec</h1>
+            <h1>{{jobSpec.name}}</h1>
         </header>
+        
+        <div class="back-link-container">
+            <p class="back-link">
+                <a class="job-spec-link" href="{{jobSpec.sharepointLink}}">Learn more on SharePoint</a>
+            </p>
+    
+            <p class="back-link">
+                <a class="job-spec-link" href="/view-roles">See all job roles</a>
+            </p>
+        </div>
 
         <div class="job-spec-content">
             <p>{{jobSpec.jobSpec}}</p>
+        </div>
 
-            <p>
-                <a class="job-spec-link" href="{{jobSpec.sharepointLink}}">Learn more on SharePoint</a>
-            </p>
+        <hr>
 
-            <p>
-                <a class="job-spec-link" href="/view-job-roles">See all job roles</a>
-            </p>
+        <h1>Responsibilities</h1>
+        <div class="job-spec-content">
+            <p>{{jobSpec.responsibilities}}</p>
         </div>
     </main>
 {% endblock %}
