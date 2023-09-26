@@ -38,12 +38,9 @@ export class JobRoleController {
     }
 
     public static postDelete = async function(req:Request, res:Response): Promise<void> {
-        // TODO: Rewrite here to get id of selected - do same as in JobFamilyController
         const shouldDeleteJobRole: string = req.body.shouldDeleteJobRole 
         const deleteId: number = req.body.deleteId
         let rowsDeleted: number
-
-        console.log(deleteId)
 
         if (shouldDeleteJobRole === 'true') {
             try {
@@ -62,8 +59,7 @@ export class JobRoleController {
                 res.render('delete-job-role', req.params, req.body)
             }
         } else {
-            // TODO: update to be previous page
-            res.redirect('back');
+            res.redirect('/view-job-spec/' + deleteId.toString());
         }
     }
 }

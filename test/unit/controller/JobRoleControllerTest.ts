@@ -54,4 +54,35 @@ describe('JobRole Controller', () => {
             expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles Error", errorMessage: expectedErrorMessage}))
         })
     })
+
+    describe('getDelete', () => {
+        it('Should return 1 as number of rows deleted on successful deletion', async () => {
+            const req: Partial<Request> = {
+                params: { id: "1" },
+            } as Partial<Request>;
+
+            const res = {
+                render: sinon.spy()
+            } 
+
+            const deleteId = 1;
+    
+            const mockJobRole: JobRoleViewRoles = {
+                roleID: 1,
+                roleName: "test",
+                sharepointLink: "test",
+                bandName: "test",
+                capabilityName: "test"
+            }
+
+            const getJobRoleByIdStub =  sinon.stub(JobRoleService, "getJobRoleById")
+
+            getJobRoleByIdStub.withArgs(deleteId).resolves(mockJobRole)
+
+            await JobRoleController.getDelete(req as Request, res as unknown as Response)
+
+            expect(getJobRoleByIdStub.calledOnceWithExactly(1)).to.be.true;
+            expect(res.render.calledOnceWithExactly("delete-job-role", {id: deleteId, jobRole: mockJobRole})).to.be.true;  
+        })
+    })
 })
