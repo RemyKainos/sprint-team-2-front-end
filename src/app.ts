@@ -1,6 +1,6 @@
 import express, { type Request, type Response, type Application } from "express";
 import expressSession from 'express-session';
-import { ActiveSession, User } from './model/auth';
+import { User } from './model/auth';
 import path from "path";
 import nunjucks from 'nunjucks';
 import router from "./router";

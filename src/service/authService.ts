@@ -1,4 +1,4 @@
-import type { ActiveSession, Credentials, Role, User } from "../model/auth";
+import type { Credentials, Role, User } from "../model/auth";
 
 import axios from 'axios';
 import type { AxiosError } from 'axios';

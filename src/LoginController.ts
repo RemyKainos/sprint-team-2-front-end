@@ -1,5 +1,5 @@
 import type { Request, Response } from "express"
-import { ActiveSession, Credentials } from "./model/auth";
+import { Credentials } from "./model/auth";
 import { login, whoami } from "./service/authService";
 
 
