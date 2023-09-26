@@ -7,8 +7,6 @@
     "strict": true,                                    
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "strictPropertyInitialization": false,
-    "allowSyntheticDefaultImports": true
   },
   "ts-node": {    "files": true  },
   "include": ["src/**/*.ts"],

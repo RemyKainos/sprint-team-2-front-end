@@ -6,6 +6,6 @@ export const viewJobRoles = async function (): Promise<JobRoleViewRoles []> {
         const response = await axios.get(process.env.BACK_URL + '/api/job-roles');
         return response.data;
     } catch (error) {
-        throw new Error('Could not fetch job roles');
+        throw new Error('Viewing job roles is not available at this time please try again later.');
     }
 };

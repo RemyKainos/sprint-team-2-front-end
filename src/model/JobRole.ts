@@ -1,4 +1,4 @@
-export class JobRoleViewRoles{
+export interface JobRoleViewRoles{
     roleID: number
     roleName: string
     sharepointLink: string
