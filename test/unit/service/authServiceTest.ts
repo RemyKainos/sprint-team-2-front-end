@@ -16,12 +16,13 @@ describe('AuthService', function () {
                 password: "password"
             }
 
-            const responseData = "token"
+            const responseData = {token:"token"}
+            const expectedResult = "token"
 
             mock.onPost(process.env.BACK_URL + '/api/login/', loginData).reply(200, responseData);
 
             const result = await login(loginData)
-            expect(result).to.be.equal(responseData);
+            expect(result).to.equal(expectedResult);
 
         });
 
@@ -60,7 +61,10 @@ describe('AuthService', function () {
             const user: User = {
                 username: "user@user.com",
                 password: "Password$",
-                role: "Admin"
+                role: {
+                    roleID: 1,
+                    role_name: "Admin"
+                }
             }
             mock.onPost(process.env.BACK_URL + '/api/register/', user).reply(200);
 
@@ -83,7 +87,10 @@ describe('AuthService', function () {
             const user: User = {
                 username: 'user@user.com',
                 password: 'Password',
-                role: 'Admin',
+                role: {
+                    roleID: 1,
+                    role_name: "Admin"
+                }
             };
 
             // Mock the Axios request to return a 500 status code (simulating a failed registration)

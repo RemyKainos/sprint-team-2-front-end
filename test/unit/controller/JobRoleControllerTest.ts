@@ -41,8 +41,13 @@ describe('JobRole Controller', () => {
             const errorStub = sinon.stub(JobRoleService, 'viewJobRoles').rejects(new Error('Could not fetch job roles'))
             
             const consoleStub = sinon.stub(console, "error")
+            const token = "token"
 
-            const req = {session:{curretn:{}}} as unknown as Request;
+            //const req = {session:{token:{token}}} as unknown as Request;
+
+            const req = {
+                session: {token: token},
+            } as unknown as Request;
 
             const res = {
                 render: sinon.spy()
@@ -50,7 +55,7 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.get(req, res as unknown as Response);
 
-            expect(errorStub.calledOnceWithExactly()).to.be.true;
+            expect(errorStub.calledOnceWithExactly(token)).to.be.true;
 
             expect(consoleStub.calledOnce).to.be.true
         })

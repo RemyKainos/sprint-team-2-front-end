@@ -1,17 +1,20 @@
 import { expect } from 'chai';
 import { NextFunction, Request, Response } from 'express';
-import middleware from '../../../src/middleware/auth'; 
+import {login} from '../../../src/middleware/auth'; 
+import sinon from 'sinon'
 
 describe('Middleware Test', () => {
     it('should call next() when req.session.current is truthy', () => {
         const req = { session: { current: true } } as unknown as Request;
-        const res = {} as Response;
+        const res = {
+            redirect: sinon.spy(),
+        } as unknown as Response;
 
         const next:NextFunction = () => {
             expect(true).to.be.true; // Assert that next() was called
         };
 
-        middleware(req, res, next);
+        login(req, res, next);
     });
 
     it('should redirect to /login when req.session.current is falsy', () => {
@@ -26,6 +29,6 @@ describe('Middleware Test', () => {
             throw new Error('next() should not be called');
         };
 
-        middleware(req, res, next);
+        login(req, res, next);
     });
 });
