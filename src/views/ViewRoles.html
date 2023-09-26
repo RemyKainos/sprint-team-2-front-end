@@ -43,13 +43,12 @@
                                     <select id="capabilityNameFilter" name="capabilityNameFilter" class="form-select">
                                         <option value=""></option>
                                         {% for capability in capabilities %}
-                                            <option value="{{ capability.capabilityName }}" >{{ capability.name }}</option>
+                                            <option value="{{ capability.name }}" >{{ capability.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>
+                                <td><button type="submit" class="btn btn-primary">filter</button></td>
                                 <td></td>
-                                <td></td>
-                                <button type="submit" class="btn btn-primary">test</button>
                             </div>
                         </form>
                     </tr>
