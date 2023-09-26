@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
 import { ActiveSession, Credentials } from "./model/auth";
-import { login } from "./service/authService";
+import { login, whoami } from "./service/authService";
 
 
 export class LoginController {
@@ -13,9 +13,10 @@ export class LoginController {
         const data: Credentials = req.body;
 
         try {
-            const activeSession: ActiveSession = await login(data);
-
-            req.session.current = activeSession;
+            req.session.token = await login(data);
+            console.log(req.session.token)
+            req.session.user = await whoami(req.session.token);
+            console.log(JSON.stringify(req.session))
 
             res.redirect('/view-roles');
         } catch (e) {
@@ -25,5 +26,11 @@ export class LoginController {
 
             res.render('login', req.body);
         }
+    }
+
+    public static logOut(req:Request, res:Response): void{
+        req.session.destroy(() => {
+            res.redirect('/');
+        });
     }
 }

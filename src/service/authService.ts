@@ -4,14 +4,14 @@ import axios from 'axios';
 import type { AxiosError } from 'axios';
 import { validateUser } from "../validator/userValidator";
 
-export const login = async function(credentials: Credentials): Promise<ActiveSession> {
+export const login = async function(credentials: Credentials): Promise<string> {
     try {
         console.error(process.env.BACK_URL + '/api/login/')
         console.error(JSON.stringify(credentials))
         const response = await axios.post(process.env.BACK_URL + '/api/login/', credentials);
 
 
-        return response.data;
+        return response.data.token;
     } catch (e) {
         if ((e as AxiosError).response?.status === 401) {
             throw new Error('Your email or password combination is incorrect');
@@ -46,4 +46,24 @@ export const getRoles = async function():Promise<Role[]>{
     } catch (e) {
         throw new Error('Failed to register');
     }
+}
+
+export const whoami = async function(token: string): Promise<User> {
+    console.log(token)
+    try {
+        console.log(`Bearer ${token}`)
+        const response = await axios.get(process.env.BACK_URL + "/api/whoami", {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        if (response.status === 200) {
+            return response.data as User
+        }
+    } catch (e) {
+        if ((e as AxiosError).response?.status === 401) {
+            throw new Error("User isn't logged in")
+        }
+        console.log((e as Error).message);
+
+    }
+    throw new Error("Couldn't get user")
 }

@@ -1,6 +1,6 @@
 import express, { type Request, type Response, type Application } from "express";
 import expressSession from 'express-session';
-import { ActiveSession } from './model/auth';
+import { ActiveSession, User } from './model/auth';
 import path from "path";
 import nunjucks from 'nunjucks';
 import router from "./router";
@@ -41,7 +41,8 @@ app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 6000
 
 declare module "express-session" {
   interface SessionData {
-      current?: ActiveSession;
+      token:string;
+      user:User;
   }
 }
 

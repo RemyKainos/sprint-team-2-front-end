@@ -3,20 +3,24 @@ export type Credentials = {
     password: string;
 }
 
+
+
+export type Role = {
+    roleID: number
+    role_name: string    
+}
+
 export type User = {
     username: string;
     password: string;
-    role: string;
+    role: Role;
 }
 
 export type ActiveSession = {
     token: string;
     username: string;
-    role: string;
+    role: Role;
 }
 
-export type Role = {
-    roleID: number
-    roleName: string    
-}
+
 
