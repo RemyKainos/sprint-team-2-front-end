@@ -3,12 +3,14 @@ import { deleteJobRole, viewJobRoles, getJobRoleById } from "./service/JobRoleSe
 import { JobRoleViewRoles } from "./model/JobRole";
 
 export class JobRoleController {
+
     public static get = async function(req:Request, res:Response): Promise<void> {
         try{
             const roles = await viewJobRoles();
             res.render('ViewRoles.html', {title: "View Roles", roles: roles})
         } catch(e){
             console.error(e);
+            res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
         }
     }
 

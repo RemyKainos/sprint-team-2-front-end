@@ -1,22 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {% if errorMessage %}
     <main class="main-content">
-        <table class="table table-striped-columns">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Sharepoint Link</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for role in roles %}
-                    <tr>
-                        <th scope="row"><a href="/view-job-spec/{{role.roleID}}" id="{{role.roleName}}">{{role.roleName}}</a></td>
-                        <td><a href="{{role.sharepointLink}}" id="sharepoint-link">Visit</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="alert alert-danger text-center">
+            {{ errorMessage }}
+        </div>
     </main>
+    {% else %}
+    <main class="main-content" >
+        <div class="table-responsive d-flex align-items-center flex-column">
+            <h1 style="margin-bottom: 3rem; margin-top: 3rem; width: 80%;">Kainos Job Roles:</h1>
+            <table class="table table-hover" style="width: 80%;">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Job Role</th>
+                        <th scope="col" class="text-center">Band</th>
+                        <th scope="col" class="text-center">Capability</th>
+                        <th scope="col" class="text-center">Actions</th>
+                        <th scope="col" class="text-center">Sharepoint</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for role in roles %}
+                        <tr>
+                            <th scope="row">{{role.roleName}}</a></td>
+                            <td class="text-center">{{role.bandName}}</td>
+                            <td class="text-center">{{role.capabilityName}}</td>
+                            <td class="text-center"> 
+                            <div class="btn-group mr-3" role="group">
+                                <button type="button" class="btn btn-primary" alt="View {{role.roleName}}">View</button>
+                            </div>
+                            </td>
+                            <td class="text-center">
+                                {% if role.sharepointLink %}
+                                    <a href="{{role.sharepointLink}}" target="_blank">Open</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+    {% endif %}
 {% endblock %}

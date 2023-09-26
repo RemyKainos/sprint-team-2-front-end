@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES5",
-    "sourceMap": true,  
+    "sourceMap": false,  
     "outDir": "./dist",   
-    "forceConsistentCasingInFileNames": true,  
+    "forceConsistentCasingInFileNames": true, 
     "strict": true,                                    
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "strictPropertyInitialization": false,
-    "allowSyntheticDefaultImports": true
   },
+  "include": ["./src/**/*"],
   "ts-node": {    "files": true  },
-  "include": ["src/**/*.ts"],
   "exclude": [
       "./node_modules/**/*",
       "./dist/**/*"

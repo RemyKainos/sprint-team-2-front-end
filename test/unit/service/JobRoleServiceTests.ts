@@ -31,15 +31,15 @@ describe('JobRoleService', function () {
 
             mock.onGet(process.env.BACK_URL + '/api/job-roles').reply(500);
 
-            let error = ''
+            let errorMessage = "default"
 
             try{
                 await viewJobRoles()
             } catch (e) {
-                error = (e as Error).message;
+                errorMessage = (e as Error).message;
             }
 
-            expect(error).to.equal('Could not fetch job roles')
+            expect(errorMessage).to.equal('Viewing job roles is not available at this time please try again later.')
         })
     })
 
