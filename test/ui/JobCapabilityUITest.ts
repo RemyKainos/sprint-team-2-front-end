@@ -62,7 +62,6 @@ describe('Job Capability UI Test', async () => {
         await driver.quit()
     })
 
-    // TODO Fix
     it ('should add new capability when valid name is entered and verify is added using capabilities & families page', async() => {
         const driver = new Builder().
             withCapabilities(Capabilities.chrome()).

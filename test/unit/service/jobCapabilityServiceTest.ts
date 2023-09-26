@@ -60,11 +60,7 @@ describe('JobCapabilityService', function () {
         const capability: JobCapabilityRequest = {
             name: "test"
         }
-        const responseData: number = 1
-
-        const test = {
-            token: 'token'
-        }
+        const responseData = 1
 
         mock.onPost(process.env.BACK_URL + '/api/capability/', capability).reply(200, responseData)
 

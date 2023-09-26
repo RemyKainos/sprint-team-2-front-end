@@ -107,7 +107,7 @@ describe('jobCapabilityController', () => {
             name: "test"
         }
 
-        const mockResponse: number = 1
+        const mockResponse = 1
 
         const addCapabilityStub = sinon.stub(jobCapabilityService, "addCapability");
 
