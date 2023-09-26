@@ -9,15 +9,17 @@
         <h1>Delete Job Role?</h1>
         {% endif %}
 
+        {% if errormessage %}
+            <div class="alert alert-danger" role="alert">
+                {{ errormessage }}
+            </div>
+        {% else %}
 		<section id="form" class="bg-light py-5">
 			<div class="container">
-                {% if errormessage %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ errormessage }}
-                    </div>
-                {% endif %}
+                
                 <form action="/delete-job-role/" method="post">
                     <div class="form-group">
+                        <input type="hidden" name="deleteId" id="deleteId" value="{{id}}"/>
                         <label for="shouldDeleteJobRole">Are you sure you want to delete this role?</label>
                         <input id="shouldDeleteJobRoleYes" name="shouldDeleteJobRole" type="radio" value="true" /> Yes
                         <input checked="checked" id="shouldDeleteJobRoleNo" name="shouldDeleteJobRole" type="radio" value="false" /> No
@@ -26,5 +28,6 @@
                 </form>
             </div>
 		</section>
+        {% endif %}
 	</main>
 {% endblock %}
