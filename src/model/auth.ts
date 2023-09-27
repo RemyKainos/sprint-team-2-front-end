@@ -14,3 +14,9 @@ export type ActiveSession = {
     username: string;
     role: string;
 }
+
+export type Role = {
+    roleID: number
+    roleName: string    
+}
+

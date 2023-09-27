@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <main class="container mt-4">
+            <div class="container">
+                <h1>Add New Capability</h1>
+                {% if errormessage %}
+                <div class="alert alert-danger" id="add-capability-error">
+                    {{ errormessage }}
+                </div>
+                {% endif %}
+                <form action="/add-capability/" method="post">
+                    <div class="form-group">
+                        <label for="name">Capability Name</label>
+                        <input type="text" id="name" name="name" class="form-control" value="" required>
+                    </div>
+                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+    </main>
+{% endblock %}

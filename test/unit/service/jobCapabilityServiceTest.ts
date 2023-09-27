@@ -1,8 +1,8 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import chai from "chai";
-import { getAllCapabilities, getCapabilityById } from '../../../src/service/jobCapabilityService'
-import { JobCapability } from "../../../src/model/JobCapability";
+import { addCapability, getAllCapabilities, getCapabilityById } from '../../../src/service/jobCapabilityService'
+import { JobCapability, JobCapabilityRequest } from "../../../src/model/JobCapability";
 
 const expect = chai.expect
 
@@ -52,6 +52,32 @@ describe('JobCapabilityService', function () {
 
         return getCapabilityById(capabilityID).catch((error: Error) => {
             expect(error.message).to.equal('Could not fetch capability')
+        })
+    })
+
+    it('should add capability when valid capability request provided', async() => {
+        const mock = new MockAdapter(axios);
+        const capability: JobCapabilityRequest = {
+            name: "test"
+        }
+        const responseData = 1
+
+        mock.onPost(process.env.BACK_URL + '/api/capability/', capability).reply(200, responseData)
+
+        const result = await addCapability(capability)
+        expect(result).to.equal(responseData)
+    })
+
+    it('should return error when database returns error', async() => {
+        const mock = new MockAdapter(axios);
+        const capability: JobCapabilityRequest = {
+            name: "invalid-test"
+        }
+
+        mock.onPost(process.env.BACK_URL + '/api/capability/', capability).reply(400)
+
+        return addCapability(capability).catch((error: Error) => {
+            expect(error.message).to.equal('Could not add capability')
         })
     })
 })
