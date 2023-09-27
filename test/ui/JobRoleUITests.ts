@@ -20,7 +20,7 @@ describe('JobRole Tests', async () => {
     })
 
     describe('Delete Job Role', async () => {
-        it('Render delete job role page', async () => {
+        it('Render delete job role page via Job Spec page', async () => {
             const driver = new Builder().
                 withCapabilities(Capabilities.chrome()).
                 build();
@@ -34,6 +34,26 @@ describe('JobRole Tests', async () => {
             await driver.findElement(By.xpath('//a[@href="/view-job-spec/3"]/button')).click()
 
             await driver.findElement(By.id('deleteButton')).click()
+
+            await driver.findElement(By.id('title')).getText().then(function (value: string) {
+                chai.assert.equal(value, 'Do you want to delete Principal Test Architect?')
+            })
+
+            await driver.quit()
+        })
+
+        it('Render delete job role page via view roles page', async () => {
+            const driver = new Builder().
+                withCapabilities(Capabilities.chrome()).
+                build();
+
+            await driver.get(process.env.FRONT_URL + '/login')
+
+            await driver.findElement(By.id('username')).sendKeys('email@email.com')
+            await driver.findElement(By.id('password')).sendKeys('password')
+            await driver.findElement(By.id('submit')).click()
+            
+            await driver.findElement(By.xpath('//a[@href="/delete-job-role/3"]/button')).click()
 
             await driver.findElement(By.id('title')).getText().then(function (value: string) {
                 chai.assert.equal(value, 'Do you want to delete Principal Test Architect?')
