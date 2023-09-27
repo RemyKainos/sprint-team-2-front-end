@@ -41,7 +41,7 @@ export class JobRoleController {
         if(req.body.button === 'filterButton'){
             filters = {
                 roleNameFilter: req.body.roleNameFilter,
-                bandID: req.body.bandNameFilter, //this is broke rn
+                bandID: req.body.bandNameFilter,
                 capabilityID: req.body.capabilityNameFilter
             }
         }
