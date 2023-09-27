@@ -13,9 +13,9 @@ const jobRole: JobRoleViewRoles = {
 }
 
 const jobRoleFilter: JobRoleFilter = {
-    roleNameFilter: "",
-    bandNameFilter: "",
-    capabilityNameFilter: ""
+    roleNameFilter: 'test',
+    bandNameFilter: 'test',
+    capabilityNameFilter: 'test'
 }
 
 describe('JobRoleService', function () {

@@ -8,7 +8,6 @@ export class JobRoleController {
 
 
     public static get = async function(req:Request, res:Response): Promise<void> {
-        console.log("dabbay")
         
         const bands = 
         ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
@@ -35,13 +34,10 @@ export class JobRoleController {
         
         const capabilities = await getAllCapabilities()
 
-        console.log(req.body)
-        console.log(req.body.button)
-
         let filters: JobRoleFilter = {
-            roleNameFilter: "",
-            bandNameFilter: "",
-            capabilityNameFilter: ""
+            roleNameFilter: '',
+            bandNameFilter: '',
+            capabilityNameFilter: ''
         }
 
         if(req.body.button === 'filterButton'){

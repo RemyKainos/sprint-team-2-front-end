@@ -30,6 +30,15 @@ describe('JobRole Controller', () => {
 
     describe('get', () => {
         it('Should render the ViewRoles page with correct data', async () => {
+            const bands = 
+            ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
+
+            const filters: JobRoleFilter = {
+                roleNameFilter: "",
+                bandNameFilter: "",
+                capabilityNameFilter: ""
+            }
+
             sinon.stub(JobRoleService, 'viewJobRoles').resolves([jobRoleViewRoles1])
             sinon.stub(jobCapabilityService, 'getAllCapabilities').resolves([capability])
             
@@ -41,7 +50,8 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.get(req, res as unknown as Response);
             
-            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles", roles: [jobRoleViewRoles1], capabilities: [capability]})).to.be.true;
+            expect(res.render.calledOnceWithExactly('ViewRoles.html',
+                {title: "View Roles", roles: [jobRoleViewRoles1], bands: bands, capabilities: [capability], filters: filters})).to.be.true;
 
         })
 
@@ -64,13 +74,17 @@ describe('JobRole Controller', () => {
     })
 
     describe('post', () => {
-        it('Should render the ViewRoles page with correct data', async () => {
+        it('Should render the ViewRoles page with correct data when filter button clicked', async () => {
+            const bands = 
+            ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
+            
             const req = {
                 session:{current:{}},
                 body: {
                     roleNameFilter: 'rolename',
                     bandNameFilter: 'bandname',
-                    capabilityNameFilter: 'capabilityname'
+                    capabilityNameFilter: 'capabilityname',
+                    button: 'filterButton'
                 }
             } as unknown as Request;
 
@@ -89,7 +103,41 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.post(req as Request, res as unknown as Response);
 
-            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles", roles: [jobRoleViewRoles1], capabilities: [capability]})).to.be.true;
+            expect(res.render.calledOnceWithExactly('ViewRoles.html',
+                {title: "View Roles", roles: [jobRoleViewRoles1], bands: bands, capabilities: [capability], filters: mockJobRoleFilter})).to.be.true;
+        })
+
+        it('Should render the ViewRoles page with correct data when reset button clicked', async () => {
+            const bands = 
+            ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
+            
+            const req = {
+                session:{current:{}},
+                body: {
+                    roleNameFilter: 'rolename',
+                    bandNameFilter: 'bandname',
+                    capabilityNameFilter: 'capabilityname',
+                    button: 'resetButton'
+                }
+            } as unknown as Request;
+
+            const res = {
+                render: sinon.spy()
+            }
+
+            const mockJobRoleFilter: JobRoleFilter = {
+                roleNameFilter: '',
+                bandNameFilter: '',
+                capabilityNameFilter: ''
+            }
+
+            sinon.stub(JobRoleService, 'viewJobRoleWithFilter').withArgs(mockJobRoleFilter).resolves([jobRoleViewRoles1])
+            sinon.stub(jobCapabilityService, 'getAllCapabilities').resolves([capability])
+
+            await JobRoleController.post(req as Request, res as unknown as Response);
+
+            expect(res.render.calledOnceWithExactly('ViewRoles.html',
+                {title: "View Roles", roles: [jobRoleViewRoles1], bands: bands, capabilities: [capability], filters: mockJobRoleFilter})).to.be.true;
         })
 
         it('Should render error page with appropriate error', async () => {
