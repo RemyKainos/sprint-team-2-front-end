@@ -28,5 +28,9 @@ router.post('/delete-job-role', JobRoleController.postDelete)
 router.get('/add-capability', JobCapabilityController.getAddCapability)
 router.post('/add-capability', JobCapabilityController.postAddCapability)
 router.get('/error-page', JobRoleController.get)
+router.get('/edit-job-role/:id', JobRoleController.getEdit);
+router.put('/edit-job-role/:id', JobRoleController.putEdit);
+
+
 
 export default router

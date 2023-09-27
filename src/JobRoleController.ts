@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deleteJobRole, viewJobRoles, getJobRoleById } from "./service/JobRoleService"
+import { deleteJobRole, viewJobRoles, getJobRoleById, editJobRole } from "./service/JobRoleService"
 import { JobRoleViewRoles } from "./model/JobRole";
 
 
@@ -61,6 +61,44 @@ export class JobRoleController {
             }
         } else {
             res.redirect('/view-job-spec/' + deleteId.toString());
+        }
+    }
+
+    public static getEdit = async function(req: Request, res: Response): Promise<void> {
+        if (isNaN(parseInt(req.params.id))) {
+            res.locals.errormessage = 'Invalid Job Role ID Selected';
+            res.render('edit-job-role'); // Render the edit-job-role page with an error message
+        } else {
+            const editId = parseInt(req.params.id);
+            try {
+                const jobRole: JobRoleViewRoles = await getJobRoleById(editId); // Fetch job role data by ID
+
+                if (!jobRole) {
+                    res.locals.errormessage = 'Job Role not found';
+                    res.render('edit-job-role'); // Render the edit-job-role page with an error message
+                } else {
+                    res.render('edit-job-role', { id: editId, jobRole: jobRole }); // Render the edit-job-role page with job role data
+                }
+            } catch (e) {
+                console.error(e);
+                res.locals.errormessage = (e as Error).message;
+                res.render('edit-job-role'); // Render the edit-job-role page with an error message
+            }
+        }
+    }
+
+    public static putEdit = async function(req: Request, res: Response): Promise<void> {
+        const updatedRoleData = req.body; // Assuming the updated role data is sent in the request body
+        const editId = parseInt(req.params.id); // Assuming you can get the ID from the request params
+
+        try {
+            await editJobRole(editId); // Update the job role using the service function
+
+            res.redirect('/view-roles'); // Redirect to the view roles page after editing
+        } catch (e) {
+            console.error(e);
+            res.locals.errormessage = (e as Error).message;
+            res.render('edit-job-role', { id: editId, jobRole: updatedRoleData }); // Render the edit-job-role page with an error message
         }
     }
 }
