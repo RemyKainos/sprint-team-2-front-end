@@ -8,6 +8,6 @@ export interface JobRoleViewRoles{
 
 export interface JobRoleFilter{
     roleNameFilter: string
-    bandNameFilter: string
-    capabilityNameFilter: string
+    bandID: number
+    capabilityID: number
 }

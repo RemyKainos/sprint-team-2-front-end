@@ -39,7 +39,7 @@
                                     <select id="capabilityNameFilter" name="capabilityNameFilter" class="form-select">
                                         <option value=""></option>
                                         {% for capability in capabilities %}
-                                            <option value="{{ capability.name }}" {% if capability.name == filters.capabilityNameFilter %}
+                                            <option value="{{ capability.capabilityID }}" {% if capability.name == filters.capabilityNameFilter %}
                                             selected {% endif %}>{{ capability.name }}</option>
                                         {% endfor %}
                                     </select>

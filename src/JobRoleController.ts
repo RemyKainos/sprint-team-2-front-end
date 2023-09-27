@@ -2,25 +2,24 @@ import { Request, Response } from "express";
 import { viewJobRoles, viewJobRoleWithFilter } from "./service/JobRoleService"
 import { JobRoleFilter } from "./model/JobRole";
 import { getAllCapabilities } from "./service/jobCapabilityService";
+import { getAllBands } from "./service/jobBandService";
 
 export class JobRoleController {
     
 
 
     public static get = async function(req:Request, res:Response): Promise<void> {
-        
-        const bands = 
-        ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
 
         const filters: JobRoleFilter = {
             roleNameFilter: "",
-            bandNameFilter: "",
-            capabilityNameFilter: ""
+            bandID: 0,
+            capabilityID: 0
         }
         
         try{
             const roles = await viewJobRoles();
             const capabilities = await getAllCapabilities()
+            const bands = await getAllBands()
             res.render('ViewRoles.html', {title: "View Roles", roles: roles, bands: bands, capabilities: capabilities, filters: filters})
         } catch(e){
             console.error(e);
@@ -29,22 +28,21 @@ export class JobRoleController {
     }
 
     public static post = async function(req: Request, res: Response): Promise<void> {
-        const bands = 
-        ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
         
         const capabilities = await getAllCapabilities()
+        const bands = await getAllBands()
 
         let filters: JobRoleFilter = {
             roleNameFilter: '',
-            bandNameFilter: '',
-            capabilityNameFilter: ''
+            bandID: 0,
+            capabilityID: 0
         }
 
         if(req.body.button === 'filterButton'){
             filters = {
                 roleNameFilter: req.body.roleNameFilter,
-                bandNameFilter: req.body.bandNameFilter,
-                capabilityNameFilter: req.body.capabilityNameFilter
+                bandID: req.body.bandNameFilter, //this is broke rn
+                capabilityID: req.body.capabilityNameFilter
             }
         }
 

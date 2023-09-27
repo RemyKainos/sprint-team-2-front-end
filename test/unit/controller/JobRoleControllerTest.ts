@@ -34,9 +34,9 @@ describe('JobRole Controller', () => {
             ["Leadership Community", "Principal", "Manager", "Consultant", "Senior Associate", "Associate", "Trainee", "Apprentice"]
 
             const filters: JobRoleFilter = {
-                roleNameFilter: "",
-                bandNameFilter: "",
-                capabilityNameFilter: ""
+                roleNameFilter: '',
+                bandID: 0,
+                capabilityID: 0
             }
 
             sinon.stub(JobRoleService, 'viewJobRoles').resolves([jobRoleViewRoles1])
@@ -94,8 +94,8 @@ describe('JobRole Controller', () => {
 
             const mockJobRoleFilter: JobRoleFilter = {
                 roleNameFilter: 'rolename',
-                bandNameFilter: 'bandname',
-                capabilityNameFilter: 'capabilityname'
+                bandID: 1,
+                capabilityID: 1
             }
 
             sinon.stub(JobRoleService, 'viewJobRoleWithFilter').withArgs(mockJobRoleFilter).resolves([jobRoleViewRoles1])
@@ -126,9 +126,9 @@ describe('JobRole Controller', () => {
             }
 
             const mockJobRoleFilter: JobRoleFilter = {
-                roleNameFilter: '',
-                bandNameFilter: '',
-                capabilityNameFilter: ''
+                roleNameFilter: 'rolename',
+                bandID: 1,
+                capabilityID: 1
             }
 
             sinon.stub(JobRoleService, 'viewJobRoleWithFilter').withArgs(mockJobRoleFilter).resolves([jobRoleViewRoles1])
