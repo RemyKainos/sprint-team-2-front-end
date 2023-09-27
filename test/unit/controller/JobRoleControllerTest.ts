@@ -42,8 +42,6 @@ describe('JobRole Controller', () => {
             
             const token = "token"
 
-            //const req = {session:{token:{token}}} as unknown as Request;
-
             const req = {
                 session: {token: token},
             } as unknown as Request;

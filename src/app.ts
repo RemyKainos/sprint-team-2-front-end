@@ -4,6 +4,7 @@ import { User } from './model/auth';
 import path from "path";
 import nunjucks from 'nunjucks';
 import router from "./router";
+import { user } from "./middleware/auth";
 
 const app: Application = express();
 
@@ -34,14 +35,15 @@ app.set("view engine", "html");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended : true}))
+app.use(user)
 
-app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 60000}}))
+app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 600000}}))
 
 
 declare module "express-session" {
   interface SessionData {
-      token:string;
-      user:User;
+      token?:string;
+      user?:User;
   }
 }
 

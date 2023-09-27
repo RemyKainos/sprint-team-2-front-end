@@ -6,7 +6,7 @@ import { login, whoami } from "./service/authService";
 export class LoginController {
 
     public static get(req:Request, res:Response): void {
-        res.render('login')
+        res.render('login', req.session.user)
     }
 
     public static async post(req:Request, res:Response): Promise<void> {
@@ -14,10 +14,8 @@ export class LoginController {
 
         try {
             req.session.token = await login(data);
-            console.log(req.session.token)
             req.session.user = await whoami(req.session.token);
-            console.log(JSON.stringify(req.session))
-
+            
             res.redirect('/view-roles');
         } catch (e) {
             console.error(e);

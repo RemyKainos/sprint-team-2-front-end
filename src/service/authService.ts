@@ -7,7 +7,6 @@ import { validateUser } from "../validator/userValidator";
 export const login = async function(credentials: Credentials): Promise<string> {
     try {
         const response = await axios.post(process.env.BACK_URL + '/api/login/', credentials);
-        console.log(response)
         return response.data.token;
     } catch (e) {
         if ((e as AxiosError).response?.status === 401) {
@@ -15,7 +14,6 @@ export const login = async function(credentials: Credentials): Promise<string> {
         }else if ((e as AxiosError).response?.status === 500){
             throw new Error('Internal Server Error')
         }
-        console.error((e as Error).message);
         throw new Error('Could not login')
     }
 
@@ -38,7 +36,6 @@ export const register = async function(user: User): Promise<void> {
 export const getRoles = async function():Promise<Role[]>{
     try {
         const response = await axios.get(process.env.BACK_URL + '/api/authRoles/');
-        console.log(response.data);
         return response.data as Role[]
     } catch (e) {
         throw new Error('Failed to register');
@@ -46,9 +43,7 @@ export const getRoles = async function():Promise<Role[]>{
 }
 
 export const whoami = async function(token: string): Promise<User> {
-    console.log(token)
     try {
-        console.log(`Bearer ${token}`)
         const response = await axios.get(process.env.BACK_URL + "/api/whoami", {
             headers: { Authorization: `Bearer ${token}` },
         })
@@ -59,8 +54,6 @@ export const whoami = async function(token: string): Promise<User> {
         if ((e as AxiosError).response?.status === 401) {
             throw new Error("User isn't logged in")
         }
-        console.log((e as Error).message);
-
     }
     throw new Error("Couldn't get user")
 }

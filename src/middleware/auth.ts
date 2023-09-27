@@ -10,7 +10,6 @@ export function login (req: Request, res: Response, next: NextFunction) {
 
 export function role(roleRequired:string){
     return function (req:Request, res:Response, next:NextFunction){
-        console.log(req.session.user?.role.role_name)
         if (req.session && (req.session.user?.role.role_name == 'Admin' || req.session.user?.role.role_name === roleRequired)) {
             return next();
         }else{
@@ -18,4 +17,11 @@ export function role(roleRequired:string){
         }
         res.render('forbidden');
     }
+}
+
+export const user = (req:Request, res:Response, next:NextFunction) => {
+    if(req.session && req.session.user){
+        res.locals.user = req.session.user;
+    }
+    next();
 }

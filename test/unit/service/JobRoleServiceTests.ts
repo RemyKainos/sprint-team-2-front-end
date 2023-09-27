@@ -18,8 +18,9 @@ describe('JobRoleService', function () {
             const mock = new MockAdapter(axios);
 
             const data = [jobRole];
+            const token = "token"
 
-            mock.onGet(process.env.BACK_URL + '/api/job-roles').reply(200, data);
+            mock.onGet(process.env.BACK_URL + '/api/job-roles' , { headers: { Authorization: `Bearer ${token}` } }).reply(200, data);
 
             const results = await viewJobRoles();
 
@@ -28,8 +29,9 @@ describe('JobRoleService', function () {
 
         it('Should throw exception when 500 error returned', async () => {
             const mock: MockAdapter = new MockAdapter(axios);
+            const token = "token"
 
-            mock.onGet(process.env.BACK_URL + '/api/job-roles').reply(500);
+            mock.onGet(process.env.BACK_URL + '/api/job-roles' , { headers: { Authorization: `Bearer ${token}` } }).reply(500);
 
             let errorMessage = "default"
 
