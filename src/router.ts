@@ -19,12 +19,13 @@ router.post('/register', RegisterController.post)
 
 router.get('/view-job-spec/:roleId', authMiddleware, JobSpecController.get)
 
-
 router.get('/select-capability', JobCapabilityController.get)
 router.post('/select-capability', JobCapabilityController.post)
 router.get('/family-by-capability/:id', JobFamilyController.get)
 router.get('/view-roles', JobRoleController.get)
 router.post('/view-roles', JobRoleController.post)
+router.get('/delete-job-role/:id', JobRoleController.getDelete)
+router.post('/delete-job-role', JobRoleController.postDelete)
 router.get('/add-capability', JobCapabilityController.getAddCapability)
 router.post('/add-capability', JobCapabilityController.postAddCapability)
 router.get('/error-page', JobRoleController.get)

@@ -41,7 +41,7 @@ app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 6000
 declare module "express-session" {
   interface SessionData {
       current?: ActiveSession;
-  }
+    }
 }
 
 app.use('/', router);
