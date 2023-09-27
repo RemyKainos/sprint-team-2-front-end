@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Register</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    </head>
-    <body>
-        <header class="bg-dark text-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>Register</h1>
-                    </div>
-                </div>
-            </div>
-        </header>
+{% extends "base.html" %}
+
+
+        {% block content %}
         <main class="container mt-4">
             <section id="form" class="bg-light py-5">
                 <div class="container">
@@ -48,5 +35,4 @@
                 </div>
             </section>
         </main>
-    </body>
-</html>
+        {% endblock %}
