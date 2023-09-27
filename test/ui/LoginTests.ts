@@ -13,7 +13,7 @@ describe('Login Test', async () => {
 
         await driver.findElement(By.id('username')).sendKeys(process.env.EMAIL as string);
         await driver.findElement(By.id('password')).sendKeys(process.env.PASSWORD as string);
-
+        
         const usernameInput = await driver.findElement(By.id('username'));
         const enteredValue = await usernameInput.getAttribute('value');
 

@@ -8,6 +8,6 @@ export const viewJobRoles = async function (token?:string): Promise<JobRoleViewR
         });
         return response.data;
     } catch (error) {
-        throw new Error('Could not fetch job roles');
+        throw new Error('Viewing job roles is not available at this time please try again later.');
     }
 };

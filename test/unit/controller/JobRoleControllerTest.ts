@@ -37,10 +37,9 @@ describe('JobRole Controller', () => {
 
         })
 
-        it('Should log error when one is caught', async () => {
-            const errorStub = sinon.stub(JobRoleService, 'viewJobRoles').rejects(new Error('Could not fetch job roles'))
+        it('Should render error page with appropriate error', async () => {
+            const expectedErrorMessage = "Viewing job roles is not available at this time please try again later."
             
-            const consoleStub = sinon.stub(console, "error")
             const token = "token"
 
             //const req = {session:{token:{token}}} as unknown as Request;
@@ -48,6 +47,9 @@ describe('JobRole Controller', () => {
             const req = {
                 session: {token: token},
             } as unknown as Request;
+            sinon.stub(JobRoleService, 'viewJobRoles')
+                .rejects(new Error('Viewing job roles is not available at this time please try again later.'))
+
 
             const res = {
                 render: sinon.spy()
@@ -55,9 +57,8 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.get(req, res as unknown as Response);
 
-            expect(errorStub.calledOnceWithExactly(token)).to.be.true;
 
-            expect(consoleStub.calledOnce).to.be.true
+            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles Error", errorMessage: expectedErrorMessage}))
         })
     })
 })
