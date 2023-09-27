@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { JobCapability } from '../model/JobCapability';
+import { JobCapability, JobCapabilityRequest } from '../model/JobCapability';
+import { isValidCapability } from '../validator/CapabilityValidator';
 
 export const getAllCapabilities = async function (): Promise<JobCapability []> {
     try {
@@ -16,5 +17,20 @@ export const getCapabilityById = async function (id: number): Promise<JobCapabil
         return response.data
     } catch (e) {
         throw new Error('Could not fetch capability')
+    }
+}
+
+export const addCapability = async function (capability: JobCapabilityRequest): Promise<number> {
+    const error: string = isValidCapability(capability)
+
+    if (error) {
+        throw new Error(error)
+    }
+
+    try {
+        const response = await axios.post(process.env.BACK_URL + '/api/capability/', capability)
+        return response.data
+    } catch (e) {
+        throw new Error('Could not add capability')
     }
 }

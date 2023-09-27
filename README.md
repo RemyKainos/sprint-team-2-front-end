@@ -37,4 +37,3 @@ In the package.json, you can see that ESLint is running a check on the code afte
 
 When running pull request to main branch, the deploy.yml file will be run which will deploy the UI to the AWS Server.
 The link to the server is https://wvrhehxy3p.eu-west-1.awsapprunner.com/
->>>>>>> main

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{%block head%}
+    <link rel="stylesheet" href="/public/css/jobspec.css">
+{% endblock %}
+
+{% block content %}
+    <main class="main-content">
+        <header class="job-spec-header">
+            <h1>{{jobSpec.name}}</h1>
+        </header>
+        
+        <div class="back-link-container">
+            <p class="back-link">
+                <a class="job-spec-link" href="{{jobSpec.sharepointLink}}">Learn more on SharePoint</a>
+            </p>
+            
+            <p class="back-link">
+                <a class="job-spec-link" href="/view-roles">See all job roles</a>
+            </p>
+        </div>
+        
+        <div class="job-spec-content">
+            <h3>Specification</h3>
+            <p>{{jobSpec.jobSpec}}</p>
+        </div>
+
+        <hr>
+
+        <h3>Responsibilities</h3>
+        <div class="job-spec-content">
+            <p>{{jobSpec.responsibilities}}</p>
+        </div>
+    </main>
+{% endblock %}

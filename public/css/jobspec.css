@@ -1,0 +1,22 @@
+.job-spec-content{
+    width: 70%;
+}
+
+.job-spec-link{
+    text-decoration: none;
+}
+
+.job-spec-link:hover{
+    text-decoration: underline;
+}
+
+.back-link-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.back-link{
+    margin: 0 1rem 1rem 0;
+    display: inline;
+
+}
