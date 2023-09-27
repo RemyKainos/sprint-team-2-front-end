@@ -24,12 +24,19 @@
                 <tbody>
                     {% for role in roles %}
                         <tr>
-                            <th scope="row">{{role.roleName}}</a></td>
+                            <th scope="row">{{role.roleName}}</td>
                             <td class="text-center">{{role.bandName}}</td>
                             <td class="text-center">{{role.capabilityName}}</td>
                             <td class="text-center"> 
                             <div class="btn-group mr-3" role="group">
-                                <button type="button" class="btn btn-primary" alt="View {{role.roleName}}">View</button>
+                                <a href="/view-job-spec/{{role.roleID}}">
+                                    <button type="button" class="btn btn-primary" alt="View {{role.roleName}}">View</button>
+                                </a>
+                            </div>
+                            <div class="btn-group mr-3" role="group">
+                                <a href="/delete-job-role/{{role.roleID}}">
+                                    <button type="button" class="btn btn-danger" alt="Delete {{role.roleName}}">Delete</button>
+                                </a>
                             </div>
                             </td>
                             <td class="text-center">

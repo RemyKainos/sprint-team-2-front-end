@@ -45,6 +45,7 @@ declare module "express-session" {
       token?:string;
       user?:User;
   }
+
 }
 
 app.use('/', router);

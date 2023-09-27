@@ -27,6 +27,7 @@ router.get('/view-roles', role("Employee"), JobRoleController.get)
 router.get('/logout', role("Employee"), LoginController.logOut)
 router.get('/add-capability', role("Admin"), JobCapabilityController.getAddCapability)
 router.post('/add-capability', role("Admin"), JobCapabilityController.postAddCapability)
+
 router.get('/error-page', JobRoleController.get)
 
 export default router
