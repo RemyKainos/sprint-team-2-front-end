@@ -101,7 +101,7 @@ describe('LoginController', () => {
         it('should destroy session on logout', async () => {
             const req = { session: { destroy: sinon.spy() } };
 
-            LoginController.logOut(req as any, {} as any);        
+            LoginController.logOut(req as unknown as Request, {} as unknown as Response);        
 
             expect(req.session.destroy.calledOnce).to.be.true;
         });

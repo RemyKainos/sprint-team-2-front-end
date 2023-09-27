@@ -39,7 +39,7 @@ describe('Role Test', () => {
         const nextFunction = sinon.spy();
         const requiredRole = 'Employee';
 
-        role(requiredRole)(req as any, {} as any, nextFunction);
+        role(requiredRole)(req as unknown as Request, {} as unknown as Response, nextFunction);
 
         expect(nextFunction.calledOnce).to.be.true;
     })
@@ -49,18 +49,18 @@ describe('Role Test', () => {
         const nextFunction = sinon.spy();
         const requiredRole = 'Employee';
 
-        role(requiredRole)(req as any, {} as any, nextFunction);
+        role(requiredRole)(req as unknown as Request, {} as unknown as Response, nextFunction);
 
         expect(nextFunction.calledOnce).to.be.true;
     })
 
     it('Should render forbidden if user doesnt have role', () => {
         const req = { session: { token: 'token', user: { userID: 1, username: 'email', role: { roleID: 2, role_name: 'Employee' } } } };
-        const res = { render: sinon.spy(), locals: { errorMessage: undefined as any } };
+        const res = { render: sinon.spy(), locals: { errorMessage: undefined as unknown as Error } };
         const nextFunction = sinon.spy();
         const requiredRole = 'Admin';
 
-        role(requiredRole)(req as any, res as any, nextFunction);
+        role(requiredRole)(req as unknown as Request, res as unknown as Response, nextFunction);
 
         expect(nextFunction.calledOnce).to.be.false;
         expect(res.render.calledOnce).to.be.true;
