@@ -24,8 +24,9 @@ describe('JobRole Controller', () => {
     describe('get', () => {
         it('Should render the ViewRoles page with correct data', async () => {
             sinon.stub(JobRoleService, 'viewJobRoles').resolves([jobRoleViewRoles1])
+            const user = {  username: 'email', password:'password',  role: { roleID: 1, role_name: 'Admin' } }
             
-            const req = {session:{current:{}}} as unknown as Request;
+            const req = {session:{user:user},} as unknown as Request;
 
             const res = {
                 render: sinon.spy()
@@ -33,7 +34,7 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.get(req, res as unknown as Response);
             
-            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles", roles: [jobRoleViewRoles1]})).to.be.true;
+            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles", roles: [jobRoleViewRoles1], user:user})).to.be.true;
 
         })
 
