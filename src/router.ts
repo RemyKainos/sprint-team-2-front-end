@@ -15,7 +15,7 @@ router.post('/register', RegisterController.post)
 router.get('/select-capability', JobCapabilityController.get)
 router.post('/select-capability', JobCapabilityController.post)
 router.get('/family-by-capability/:id', JobFamilyController.get)
-router.get('/view-roles', role("Employee"), JobRoleController.get)
+router.get('/view-roles', role("Admin"), JobRoleController.get)
 router.get('/logout', LoginController.logOut)
 
 export default router
