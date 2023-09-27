@@ -25,6 +25,8 @@ router.get('/family-by-capability/:id', JobFamilyController.get)
 router.get('/view-roles', JobRoleController.get)
 router.get('/delete-job-role/:id', JobRoleController.getDelete)
 router.post('/delete-job-role', JobRoleController.postDelete)
+router.get('/add-capability', JobCapabilityController.getAddCapability)
+router.post('/add-capability', JobCapabilityController.postAddCapability)
 router.get('/error-page', JobRoleController.get)
 
 export default router

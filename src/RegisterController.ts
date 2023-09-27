@@ -1,10 +1,11 @@
 import type { Request, Response } from "express"
 import { User } from "./model/auth";
-import { register } from "./service/authService";
+import { getRoles, register } from "./service/authService";
 
 export class RegisterController {
 
-    public static get(req:Request, res:Response): void {
+    public static async get(req:Request, res:Response): Promise<void> {
+        res.locals.roles = await getRoles();
         res.render('register')
     }
 
