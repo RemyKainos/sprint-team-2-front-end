@@ -7,12 +7,17 @@
 {% block content %}
     <main class="main-content">
         <header class="job-spec-header">
-            <h1>Edit Job Specification</h1>
+            <h1>Edit Role: {{role.roleName}}</h1>
         </header>
 
-        <form action="/edit-job-spec/{{jobSpec.id}}" method="POST">
+        <form action="/edit-job-spec/{{jobSpec.id}}" method="PUT">
             <!-- Add hidden input for CSRF token if necessary -->
             <!-- <input type="hidden" name="_csrf" value="{{csrfToken}}"> -->
+
+            <div class="job-role-name-container">
+                <label for="roleName">Role Name</label>
+                <input type="text" id="roleName" name="roleName" value="{{role.roleName}}" required>
+            </div>
 
             <div class="back-link-container">
                 <p class="back-link">
