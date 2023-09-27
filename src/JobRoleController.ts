@@ -6,8 +6,6 @@ import { getAllBands } from "./service/jobBandService";
 
 export class JobRoleController {
     
-
-
     public static get = async function(req:Request, res:Response): Promise<void> {
 
         const filters: JobRoleFilter = {
