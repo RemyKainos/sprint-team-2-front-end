@@ -31,5 +31,9 @@
         <div class="job-spec-content">
             <p>{{jobSpec.responsibilities}}</p>
         </div>
+
+        <a href="/delete-job-role/{{roleIdNum}}">
+            <button type="button" class="btn btn-danger" alt="Delete {{jobSpec.name}}" id="deleteButton">Delete</button>
+        </a>
     </main>
 {% endblock %}
