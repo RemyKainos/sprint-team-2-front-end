@@ -45,9 +45,9 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary" name="button" value="filterButton">Filter</button>
-                                        <button type="submit" class="btn btn-secondary" name="button" value="resetButton">Reset</button>
+                                    <div class="btn-group mr-3" role="group">
+                                        <a><button type="submit" class="btn btn-primary" name="button" value="filterButton">Filter</button></a>
+                                        <a><button type="submit" class="btn btn-secondary" name="button" value="resetButton">Reset</button></a>
                                     </div>
                                 </td>
                                 <td></td>
@@ -64,8 +64,6 @@
                                 <a href="/view-job-spec/{{role.roleID}}">
                                     <button type="button" class="btn btn-primary" alt="View {{role.roleName}}">View</button>
                                 </a>
-                            </div>
-                            <div class="btn-group mr-3" role="group">
                                 <a href="/delete-job-role/{{role.roleID}}">
                                     <button type="button" class="btn btn-danger" alt="Delete {{role.roleName}}">Delete</button>
                                 </a>
