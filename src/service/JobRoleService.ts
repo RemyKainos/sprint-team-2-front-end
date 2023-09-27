@@ -9,3 +9,12 @@ export const viewJobRoles = async function (): Promise<JobRoleViewRoles []> {
         throw new Error('Could not fetch job roles');
     }
 };
+
+export const editJobRole = async function (id: string, updatedRoleData: any): Promise<void> {
+    try {
+        const response = await axios.put(`${process.env.BACK_URL}/api/job-roles/${id}`, updatedRoleData);
+        return response.data;
+    } catch (error) {
+        throw new Error('Could not edit job role');
+    }
+};

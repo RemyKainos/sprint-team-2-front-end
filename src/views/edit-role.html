@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/public/css/jobspec.css">
+{% endblock %}
+
+{% block content %}
+    <main class="main-content">
+        <header class="job-spec-header">
+            <h1>Edit Job Specification</h1>
+        </header>
+
+        <form action="/edit-job-spec/{{jobSpec.id}}" method="POST">
+            <!-- Add hidden input for CSRF token if necessary -->
+            <!-- <input type="hidden" name="_csrf" value="{{csrfToken}}"> -->
+
+            <div class="back-link-container">
+                <p class="back-link">
+                    <a class="job-spec-link" href="{{jobSpec.sharepointLink}}">Learn more on SharePoint</a>
+                </p>
+
+                <p class="back-link">
+                    <a class="job-spec-link" href="/view-roles">See all job roles</a>
+                </p>
+            </div>
+
+            <div class="job-spec-content">
+                <h3>Specification</h3>
+                <textarea name="jobSpec" rows="5">{{jobSpec.jobSpec}}</textarea>
+            </div>
+
+            <hr>
+
+            <h3>Responsibilities</h3>
+            <div class="job-spec-content">
+                <textarea name="responsibilities" rows="5">{{jobSpec.responsibilities}}</textarea>
+            </div>
+
+            <!-- Add a submit button to save the changes -->
+            <button type="submit">Save Changes</button>
+        </form>
+    </main>
+{% endblock %}
