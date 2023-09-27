@@ -4,13 +4,13 @@
 {% block content %}
 	<main class="container mt-4">
         {% if jobRole %}
-        <h1>Do you want to delete {{ jobRole.roleName }}?</h1>
+        <h1 id="title">Do you want to delete {{ jobRole.roleName }}?</h1>
         {% else %}
-        <h1>Delete Job Role?</h1>
+        <h1 id="title">Delete Job Role?</h1>
         {% endif %}
 
         {% if errormessage %}
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert" id="delete-error-message">
                 {{ errormessage }}
             </div>
         {% else %}
