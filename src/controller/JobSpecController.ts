@@ -10,7 +10,7 @@ export class JobSpecController{
         try{
             const jobSpecService = new JobSpecService();
             const jobSpec = await jobSpecService.getJobSpec(roleIdNum);
-            res.render('ViewJobSpec.html', {title: "Job Spec", jobSpec});
+            res.render('ViewJobSpec.html', {title: "Job Spec", jobSpec, roleIdNum});
         } catch(e){
             const err = e as AxiosError;
             console.log(err.response?.data);
