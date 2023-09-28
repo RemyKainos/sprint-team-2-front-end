@@ -8,10 +8,10 @@
         </div>
     </main>
     {% else %}
-    <main class="main-content" >
+    <main class="main-content">
         <div class="table-responsive d-flex align-items-center flex-column">
             <h1 style="margin-bottom: 3rem; margin-top: 3rem; width: 80%;">Kainos Job Roles:</h1>
-            <table class="table table-hover" style="width: 80%;">
+            <table id="rolesTable" class="table table-hover" style="width: 80%;">
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">Job Role</th>
@@ -22,11 +22,43 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <form action="/view-roles" method="post">
+                            <div class="form-group">
+                                <td class="text-center"><input type="text" id="roleNameFilter" name="roleNameFilter" class="form-control" value="{{ filters.roleNameFilter }}"></td>
+                                <td class="text-center">
+                                    <select id="bandNameFilter" name="bandNameFilter" class="form-select">
+                                        <option value="0"></option>
+                                        {% for band in bands %}
+                                            <option value="{{ band.bandID }}" {% if band.bandID == filters.bandID %}
+                                            selected {% endif %}>{{ band.bandName }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td class="text-center">
+                                    <select id="capabilityNameFilter" name="capabilityNameFilter" class="form-select">
+                                        <option value="0"></option>
+                                        {% for capability in capabilities %}
+                                            <option value="{{ capability.capabilityID }}" {% if capability.capabilityID == filters.capabilityID %}
+                                            selected {% endif %}>{{ capability.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
+                                    <div class="btn-group mr-3" role="group">
+                                        <a><button type="submit" class="btn btn-primary" name="button" value="filterButton">Filter</button></a>
+                                        <a><button type="submit" class="btn btn-secondary" name="button" value="resetButton">Reset</button></a>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </div>
+                        </form>
+                    </tr>
                     {% for role in roles %}
                         <tr>
-                            <th scope="row">{{role.roleName}}</td>
-                            <td class="text-center">{{role.bandName}}</td>
-                            <td class="text-center">{{role.capabilityName}}</td>
+                            <td id="roleName">{{role.roleName}}</a></th>
+                            <td class="text-center" id="bandName">{{role.bandName}}</td>
+                            <td class="text-center" id="capabilityName">{{role.capabilityName}}</td>
                             <td class="text-center"> 
                             <div class="btn-group mr-3" role="group">
                                 <a href="/view-job-spec/{{role.roleID}}">
