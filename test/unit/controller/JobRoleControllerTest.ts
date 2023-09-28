@@ -17,7 +17,6 @@ const jobRoleViewRoles1: JobRoleViewRoles = {
     capabilityName: "testcapability"
 } ;
 
-const user = { username: 'email', password:'password', role: { roleID: 1, role_name: 'Admin' } }
 const editJobRole: JobRoleViewRoles = {
     roleID: 1,
     roleName: "testrole",
