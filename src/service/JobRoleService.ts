@@ -30,9 +30,11 @@ export const getJobRoleById = async function(id: number): Promise<JobRoleViewRol
     }
 }
 
-export const editJobRole =async function(id: number): Promise<number> {
+export const editJobRole =async function(id: number, updatedRoleData: JobRoleViewRoles): Promise<number> {
     try {
-        const response = await axios.put(process.env.BACK_URL + '/api/job-roles/' + id.toString())
+        console.log("made it into service")
+        console.log(id)
+        const response = await axios.put(process.env.BACK_URL + '/api/job-roles/' + id.toString(), updatedRoleData)
 
         return response.data
     } catch (e) {

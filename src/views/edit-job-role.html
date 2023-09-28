@@ -1,47 +1,59 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <link rel="stylesheet" href="/public/css/jobspec.css">
+    <link rel="stylesheet" href="/public/css/editrole.css">
 {% endblock %}
 
 {% block content %}
     <main class="main-content">
-        <header class="job-spec-header">
-            <h1>Edit Role: {{role.roleName}}</h1>
+        <header class="edit-role-header">
+            <h1>Edit Role: {{jobRole.roleName}}</h1>
         </header>
 
-        <form action="/edit-job-spec/{{jobSpec.id}}" method="PUT">
-            <!-- Add hidden input for CSRF token if necessary -->
-            <!-- <input type="hidden" name="_csrf" value="{{csrfToken}}"> -->
+        {% if error %}
+            <p>{{error}}</p>
+        {% endif %}
+        <form action="/edit-job-role/" method="post">
+
+            <input type="hidden" name="editId" id="editId" value="{{id}}"/>
 
             <div class="job-role-name-container">
-                <label for="roleName">Role Name</label>
-                <input type="text" id="roleName" name="roleName" value="{{role.roleName}}" required>
-            </div>
-
-            <div class="back-link-container">
-                <p class="back-link">
-                    <a class="job-spec-link" href="{{jobSpec.sharepointLink}}">Learn more on SharePoint</a>
-                </p>
-
-                <p class="back-link">
-                    <a class="job-spec-link" href="/view-roles">See all job roles</a>
-                </p>
-            </div>
-
-            <div class="job-spec-content">
-                <h3>Specification</h3>
-                <textarea name="jobSpec" rows="5">{{jobSpec.jobSpec}}</textarea>
+                <h3>Role Name: {{role.roleName}}</h3>
+                <input type="text" id="roleName" name="roleName" value="{{jobRole.roleName}}" required>
             </div>
 
             <hr>
 
-            <h3>Responsibilities</h3>
-            <div class="job-spec-content">
-                <textarea name="responsibilities" rows="5">{{jobSpec.responsibilities}}</textarea>
+            <div class="sharepoint-link-container">
+                <h3>Sharepoint Link:</h3>
+                <input type="text" id="sharepointLink" name="{{jobRole.sharepointLink}}" required>
             </div>
 
-            <!-- Add a submit button to save the changes -->
+            <hr>
+
+            <div class="job-spec-content">
+                <h3>Specification:</h3>
+                <textarea name="jobSpec" rows="5">{{jobRole.jobSpec}}</textarea>
+            </div>
+
+            <hr>
+
+            <div class="job-responsbilities-content">
+                <h3>Responsibilities:</h3>
+                <textarea name="responsibilities" rows="5">{{jobRole.responsibilities}}</textarea>
+            </div>
+
+            <div class="job-responsbilities-content">
+                <h3>band:</h3>
+                <textarea name="bandName" rows="5">{{jobRole.bandName}}</textarea>
+            </div>
+
+            <div class="job-responsbilities-content">
+                <h3>Capability:</h3>
+                <textarea name="capabilityName" rows="5">{{jobRole.capabilityName}}</textarea>
+            </div>
+
+
             <button type="submit">Save Changes</button>
         </form>
     </main>
