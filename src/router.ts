@@ -24,23 +24,14 @@ router.get('/select-capability',role("Employee"), JobCapabilityController.get)
 router.post('/select-capability', role("Employee"), JobCapabilityController.post)
 router.get('/family-by-capability/:id', role("Employee"), JobFamilyController.get)
 router.get('/view-roles', role("Employee"), JobRoleController.get)
+router.post('/view-roles', role("Employee"),JobRoleController.post)
+router.get('/delete-job-role/:id',role("Admin"), JobRoleController.getDelete)
+router.post('/delete-job-role', role("Admin"), JobRoleController.postDelete)
 router.get('/logout', role("Employee"), LoginController.logOut)
 router.get('/add-capability', role("Admin"), JobCapabilityController.getAddCapability)
 router.post('/add-capability', role("Admin"), JobCapabilityController.postAddCapability)
-
-router.get('/select-capability', JobCapabilityController.get)
-router.post('/select-capability', JobCapabilityController.post)
-router.get('/family-by-capability/:id', JobFamilyController.get)
-router.get('/view-roles', JobRoleController.get)
-router.post('/view-roles', JobRoleController.post)
-router.get('/delete-job-role/:id', JobRoleController.getDelete)
-router.post('/delete-job-role', JobRoleController.postDelete)
-router.get('/add-capability', JobCapabilityController.getAddCapability)
-router.post('/add-capability', JobCapabilityController.postAddCapability)
 router.get('/error-page', JobRoleController.get)
-router.get('/edit-job-role/:id', JobRoleController.getEdit);
-router.post('/edit-job-role/', JobRoleController.putEdit);
-
-
+router.get('/edit-job-role/:id', role("Admin"), JobRoleController.getEdit);
+router.post('/edit-job-role/', role("Admin"), JobRoleController.putEdit);
 
 export default router

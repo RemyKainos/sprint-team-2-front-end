@@ -106,22 +106,21 @@ export class JobRoleController {
     public static getEdit = async function(req: Request, res: Response): Promise<void> {
         if (isNaN(parseInt(req.params.id))) {
             res.locals.errormessage = 'Invalid Job Role ID Selected';
-            res.render('edit-job-role'); 
+            res.render('edit-job-role', {user:req.session.user}); 
         } else {
             const editId = parseInt(req.params.id);
             try {
                 const jobRole: JobRoleViewRoles = await getJobRoleById(editId); 
 
                 if (!jobRole) {
-                    //res.locals.errormessage = 'Job Role not found';
-                    res.render('edit-job-role', {error: "dababt"}); 
+                    res.render('edit-job-role', {error: "Job Role not found", user:req.session.user}); 
                 } else {
-                    res.render('edit-job-role', { id: editId, jobRole: jobRole });
+                    res.render('edit-job-role', { id: editId, jobRole: jobRole, user:req.session.user });
                 }
             } catch (e) {
                 console.error(e);
                 res.locals.errormessage = (e as Error).message;
-                res.render('edit-job-role'); 
+                res.render('edit-job-role', {user:req.session.user}); 
             }
         }
     }
@@ -131,13 +130,13 @@ export class JobRoleController {
         const editId = parseInt(req.body.editId);
 
         try {
-            await editJobRole(editId, updatedRoleData);
+            await editJobRole(editId, updatedRoleData, req.session.token);
             
             res.redirect('/view-roles'); 
         } catch (e) {
             console.error(e);
             res.locals.errormessage = (e as Error).message;
-            res.render('edit-job-role', { id: editId, jobRole: updatedRoleData });
+            res.render('edit-job-role', { id: editId, jobRole: updatedRoleData, user:req.session.user });
         }
     }
 }

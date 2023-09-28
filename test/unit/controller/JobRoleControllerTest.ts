@@ -17,6 +17,17 @@ const jobRoleViewRoles1: JobRoleViewRoles = {
     capabilityName: "testcapability"
 } ;
 
+const user = { username: 'email', password:'password', role: { roleID: 1, role_name: 'Admin' } }
+const editJobRole: JobRoleViewRoles = {
+    roleID: 1,
+    roleName: "testrole",
+    jobSpec: "testspec",
+    responsibilities: "testres",
+    sharepointLink: "testlink",
+    bandName: "testband",
+    capabilityName: "testcapability"
+}
+
 const capability: JobCapability = {
     capabilityID: 1,
     name: "test"
@@ -255,5 +266,100 @@ describe('JobRole Controller', () => {
                 expect(res.redirect.calledOnceWithExactly('/view-job-spec/' + deleteId.toString())).to.be.true
             })
         })
+
+        describe('getEdit', () => {
+            it('should render the edit job role page when invalid id passed', async () => {
+                const req = {
+                    params: {id: -1},
+                    body : {
+                    }                    
+                    , session: {user:user}
+
+                } as unknown as Request
+
+                const res = {
+                    render: sinon.spy(),
+                    locals: sinon.spy()
+                } 
+
+                await JobRoleController.getEdit(req as Request, res as unknown as Response)
+                expect(res.render.calledOnceWithExactly("edit-job-role", {user:user})).to.be.true;
+
+            })
+            it('should render edit job role page when job role not found', async () => {
+                const req = {
+                    params: {id: -1},
+                    body : {
+                    }                    
+                    , session: {user:user}
+
+                } as unknown as Request
+
+                const res = {
+                    render: sinon.spy(),
+                    locals: sinon.spy()
+                } 
+
+                const id = -1
+
+                const editJobRoleStub =  sinon.stub(JobRoleService, "getJobRoleById")
+
+                editJobRoleStub.withArgs(id).resolves(undefined)
+
+                await JobRoleController.getEdit(req as Request, res as unknown as Response)
+                expect(res.render.calledOnceWithExactly("edit-job-role", {error: "Job Role not found", user:user})).to.be.true
+
+            })
+            it('should render edit job role page when job role is found and valid id', async() => {
+                const req = {
+                    params: {id: 1},
+                    body : {
+                    }                    
+                    , session: {user:user}
+
+                } as unknown as Request
+
+                const res = {
+                    render: sinon.spy(),
+                    locals: sinon.spy()
+                } 
+
+                const id = 1
+
+                const editJobRoleStub =  sinon.stub(JobRoleService, "getJobRoleById")
+                editJobRoleStub.withArgs(id).resolves(jobRoleViewRoles1)
+                await JobRoleController.getEdit(req as Request, res as unknown as Response)
+
+
+                expect(res.render.calledOnceWithExactly("edit-job-role", { id: id, jobRole: jobRoleViewRoles1, user:user })).to.be.true
+            })
+        })
+        describe('postEdit', () => {
+            it('redirect to view-roles when edit success', async () => {
+                const req = {
+                    params: {id: 1},
+                    body : {
+                        editJobRole,
+                        editId:1
+                    }
+                    , session: {user:user}
+                } as unknown as Request
+
+                const res = {
+                    redirect: sinon.spy(),
+                    locals: sinon.spy()
+                } 
+
+                const id = 1
+
+                const editJobRoleStub =  sinon.stub(JobRoleService, "editJobRole")
+                editJobRoleStub.withArgs(id , editJobRole).resolves()
+
+                await JobRoleController.putEdit(req as Request, res as unknown as Response)
+
+                expect(res.redirect.calledOnceWithExactly("/view-roles")).to.be.true
+            })
+        })
+    
     })
 })
