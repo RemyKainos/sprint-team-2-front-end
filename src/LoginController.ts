@@ -22,7 +22,7 @@ export class LoginController {
 
             res.locals.errormessage = (e as Error).message;
 
-            res.render('login', req.body);
+            res.render('login', {body: req.body, user: req.session.user});
         }
     }
 

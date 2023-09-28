@@ -6,6 +6,8 @@ import sinon from 'sinon';
 import * as authService from '../../../src/service/authService';
 import { User } from '../../../src/model/auth';
 
+const user = {  username: 'email',  password: 'password', role: { roleID: 2, role_name: 'Employee'}  }
+
 describe('LoginController', () => {
     afterEach(() => {
 
@@ -67,20 +69,20 @@ describe('LoginController', () => {
             const consoleErrorStub = sinon.stub(console, "error");
 
 
-            const req: Request = {
+            const req = {
                 body: {
                     username: 'email@email.com',
                     password: 'invalidPassword',
                 },
-                session: {},
-            } as Request;
+                session: {user:user},
+            } as unknown as Request;
 
-            const user:User = {
+            const returnUser:User = {
                 username: 'email',  password: 'password', role: { roleID: 2, role_name: 'Employee'} 
             }
 
             loginStub.withArgs(req.body).resolves("token");
-            whoamiStub.withArgs("token").resolves(user)
+            whoamiStub.withArgs("token").resolves(returnUser)
 
 
             const res = {
@@ -92,7 +94,7 @@ describe('LoginController', () => {
 
             expect(loginStub.calledOnceWithExactly(req.body)).to.be.true;
             expect(whoamiStub.calledOnceWithExactly("token")).to.be.true;
-            expect(res.render.calledOnceWithExactly('login', req.body)).to.be.true;           
+            expect(res.render.calledOnceWithExactly('login', {body: req.body, user: user})).to.be.true;           
 
             expect(consoleErrorStub.calledOnce).to.be.true;
         });

@@ -22,7 +22,7 @@ export class JobRoleController {
             res.render('ViewRoles.html', {title: "View Roles", roles: roles, user:req.session.user, bands: bands, capabilities: capabilities, filters: filters})
         } catch(e){
             console.error(e);
-            res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
+            res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string, user: req.session.user})
         }
     }
 
@@ -47,10 +47,10 @@ export class JobRoleController {
 
         try{
             const roles = await viewJobRoleWithFilter(filters);
-            res.render('ViewRoles.html', {title: "View Roles", roles: roles, bands: bands, capabilities: capabilities, filters: filters})
+            res.render('ViewRoles.html', {title: "View Roles", user: req.session.user, roles: roles, bands: bands, capabilities: capabilities, filters: filters})
         } catch(e){
             console.log(e)
-            res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
+            res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string, user: req.session.user})
         }
     }    
 
@@ -58,7 +58,7 @@ export class JobRoleController {
         if (isNaN(parseInt(req.params.id))) {
             res.locals.errormessage = 'Invalid Job Role ID Selected';
             
-            res.render('delete-job-role')
+            res.render('delete-job-role', {user: req.session.user})
         } else {
 
             const deleteId = parseInt(req.params.id)
@@ -66,13 +66,13 @@ export class JobRoleController {
             try {
                 const jobRole: JobRoleViewRoles = await getJobRoleById(deleteId)
 
-                res.render('delete-job-role', {id: deleteId, jobRole: jobRole})
+                res.render('delete-job-role', {id: deleteId, jobRole: jobRole, user: req.session.user})
             } catch (e) {
                 console.error(e)
 
                 res.locals.errormessage = (e as Error).message;
 
-                res.render('delete-job-role');
+                res.render('delete-job-role', {user: req.session.user});
             }
         }
     }
@@ -84,7 +84,7 @@ export class JobRoleController {
 
         if (shouldDeleteJobRole === 'true') {
             try {
-                rowsDeleted = await deleteJobRole(deleteId)
+                rowsDeleted = await deleteJobRole(deleteId, req.session.token)
 
                 if (rowsDeleted != 1) {
                     throw new Error('Unable to delete job role - unexpected number of rows deleted')
@@ -96,7 +96,7 @@ export class JobRoleController {
 
                 res.locals.errormessage = (e as Error).message
 
-                res.render('delete-job-role', req.params, req.body)
+                res.render('delete-job-role', {params: req.params, body: req.body, user: req.session.user})
             }
         } else {
             res.redirect('/view-job-spec/' + deleteId.toString());

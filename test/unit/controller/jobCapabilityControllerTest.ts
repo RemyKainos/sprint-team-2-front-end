@@ -5,13 +5,16 @@ import sinon from 'sinon';
 import * as jobCapabilityService from '../../../src/service/jobCapabilityService'
 import { JobCapability, JobCapabilityRequest } from '../../../src/model/JobCapability';
 
+const user = {  username: 'email', password:'password',  role: { roleID: 1, role_name: 'Admin' } }
+const token = 'token'
+
 describe('jobCapabilityController', () => {
     afterEach(() => {
         sinon.restore();
     });
     
     it("should render the family-by-capability view with data", async () => {
-        const req = {}
+        const req = {session:{user:user},} as unknown as Request
 
         const res = {
             render: sinon.spy()
@@ -29,11 +32,11 @@ describe('jobCapabilityController', () => {
         await JobCapabilityController.get(req as Request, res as unknown as Response);
 
         expect(getAllCapabilitiesStub.calledOnceWithExactly()).to.be.true;
-        expect(res.render.calledOnceWithExactly("select-capability", { capabilities: mockCapabilities })).to.be.true;
+        expect(res.render.calledOnceWithExactly("select-capability", { capabilities: mockCapabilities, user: user })).to.be.true;
     });
 
     it("should handle get errors on get and log them", async () => {
-        const req = {}
+        const req = {session:{user:user},} as unknown as Request
 
         const res = {
             render: sinon.spy(),
@@ -65,9 +68,10 @@ describe('jobCapabilityController', () => {
     });
 
     it("should handle post error and render select-capability page", async () => {
-        const req: Partial<Request> = {
+        const req = {
             body: { capabilityID: "InvalidID" },
-        } as Partial<Request>;
+            session:{user:user},
+        } as unknown as Request
 
         const res = {
             render: sinon.spy(),
@@ -79,11 +83,13 @@ describe('jobCapabilityController', () => {
         await JobCapabilityController.post(req as Request, res as unknown as Response);
 
         expect(consoleErrorStub.calledOnce).to.be.true; 
-        expect(res.render.calledOnceWithExactly("select-capability")).to.be.true;
+        expect(res.render.calledOnceWithExactly("select-capability", {user: user})).to.be.true;
     });
 
     it("should get add capability page", async () => {
-        const req: Partial<Request> = {} as Partial<Request>;
+        const req = {
+            session:{user:user},
+        } as unknown as Request
 
         const res = {
             render: sinon.spy()
@@ -91,13 +97,14 @@ describe('jobCapabilityController', () => {
 
         await JobCapabilityController.getAddCapability(req as Request, res as unknown as Response);
 
-        expect(res.render.calledOnceWithExactly("add-capability")).to.be.true;
+        expect(res.render.calledOnceWithExactly("add-capability", {user: user})).to.be.true;
     });
 
     it("should post to add capability page and redirect to view roles on successful insertion", async () => {
-        const req: Partial<Request> = {
+        const req = {
             body: { name: "test" },
-        } as Partial<Request>;
+            session: {token:token}
+        } as unknown as Request;
 
         const res = {
             redirect: sinon.spy()
@@ -111,18 +118,19 @@ describe('jobCapabilityController', () => {
 
         const addCapabilityStub = sinon.stub(jobCapabilityService, "addCapability");
 
-        addCapabilityStub.withArgs(mockCapabilityRequest).resolves(mockResponse);
+        addCapabilityStub.withArgs(mockCapabilityRequest, token).resolves(mockResponse);
 
         await JobCapabilityController.postAddCapability(req as Request, res as unknown as Response);
 
-        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest)).to.be.true;
+        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest, token)).to.be.true;
         expect(res.redirect.calledOnceWithExactly("/view-roles/")).to.be.true;
     });
 
     it("should catch error on post add capability when error occcurs", async () => {
-        const req: Partial<Request> = {
+        const req = {
             body: { name: "test" },
-        } as Partial<Request>;
+            session: {user: user, token:token}
+        } as unknown as Request
 
         const res = {
             render: sinon.spy(),
@@ -140,15 +148,16 @@ describe('jobCapabilityController', () => {
 
         await JobCapabilityController.postAddCapability(req as Request, res as unknown as Response);
 
-        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest)).to.be.true;
+        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest, token)).to.be.true;
         expect(consoleErrorStub.calledOnce).to.be.true;
-        expect(res.render.calledOnceWithExactly("add-capability")).to.be.true;
+        expect(res.render.calledOnceWithExactly("add-capability", {user: user})).to.be.true;
     });
 
     it("should catch error on post add capability when invalid capability name entered", async () => {
-        const req: Partial<Request> = {
+        const req = {
             body: { name: "test" },
-        } as Partial<Request>;
+            session: {user:user, token:token}
+        } as unknown as Request;
 
         const res = {
             render: sinon.spy(),
@@ -166,8 +175,8 @@ describe('jobCapabilityController', () => {
 
         await JobCapabilityController.postAddCapability(req as Request, res as unknown as Response);
 
-        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest)).to.be.true;
+        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest, token)).to.be.true;
         expect(consoleErrorStub.calledOnce).to.be.true;
-        expect(res.render.calledOnceWithExactly("add-capability")).to.be.true;
+        expect(res.render.calledOnceWithExactly("add-capability", {user:user})).to.be.true;
     });
 })

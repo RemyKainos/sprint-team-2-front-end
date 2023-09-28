@@ -10,12 +10,12 @@ export class JobSpecController{
         try{
             const jobSpecService = new JobSpecService();
             const jobSpec = await jobSpecService.getJobSpec(roleIdNum);
-            res.render('ViewJobSpec.html', {title: "Job Spec", jobSpec, roleIdNum});
+            res.render('ViewJobSpec.html', {title: "Job Spec", jobSpec, roleIdNum, user: req.session.user});
         } catch(e){
             const err = e as AxiosError;
             console.log(err.response?.data);
             
-            res.render('error.html', {title: "Error", errorMessage: "JobSpec can't be found"});
+            res.render('error.html', {title: "Error", errorMessage: "JobSpec can't be found", user: req.session.user});
         }
     }
 }

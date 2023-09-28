@@ -67,16 +67,20 @@
                             </div>
                             {% if user.role.role_name == 'Admin' %}
                             <div class="btn-group mr-3" role="group">
+<<<<<<< HEAD
                                 <a href="/edit-job-role/{{role.roleID}}">
                                     <button type="button" class="btn btn-primary" alt="View {{role.roleName}}">Edit</button>
                                 </a>
                             </div>
                             {% endif %}
                             <div class="btn-group mr-3" role="group">
+=======
+>>>>>>> main
                                 <a href="/delete-job-role/{{role.roleID}}">
                                     <button type="button" class="btn btn-danger" alt="Delete {{role.roleName}}">Delete</button>
                                 </a>
                             </div>
+                            {% endif %}
                             </td>
                             <td class="text-center">
                                 {% if role.sharepointLink %}

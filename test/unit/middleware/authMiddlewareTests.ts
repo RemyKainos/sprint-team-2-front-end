@@ -65,6 +65,6 @@ describe('Role Test', () => {
         expect(nextFunction.calledOnce).to.be.false;
         expect(res.render.calledOnce).to.be.true;
         expect(res.render.calledWith('forbidden')).to.be.true;
-        expect(res.locals.errorMessage).to.equal(`${req.session.user?.username} is not an admin`);
+        expect(res.locals.errorMessage).to.equal(`You are not authorized to view this page.`);
     })
 })
