@@ -2,7 +2,7 @@ import { JobRoleFilter, JobRoleViewRoles } from "../../../src/model/JobRole";
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import chai from 'chai';
-import { viewJobRoleWithFilter, viewJobRoles, deleteJobRole, getJobRoleById } from "../../../src/service/JobRoleService";
+import { viewJobRoleWithFilter, viewJobRoles, deleteJobRole, getJobRoleById, editJobRole } from "../../../src/service/JobRoleService";
 
 const expect = chai.expect;
 const jobRole: JobRoleViewRoles = {
@@ -145,6 +145,57 @@ describe('JobRoleService', function () {
             }
 
             expect(error).to.equal('Could not get job role')
+        })
+    })    
+    describe('editJobRole', function () {
+        it('Should successfully edit a job role', async () =>{
+            const mock: MockAdapter = new MockAdapter(axios);
+
+            const testID = 1
+
+            const testData: JobRoleViewRoles = {
+                roleID: 1,
+                roleName: "testname",
+                jobSpec: "testspec",
+                responsibilities: "testrespo",
+                sharepointLink: "testlink",
+                capabilityName: "testname",
+                bandName: "testname"
+            }
+
+            mock.onPut(process.env.BACK_URL + '/api/job-roles/' + testID.toString(), testData).reply(200, testData);
+
+            const result = await editJobRole(testID, testData);
+
+            expect(result).to.deep.equal(testData)
+        })
+
+        it('Should error when an error occurs', async () => {
+            const mock: MockAdapter = new MockAdapter(axios);
+
+            const testID = -1
+
+            const testData: JobRoleViewRoles = {
+                roleID: 1,
+                roleName: "testname",
+                jobSpec: "testspec",
+                responsibilities: "testrespo",
+                sharepointLink: "testlink",
+                capabilityName: "testname",
+                bandName: "testname"
+            }
+
+            mock.onPut(process.env.BACK_URL + '/api/job-roles/' + testID).reply(500);
+
+            let error = ''
+
+            try{
+                await editJobRole(testID, testData)
+            } catch (e) {
+                error = (e as Error).message;
+            }
+
+            expect(error).to.equal('Could not edit job Role')
         })
     })
 })
