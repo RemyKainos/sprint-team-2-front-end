@@ -12,10 +12,13 @@ export function role(roleRequired:string){
     return function (req:Request, res:Response, next:NextFunction){
         if (req.session && (req.session.user?.role.role_name == 'Admin' || req.session.user?.role.role_name === roleRequired)) {
             return next();
-        }else{
-            res.locals.errorMessage = `${req.session.user?.username} is not an admin`;
         }
-        res.render('forbidden');
+        if (req.session.user) {
+            res.locals.errorMessage = `You are not authorized to view this page.`;
+        } else {
+            res.locals.errorMessage = `You must be logged in to view this page.`;
+        }
+        res.render('forbidden', {user: req.session.user});
     }
 }
 

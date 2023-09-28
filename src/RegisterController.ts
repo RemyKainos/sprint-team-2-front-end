@@ -6,7 +6,7 @@ export class RegisterController {
 
     public static async get(req:Request, res:Response): Promise<void> {
         res.locals.roles = await getRoles();
-        res.render('register')
+        res.render('register', {user: req.session.user})
     }
 
 
@@ -22,7 +22,8 @@ export class RegisterController {
 
             res.locals.errormessage = (e as Error).message;
 
-            res.render('register', req.body);
+            res.locals.roles = await getRoles();
+            res.render('register', {body: req.body, user: req.session.user});
         }
     }
 }

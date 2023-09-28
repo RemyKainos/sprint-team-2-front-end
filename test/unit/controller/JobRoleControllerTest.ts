@@ -12,6 +12,7 @@ const jobRoleViewRoles1: JobRoleViewRoles = {
     bandName: "testband",
     capabilityName: "testcapability"
 } ;
+const user = {  username: 'email', password:'password',  role: { roleID: 1, role_name: 'Admin' } }
 
 describe('JobRole Controller', () => {
     
@@ -24,8 +25,6 @@ describe('JobRole Controller', () => {
     describe('get', () => {
         it('Should render the ViewRoles page with correct data', async () => {
             sinon.stub(JobRoleService, 'viewJobRoles').resolves([jobRoleViewRoles1])
-            const user = {  username: 'email', password:'password',  role: { roleID: 1, role_name: 'Admin' } }
-            
             const req = {session:{user:user},} as unknown as Request;
 
             const res = {
@@ -63,9 +62,10 @@ describe('JobRole Controller', () => {
 
     describe('getDelete', () => {
         it('Should correctly render delete page when provided valid id', async () => {
-            const req: Partial<Request> = {
+            const req = {
                 params: { id: "1" },
-            } as Partial<Request>;
+                session:{user:user}
+            } as unknown as Request;
 
             const res = {
                 render: sinon.spy()
@@ -88,13 +88,14 @@ describe('JobRole Controller', () => {
             await JobRoleController.getDelete(req as Request, res as unknown as Response)
 
             expect(getJobRoleByIdStub.calledOnceWithExactly(1)).to.be.true;
-            expect(res.render.calledOnceWithExactly("delete-job-role", {id: deleteId, jobRole: mockJobRole})).to.be.true;  
+            expect(res.render.calledOnceWithExactly("delete-job-role", {id: deleteId, jobRole: mockJobRole, user:user})).to.be.true;  
         })
 
         it('should display error message when trying to render delete page with invalid id', async () => {
-            const req: Partial<Request> = {
+            const req = {
                 params: { id: "invalid" },
-            } as Partial<Request>;
+                session:{user:user}
+            } as unknown as Request;
 
             const res = {
                 render: sinon.spy(),
@@ -103,19 +104,20 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.getDelete(req as Request, res as unknown as Response)
 
-            expect(res.render.calledOnceWithExactly("delete-job-role")).to.be.true;
+            expect(res.render.calledOnceWithExactly("delete-job-role", {user:user})).to.be.true;
             expect(res.locals.calledOnce)
         })
     })
 
     describe('postDelete', () => {
         it('should redirect to /view-roles on successful deletion', async () => {
-            const req: Partial<Request> = {
+            const req = {
                 body : {
                     shouldDeleteJobRole: 'true',
                     deleteId: 1
-                }
-            } as Partial<Request>
+                },
+                session:{user:user}
+            } as unknown as Request
 
             const res = {
                 redirect: sinon.spy()
@@ -135,13 +137,14 @@ describe('JobRole Controller', () => {
         })
 
         it('should display error and render delete-job-role page if invalid deleteID passed', async () => {
-            const req: Partial<Request> = {
+            const req = {
                 params: {},
                 body : {
                     shouldDeleteJobRole: 'true',
                     deleteId: -1
-                }
-            } as Partial<Request>
+                },
+                session:{user:user}
+            } as unknown as Request
 
             const res = {
                 render: sinon.spy(),
@@ -161,7 +164,7 @@ describe('JobRole Controller', () => {
 
             expect(deleteJobRoleStub.calledOnceWithExactly(deleteId)).to.be.true;
             expect(consoleErrorStub.calledOnce).to.be.true;
-            expect(res.render.calledOnceWithExactly("delete-job-role", req.params, req.body)).to.be.true;
+            expect(res.render.calledOnceWithExactly("delete-job-role", {params: req.params, body: req.body, user: user})).to.be.true;
         })
 
         it('should redirect to /view-job-spec/:id page if shouldDeleteJobRole is false', async () => {

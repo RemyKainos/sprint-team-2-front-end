@@ -9,13 +9,13 @@ export class JobCapabilityController {
         try {
             data = await getAllCapabilities()
 
-            res.render('select-capability', {capabilities: data})
+            res.render('select-capability', {capabilities: data, user: req.session.user})
         } catch (e) {
             console.error(e)
 
             res.locals.errormessage = (e as Error).message;
 
-            res.render('select-capability')
+            res.render('select-capability', {user: req.session.user})
         }
     }
 
@@ -29,12 +29,12 @@ export class JobCapabilityController {
 
             res.locals.errormessage = (e as Error).message;
 
-            res.render('select-capability')
+            res.render('select-capability', {user: req.session.user})
         }
     }
 
     public static getAddCapability(req: Request, res: Response): void {
-        res.render('add-capability')
+        res.render('add-capability', {user: req.session.user})
     }
 
     public static async postAddCapability(req: Request, res: Response): Promise<void> {
@@ -57,7 +57,7 @@ export class JobCapabilityController {
 
             res.locals.errormessage = (e as Error).message;
 
-            res.render('add-capability')
+            res.render('add-capability', {user: req.session.user})
         }
     }
 }

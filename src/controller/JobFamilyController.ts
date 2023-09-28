@@ -9,7 +9,7 @@ export class JobFamilyController {
         if (isNaN(parseInt(req.params.id))) {
             res.locals.errormessage = 'Invalid Capability ID Selected';
 
-            res.render('family-by-capability')
+            res.render('family-by-capability', {user: req.session.user})
         } else {
 
             const capabilityID: number = parseInt(req.params.id)
@@ -20,13 +20,13 @@ export class JobFamilyController {
                 data = await getFamilyByCapability(capabilityID)
                 const capability: JobCapability = await getCapabilityById(capabilityID)
 
-                res.render('family-by-capability', {families: data, capability: capability})
+                res.render('family-by-capability', {families: data, capability: capability, user: req.session.user})
             } catch (e) {
                 console.error(e)
 
                 res.locals.errormessage = (e as Error).message;
 
-                res.render('family-by-capability')
+                res.render('family-by-capability', {user: req.session.user})
             }
         }
     }
