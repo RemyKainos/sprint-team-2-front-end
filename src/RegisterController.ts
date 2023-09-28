@@ -21,6 +21,7 @@ export class RegisterController {
             console.error(e);
 
             res.locals.errormessage = (e as Error).message;
+            res.locals.roles = await getRoles();
 
             res.render('register', req.body);
         }
