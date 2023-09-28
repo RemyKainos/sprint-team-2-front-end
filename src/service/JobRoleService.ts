@@ -41,15 +41,3 @@ export const getJobRoleById = async function(id: number): Promise<JobRoleViewRol
         throw new Error('Could not get job role')
     }
 }
-
-export const editJobRole =async function(id: number, updatedRoleData: JobRoleViewRoles, token?:string): Promise<number> {
-    try {
-        const response = await axios.put(process.env.BACK_URL + '/api/job-roles/' + id.toString(), updatedRoleData, {
-            headers:{Authorization: `Bearer ${token}`},
-        });
-
-        return response.data
-    } catch (e) {
-        throw new Error('Could not edit job Role')
-    }
-}
