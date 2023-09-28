@@ -5,7 +5,7 @@ import chai from 'chai';
 
 const expect = chai.expect;
 
-import { login, register } from '../../../src/service/authService'
+import { login, register, whoami } from '../../../src/service/authService'
 
 describe('AuthService', function () {
     describe('login', function () {
@@ -16,12 +16,13 @@ describe('AuthService', function () {
                 password: "password"
             }
 
-            const responseData = "token"
+            const responseData = {token:"token"}
+            const expectedResult = "token"
 
             mock.onPost(process.env.BACK_URL + '/api/login/', loginData).reply(200, responseData);
 
             const result = await login(loginData)
-            expect(result).to.be.equal(responseData);
+            expect(result).to.equal(expectedResult);
 
         });
 
@@ -60,7 +61,10 @@ describe('AuthService', function () {
             const user: User = {
                 username: "user@user.com",
                 password: "Password$",
-                role: "Admin"
+                role: {
+                    roleID: 1,
+                    role_name: "Admin"
+                }
             }
             mock.onPost(process.env.BACK_URL + '/api/register/', user).reply(200);
 
@@ -83,7 +87,10 @@ describe('AuthService', function () {
             const user: User = {
                 username: 'user@user.com',
                 password: 'Password',
-                role: 'Admin',
+                role: {
+                    roleID: 1,
+                    role_name: "Admin"
+                }
             };
 
             // Mock the Axios request to return a 500 status code (simulating a failed registration)
@@ -98,5 +105,40 @@ describe('AuthService', function () {
                 expect((error as AxiosError).message).to.equal('Password must contain at least one special character (@#$%^&+=).');
             }
         });
+        describe('whoami', function () {
+            it('should identify user successfully', async () => {
+                const mock = new MockAdapter(axios);
+                const token = 'token';
+                const responseData = { userID: 1, email: 'test@test.com', role: { roleID: 1, roleName: 'Admin' } };
+                mock.onGet(process.env.BACK_URL + '/api/whoami', { headers: { Authorization: `Bearer ${token}` } }).reply(200, responseData);
+
+                const result = await whoami(token);
+                expect(result).to.deep.equal(responseData);
+            });
+
+            it('should handle error when user is not logged in', async () => {
+                const mock = new MockAdapter(axios);
+                const token = 'token';
+                mock.onGet(process.env.BACK_URL + '/api/whoami', { headers: { Authorization: `Bearer ${token}` } }).reply(401);
+          
+                try {
+                    await whoami(token);
+                } catch (error) {
+                    expect((error as AxiosError).message).to.equal("User isn't logged in");
+                }
+            });
+
+            it('should handle error when server error', async () => {
+                const mock = new MockAdapter(axios);
+                const token = 'token';
+                mock.onGet(process.env.API_URL + '/api/whoami', { headers: { Authorization: `Bearer ${token}` } }).reply(500);
+          
+                try {
+                    await whoami(token);
+                } catch (error) {
+                    expect((error as AxiosError).message).to.equal("Couldn't get user");
+                }
+            });
+        })
     });
 });

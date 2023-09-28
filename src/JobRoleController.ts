@@ -6,8 +6,8 @@ export class JobRoleController {
 
     public static get = async function(req:Request, res:Response): Promise<void> {
         try{
-            const roles = await viewJobRoles();
-            res.render('ViewRoles.html', {title: "View Roles", roles: roles})
+            const roles = await viewJobRoles(req.session.token);
+            res.render('ViewRoles.html', {title: "View Roles", roles: roles, user:req.session.user})
         } catch(e){
             console.error(e);
             res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})
