@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { viewJobRoles, viewJobRoleWithFilter, deleteJobRole, getJobRoleById  } from "./service/JobRoleService"
+import { viewJobRoles, viewJobRoleWithFilter, deleteJobRole, getJobRoleById, editJobRole  } from "./service/JobRoleService"
 import type { JobRoleFilter, JobRoleViewRoles } from "./model/JobRole";
 import { getAllCapabilities } from "./service/jobCapabilityService";
 import { getAllBands } from "./service/jobBandService";
+
 
 export class JobRoleController {
     
@@ -99,6 +100,43 @@ export class JobRoleController {
             }
         } else {
             res.redirect('/view-job-spec/' + deleteId.toString());
+        }
+    }
+
+    public static getEdit = async function(req: Request, res: Response): Promise<void> {
+        if (isNaN(parseInt(req.params.id))) {
+            res.locals.errormessage = 'Invalid Job Role ID Selected';
+            res.render('edit-job-role', {user:req.session.user}); 
+        } else {
+            const editId = parseInt(req.params.id);
+            try {
+                const jobRole: JobRoleViewRoles = await getJobRoleById(editId); 
+
+                if (!jobRole) {
+                    res.render('edit-job-role', {error: "Job Role not found", user:req.session.user}); 
+                } else {
+                    res.render('edit-job-role', { id: editId, jobRole: jobRole, user:req.session.user });
+                }
+            } catch (e) {
+                console.error(e);
+                res.locals.errormessage = (e as Error).message;
+                res.render('edit-job-role', {user:req.session.user}); 
+            }
+        }
+    }
+
+    public static putEdit = async function(req: Request, res: Response): Promise<void> {
+        const updatedRoleData = req.body; 
+        const editId = parseInt(req.body.editId);
+
+        try {
+            await editJobRole(editId, updatedRoleData, req.session.token);
+            
+            res.redirect('/view-roles'); 
+        } catch (e) {
+            console.error(e);
+            res.locals.errormessage = (e as Error).message;
+            res.render('edit-job-role', { id: editId, jobRole: updatedRoleData, user:req.session.user });
         }
     }
 }
