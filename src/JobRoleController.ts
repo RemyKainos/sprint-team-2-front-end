@@ -15,10 +15,10 @@ export class JobRoleController {
         }
         
         try{
-            const roles = await viewJobRoles();
             const capabilities = await getAllCapabilities()
             const bands = await getAllBands()
-            res.render('ViewRoles.html', {title: "View Roles", roles: roles, bands: bands, capabilities: capabilities, filters: filters})
+            const roles = await viewJobRoles(req.session.token);
+            res.render('ViewRoles.html', {title: "View Roles", roles: roles, user:req.session.user, bands: bands, capabilities: capabilities, filters: filters})
         } catch(e){
             console.error(e);
             res.render('ViewRoles.html', {title: "View Roles Error", errorMessage: e as string})

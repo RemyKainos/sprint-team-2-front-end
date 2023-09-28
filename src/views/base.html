@@ -30,24 +30,28 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/select-capability">Capabilities & Families</a>
           </li>
+          {% if user.role.role_name == 'Admin' %}
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/add-capability">Add New Capability</a>
           </li>
+          {% endif %}
         </ul>
           
-        <!--TODO add conditional to hide if the user is signed in -->
         <div class="navbar-nav d-flex">
-          <li class="nav-item">
-            <a href="/login" class="nav-link">
-              Login
-            </a>
+          {% if user %}
+            <li class="nav-item">
+              <a href="/logout" class="nav-link">Logout</a>
           </li>
-
+        {% else %}
+            <li class="nav-item">
+              <a href="/login" class="nav-link">Login</a>
+            </li>
           <li class="nav-item">
             <a href="/register" class="nav-link">
               Register
             </a>
           </li>
+        {% endif %}
         </div>
       </div>
     </div>
