@@ -90,14 +90,10 @@ export class JobRoleController {
     public static putEdit = async function(req: Request, res: Response): Promise<void> {
         const updatedRoleData = req.body; 
         const editId = parseInt(req.body.editId);
-        console.log(req.body);
-
-        console.log("made it in")
 
         try {
-            console.log(editId)
             await editJobRole(editId, updatedRoleData);
-            console.log("we got da data")
+            
             res.redirect('/view-roles'); 
         } catch (e) {
             console.error(e);
