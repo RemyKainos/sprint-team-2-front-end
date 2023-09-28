@@ -44,7 +44,7 @@ export class JobRoleController {
 
         if (shouldDeleteJobRole === 'true') {
             try {
-                rowsDeleted = await deleteJobRole(deleteId)
+                rowsDeleted = await deleteJobRole(deleteId, req.session.token)
 
                 if (rowsDeleted != 1) {
                     throw new Error('Unable to delete job role - unexpected number of rows deleted')

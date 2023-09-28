@@ -6,6 +6,7 @@ import * as jobCapabilityService from '../../../src/service/jobCapabilityService
 import { JobCapability, JobCapabilityRequest } from '../../../src/model/JobCapability';
 
 const user = {  username: 'email', password:'password',  role: { roleID: 1, role_name: 'Admin' } }
+const token = 'token'
 
 describe('jobCapabilityController', () => {
     afterEach(() => {
@@ -100,9 +101,10 @@ describe('jobCapabilityController', () => {
     });
 
     it("should post to add capability page and redirect to view roles on successful insertion", async () => {
-        const req: Partial<Request> = {
+        const req = {
             body: { name: "test" },
-        } as Partial<Request>;
+            session: {token:token}
+        } as unknown as Request;
 
         const res = {
             redirect: sinon.spy()
@@ -116,18 +118,18 @@ describe('jobCapabilityController', () => {
 
         const addCapabilityStub = sinon.stub(jobCapabilityService, "addCapability");
 
-        addCapabilityStub.withArgs(mockCapabilityRequest).resolves(mockResponse);
+        addCapabilityStub.withArgs(mockCapabilityRequest, token).resolves(mockResponse);
 
         await JobCapabilityController.postAddCapability(req as Request, res as unknown as Response);
 
-        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest)).to.be.true;
+        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest, token)).to.be.true;
         expect(res.redirect.calledOnceWithExactly("/view-roles/")).to.be.true;
     });
 
     it("should catch error on post add capability when error occcurs", async () => {
         const req = {
             body: { name: "test" },
-            session: {user: user}
+            session: {user: user, token:token}
         } as unknown as Request
 
         const res = {
@@ -146,7 +148,7 @@ describe('jobCapabilityController', () => {
 
         await JobCapabilityController.postAddCapability(req as Request, res as unknown as Response);
 
-        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest)).to.be.true;
+        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest, token)).to.be.true;
         expect(consoleErrorStub.calledOnce).to.be.true;
         expect(res.render.calledOnceWithExactly("add-capability", {user: user})).to.be.true;
     });
@@ -154,7 +156,7 @@ describe('jobCapabilityController', () => {
     it("should catch error on post add capability when invalid capability name entered", async () => {
         const req = {
             body: { name: "test" },
-            session: {user:user}
+            session: {user:user, token:token}
         } as unknown as Request;
 
         const res = {
@@ -173,7 +175,7 @@ describe('jobCapabilityController', () => {
 
         await JobCapabilityController.postAddCapability(req as Request, res as unknown as Response);
 
-        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest)).to.be.true;
+        expect(addCapabilityStub.calledOnceWithExactly(mockCapabilityRequest, token)).to.be.true;
         expect(consoleErrorStub.calledOnce).to.be.true;
         expect(res.render.calledOnceWithExactly("add-capability", {user:user})).to.be.true;
     });

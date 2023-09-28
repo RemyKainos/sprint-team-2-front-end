@@ -13,6 +13,7 @@ const jobRoleViewRoles1: JobRoleViewRoles = {
     capabilityName: "testcapability"
 } ;
 const user = {  username: 'email', password:'password',  role: { roleID: 1, role_name: 'Admin' } }
+const token = 'token'
 
 describe('JobRole Controller', () => {
     
@@ -116,7 +117,7 @@ describe('JobRole Controller', () => {
                     shouldDeleteJobRole: 'true',
                     deleteId: 1
                 },
-                session:{user:user}
+                session:{user:user, token: token}
             } as unknown as Request
 
             const res = {
@@ -128,11 +129,11 @@ describe('JobRole Controller', () => {
 
             const deleteJobRoleStub =  sinon.stub(JobRoleService, "deleteJobRole")
 
-            deleteJobRoleStub.withArgs(deleteId).resolves(response)
+            deleteJobRoleStub.withArgs(deleteId, token).resolves(response)
 
             await JobRoleController.postDelete(req as Request, res as unknown as Response)
 
-            expect(deleteJobRoleStub.calledOnceWithExactly(deleteId)).to.be.true;
+            expect(deleteJobRoleStub.calledOnceWithExactly(deleteId, token)).to.be.true;
             expect(res.redirect.calledOnceWithExactly("/view-roles")).to.be.true;
         })
 
@@ -143,7 +144,7 @@ describe('JobRole Controller', () => {
                     shouldDeleteJobRole: 'true',
                     deleteId: -1
                 },
-                session:{user:user}
+                session:{user:user, token:token}
             } as unknown as Request
 
             const res = {
@@ -156,13 +157,13 @@ describe('JobRole Controller', () => {
 
             const deleteJobRoleStub =  sinon.stub(JobRoleService, "deleteJobRole")
 
-            deleteJobRoleStub.withArgs(deleteId).resolves(response)
+            deleteJobRoleStub.withArgs(deleteId, token).resolves(response)
 
             const consoleErrorStub = sinon.stub(console, "error");
 
             await JobRoleController.postDelete(req as Request, res as unknown as Response)
 
-            expect(deleteJobRoleStub.calledOnceWithExactly(deleteId)).to.be.true;
+            expect(deleteJobRoleStub.calledOnceWithExactly(deleteId, token)).to.be.true;
             expect(consoleErrorStub.calledOnce).to.be.true;
             expect(res.render.calledOnceWithExactly("delete-job-role", {params: req.params, body: req.body, user: user})).to.be.true;
         })

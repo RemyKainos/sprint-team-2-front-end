@@ -45,7 +45,7 @@ export class JobCapabilityController {
         }
 
         try {
-            const capabilityID: number = await addCapability(jobCapability)
+            const capabilityID: number = await addCapability(jobCapability, req.session.token)
 
             if (capabilityID != 0) {
                 res.redirect('/view-roles/')

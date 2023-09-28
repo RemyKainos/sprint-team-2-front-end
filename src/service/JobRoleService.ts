@@ -12,9 +12,11 @@ export const viewJobRoles = async function (token?:string): Promise<JobRoleViewR
     }
 };
 
-export const deleteJobRole = async function(id: number): Promise<number> {
+export const deleteJobRole = async function(id: number, token?:string): Promise<number> {
     try {
-        const response = await axios.delete(process.env.BACK_URL + '/api/job-roles/' + id.toString());
+        const response = await axios.delete(process.env.BACK_URL + '/api/job-roles/' + id.toString(), {
+            headers:{Authorization: `Bearer ${token}`},
+        });
 
         return response.data
     } catch (e) {
