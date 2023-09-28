@@ -57,7 +57,8 @@ describe('JobRole Controller', () => {
 
             await JobRoleController.get(req, res as unknown as Response);
             
-            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles", roles: [jobRoleViewRoles1], user:user, bands: [band], capabilities: [capability], filters: filters})).to.be.true;
+            expect(res.render.calledOnceWithExactly('ViewRoles.html',
+                {title: "View Roles", roles: [jobRoleViewRoles1], user:user, bands: [band], capabilities: [capability], filters: filters})).to.be.true;
         })
 
         it('Should render error page with appropriate error', async () => {
