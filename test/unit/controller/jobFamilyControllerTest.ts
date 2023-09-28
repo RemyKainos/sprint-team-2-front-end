@@ -7,15 +7,18 @@ import * as jobFamilyService from '../../../src/service/jobFamilyService';
 import type { JobCapability } from '../../../src/model/JobCapability';
 import type { JobFamily } from '../../../src/model/JobFamily';
 
+const user = {  username: 'email', password:'password',  role: { roleID: 1, role_name: 'Admin' } }
+
 describe('JobFamilyController', () => {
     afterEach(() => {
         sinon.restore();
     });
 
     it("should render the family-by-capability view with data", async () => {
-        const req: Partial<Request> = {
+        const req = {
             params: { id: "1" },
-        } as Partial<Request>;
+            session: {user:user}
+        } as unknown as Request;
 
         const res = {
             render: sinon.spy()
@@ -41,13 +44,14 @@ describe('JobFamilyController', () => {
 
         expect(getFamilyByCapabilityStub.calledOnceWithExactly(1)).to.be.true;
         expect(getCapabilityByIdStub.calledOnceWithExactly(1)).to.be.true;
-        expect(res.render.calledOnceWithExactly("family-by-capability", { families: mockFamilies, capability: mockCapability })).to.be.true;
+        expect(res.render.calledOnceWithExactly("family-by-capability", { families: mockFamilies, capability: mockCapability, user:user })).to.be.true;
     });
 
     it("should handle fetch error on get and log them", async () => {
-        const req: Partial<Request> = {
+        const req = {
             params: { id: "1" },
-        } as Partial<Request>;
+            session: {user:user}
+        } as unknown as Request;
     
         const res= {
             render: sinon.spy(),

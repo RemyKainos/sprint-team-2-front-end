@@ -20,9 +20,11 @@ export const viewJobRoleWithFilter = async function (filter: JobRoleFilter): Pro
         throw new Error('Viewing job roles by filter is not available at this time please try again later.')
     }
 }    
-export const deleteJobRole = async function(id: number): Promise<number> {
+export const deleteJobRole = async function(id: number, token?:string): Promise<number> {
     try {
-        const response = await axios.delete(process.env.BACK_URL + '/api/job-roles/' + id.toString());
+        const response = await axios.delete(process.env.BACK_URL + '/api/job-roles/' + id.toString(), {
+            headers:{Authorization: `Bearer ${token}`},
+        });
 
         return response.data
     } catch (e) {

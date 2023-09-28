@@ -20,7 +20,7 @@ export const getCapabilityById = async function (id: number): Promise<JobCapabil
     }
 }
 
-export const addCapability = async function (capability: JobCapabilityRequest): Promise<number> {
+export const addCapability = async function (capability: JobCapabilityRequest, token?:string): Promise<number> {
     const error: string = isValidCapability(capability)
 
     if (error) {
@@ -28,7 +28,9 @@ export const addCapability = async function (capability: JobCapabilityRequest): 
     }
 
     try {
-        const response = await axios.post(process.env.BACK_URL + '/api/capability/', capability)
+        const response = await axios.post(process.env.BACK_URL + '/api/capability/', capability, {
+            headers:{Authorization: `Bearer ${token}`},
+        })
         return response.data
     } catch (e) {
         throw new Error('Could not add capability')

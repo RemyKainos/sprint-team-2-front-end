@@ -27,6 +27,8 @@ router.get('/view-roles', role("Employee"), JobRoleController.get)
 router.get('/logout', role("Employee"), LoginController.logOut)
 router.get('/add-capability', role("Admin"), JobCapabilityController.getAddCapability)
 router.post('/add-capability', role("Admin"), JobCapabilityController.postAddCapability)
+router.get('/delete-job-role/:id', role("Admin"), JobRoleController.getDelete)
+router.post('/delete-job-role', role("Admin"), JobRoleController.postDelete)
 
 router.get('/select-capability', JobCapabilityController.get)
 router.post('/select-capability', JobCapabilityController.post)
