@@ -1,5 +1,3 @@
-import { type } from "os"
-
 export type JobRoleViewRoles = {
     roleID: number
     roleName: string
