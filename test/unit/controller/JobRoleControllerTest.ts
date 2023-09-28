@@ -6,8 +6,8 @@ import sinon from 'sinon'
 import { JobRoleFilter, JobRoleViewRoles } from '../../../src/model/JobRole';
 import * as jobCapabilityService from '../../../src/service/jobCapabilityService'
 import * as jobBandService from '../../../src/service/jobBandService'
-import { JobCapability } from '../../../src/model/JobCapability';
-import { JobBand } from '../../../src/model/JobBand';
+import type { JobCapability } from '../../../src/model/JobCapability';
+import type { JobBand } from '../../../src/model/JobBand';
 
 const jobRoleViewRoles1: JobRoleViewRoles = {
     roleID: 1,
@@ -78,6 +78,55 @@ describe('JobRole Controller', () => {
             expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles Error", errorMessage: expectedErrorMessage}))
         })
     })
+
+    describe('post', () => {
+        it('Should render the ViewRoles page with correct data when form submitted', async () => {
+            
+            const req = {
+                session:{current:{}},
+                body: {
+                    roleNameFilter: 'rolename',
+                    bandNameFilter: 'bandname',
+                    capabilityNameFilter: 'capabilityname',
+                    button: 'filterButton'
+                }
+            } as unknown as Request;
+
+            const res = {
+                render: sinon.spy()
+            }
+
+            const mockJobRoleFilter: JobRoleFilter = {
+                roleNameFilter: 'rolename',
+                bandID: 1,
+                capabilityID: 1
+            }
+
+            sinon.stub(JobRoleService, 'viewJobRoleWithFilter').withArgs(mockJobRoleFilter).resolves([jobRoleViewRoles1])
+            sinon.stub(jobCapabilityService, 'getAllCapabilities').resolves([capability])
+            sinon.stub(jobBandService, 'getAllBands').resolves([band])
+
+            await JobRoleController.post(req as Request, res as unknown as Response);
+
+            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles", roles: [jobRoleViewRoles1], bands: [band], capabilities: [capability], filters: mockJobRoleFilter}));
+        })
+
+        it('Should render error page with appropriate error', async () => {
+            const expectedErrorMessage = "Viewing job roles is not available at this time please try again later."
+            
+            sinon.stub(JobRoleService, 'viewJobRoles')
+                .rejects(new Error('Viewing job roles is not available at this time please try again later.'))
+
+            const req = {session:{current:{}}} as unknown as Request;
+
+            const res = {
+                render: sinon.spy()
+            }
+
+            await JobRoleController.get(req, res as unknown as Response);
+
+            expect(res.render.calledOnceWithExactly('ViewRoles.html', {title: "View Roles Error", errorMessage: expectedErrorMessage}))
+        })
 
     describe('getDelete', () => {
         it('Should correctly render delete page when provided valid id', async () => {
@@ -201,4 +250,5 @@ describe('JobRole Controller', () => {
             expect(res.redirect.calledOnceWithExactly('/view-job-spec/' + deleteId.toString())).to.be.true
         })
     })
+})
 })

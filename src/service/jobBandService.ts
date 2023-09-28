@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { JobBand } from '../model/JobBand';
+import type { JobBand } from '../model/JobBand';
 
 export const getAllBands = async function (): Promise<JobBand []> {
     try {

@@ -1,4 +1,6 @@
-export interface JobRoleViewRoles{
+import { type } from "os"
+
+export type JobRoleViewRoles = {
     roleID: number
     roleName: string
     sharepointLink: string
@@ -6,7 +8,7 @@ export interface JobRoleViewRoles{
     capabilityName: string
 }
 
-export interface JobRoleFilter{
+export type JobRoleFilter = {
     roleNameFilter: string
     bandID: number
     capabilityID: number

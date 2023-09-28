@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { viewJobRoles, viewJobRoleWithFilter, deleteJobRole, getJobRoleById  } from "./service/JobRoleService"
-import { JobRoleFilter, JobRoleViewRoles } from "./model/JobRole";
+import type { JobRoleFilter, JobRoleViewRoles } from "./model/JobRole";
 import { getAllCapabilities } from "./service/jobCapabilityService";
 import { getAllBands } from "./service/jobBandService";
 

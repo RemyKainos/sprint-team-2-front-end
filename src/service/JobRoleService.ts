@@ -1,4 +1,4 @@
-import { JobRoleFilter, JobRoleViewRoles } from "../model/JobRole";
+import type { JobRoleFilter, JobRoleViewRoles } from "../model/JobRole";
 import axios from 'axios';
 
 export const viewJobRoles = async function (): Promise<JobRoleViewRoles []> {
